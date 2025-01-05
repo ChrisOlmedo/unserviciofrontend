@@ -6,7 +6,7 @@ import { GoProjectRoadmap } from "react-icons/go";
 import { LuMapPinHouse } from "react-icons/lu";
 
 import styles from './Header.module.css';
-import UnServicioLogo from '../UnServicio-logo/UnServicioLogo.js';
+import UnServicioLogo from '../UnServicio-logo/UnServicioLogo';
 
 const Header = () => {
 

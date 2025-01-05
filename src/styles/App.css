@@ -4,6 +4,14 @@
   grid-template-rows: auto 1fr auto;
 }
 
+.header {
+  position: relative;
+  display: inline-block;
+  top: 1%;
+  left: 5%;
+
+}
+
 .homelogo {
   height: 6em;
   padding: 1.5em;

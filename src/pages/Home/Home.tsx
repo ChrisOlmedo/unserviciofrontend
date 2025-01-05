@@ -2,7 +2,7 @@ import { useState } from 'react'
 import reactLogo from '../../assets/react.svg'
 import viteLogo from '/vite.svg'
 import ConectDB from '../../test/Test'
-
+import UnServicioLogo from '../../components/UnServicio-logo/UnServicioLogo';
 import { MdWorkHistory } from "react-icons/md";
 
 
@@ -12,6 +12,9 @@ function Home() {
 
     return (
         <>
+            <div className='header'>
+                <UnServicioLogo height='100px' color='black' />
+            </div>
             <div className='react-container'>
                 <div >
                     <a href="https://vite.dev" target="_blank">

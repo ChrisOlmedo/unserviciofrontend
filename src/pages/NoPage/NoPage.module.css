@@ -1,4 +1,4 @@
-.no-page {
+.noPage {
     margin: 0;
     color: #000;
     display: flex;
@@ -8,6 +8,13 @@
     background: #000;
 }
 
+/*Class solo para pruebas, borrar*/
+.header {
+    position: absolute;
+    top: 2vh;
+    left: 5vw;
+}
+
 .wrapper {
     max-width: 960px;
     width: 100%;
@@ -15,7 +22,7 @@
     transform: scale(0.8);
 }
 
-.landing-page {
+.landingPage {
     max-width: 960px;
     height: auto;
     margin: 0;
@@ -29,8 +36,7 @@
     align-items: center;
 }
 
-
-.no-page h1 {
+.noPage h1 {
     font-family: 'Comic Sans MS', cursive, sans-serif;
     font-size: 40px;
     font-weight: 600;
@@ -39,9 +45,7 @@
     margin-bottom: 30px;
 }
 
-
-.no-page button,
-.react-counter {
+.noPage button {
     border-radius: 15px;
     padding: 8px 24px;
     font-size: 25px;
@@ -52,7 +56,6 @@
     box-shadow: 0 4px 8px 0 #ccc;
 }
 
-.no-page button:hover,
-.react-counter:hover {
+.noPage button:hover {
     background: #4D8C7A;
 }

@@ -20,7 +20,6 @@
 .headerContainer {
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #ffffff;
     gap: 15px;
     background-color: #000;
     height: 100%;
@@ -51,12 +50,14 @@
     text-overflow: ellipsis;
 }
 
-@media (max-width: 768px) {
-    #logo-title {
-        display: none;
-    }
+.header #logo-title {
+    display: none;
+}
 
-    .loginSpan {
+@media (max-width: 768px) {
+
+    .loginSpan,
+    .header :global(#logo-title) {
         display: none;
     }
 
