@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
 interface IsLoginContextProps {
     isLogin: boolean;
@@ -7,8 +7,17 @@ interface IsLoginContextProps {
 
 const IsLoginContext = createContext<IsLoginContextProps | undefined>(undefined);
 
-export const IsLoginProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+
+export const IsLoginProvider = ({ children }: { children: ReactNode }) => {
     const [isLogin, setIsLogin] = useState<boolean>(false);
+
+    // Verificar si hay un estado previo de login en localStorage
+    useEffect(() => {
+        const storedLoginState = localStorage.getItem('isLoggedIn');
+        if (storedLoginState === 'true') {
+            setIsLogin(true);
+        }
+    }, []);
 
     return (
         <IsLoginContext.Provider value={{ isLogin, setIsLogin }}>

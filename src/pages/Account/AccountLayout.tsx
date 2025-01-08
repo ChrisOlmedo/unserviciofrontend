@@ -1,7 +1,25 @@
-import { Link, Outlet } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { useIsLogin } from '../../components/Context/IsLogin'
 //import styles from './Account.module.css';
 
 const AccountLayout = () => {
+
+    const { isLogin, setIsLogin } = useIsLogin();
+    const navigate = useNavigate();
+    // Función para manejar el cierre de sesión
+    const handleLogout = () => {
+        navigate("/");
+        localStorage.setItem('isLoggedIn', 'false'); // Eliminar el estado de login en localStorage
+        setIsLogin(false);
+    };
+
+    useEffect(() => {
+        if (!isLogin) {
+            navigate("/");
+        }
+    }, [isLogin, navigate]);
+
     return (
         <div className="container-fluid">
             <div className="row ">
@@ -13,6 +31,9 @@ const AccountLayout = () => {
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link text-light" to="/account/settings">Settings</Link>
+                            </li>
+                            <li className="nav-item">
+                                <button type="button" className="btn btn-danger" onClick={handleLogout}>Cerrar Sesión</button>
                             </li>
                         </ul>
                     </nav>

@@ -6,7 +6,7 @@ const Settings = () => {
         return word.repeat(times);
     };
 
-    const repeatedString = repeatWord('Lorem impsum', 1000);
+    const repeatedString = repeatWord('UnServicio.com ', 100);
 
     return (
         <div>

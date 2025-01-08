@@ -4,6 +4,8 @@ import viteLogo from '/vite.svg'
 import ConectDB from '../../test/Test'
 import UnServicioLogo from '../../components/UnServicio-logo/UnServicioLogo';
 import { MdWorkHistory } from "react-icons/md";
+//import Pruebas from './Pruebas'
+
 
 
 function Home() {
@@ -35,6 +37,7 @@ function Home() {
                 </div>
 
                 <ConectDB />
+                {/*<Pruebas />*/}
             </div >
         </>
     );

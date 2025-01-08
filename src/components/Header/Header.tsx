@@ -1,42 +1,18 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { IoLogIn, IoPersonCircleSharp, IoSearch } from "react-icons/io5";
-import { BiSolidMapPin } from "react-icons/bi";
-import { GoProjectRoadmap } from "react-icons/go";
-import { LuMapPinHouse } from "react-icons/lu";
+import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { IoLogIn, IoPersonCircleSharp, IoSearch } from "react-icons/io5"
+import { BiSolidMapPin } from "react-icons/bi"
+import { TiChevronRightOutline } from "react-icons/ti"
+import { RiMapPinRangeFill } from "react-icons/ri"
+import { useIsLogin } from '../Context/IsLogin'
 
-import styles from './Header.module.css';
-import UnServicioLogo from '../UnServicio-logo/UnServicioLogo';
+import styles from './Header.module.css'
+import UnServicioLogo from '../UnServicio-logo/UnServicioLogo'
 
 const Header = () => {
-
-    // Estado para saber si el usuario está logeado o no
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-    // Verificar si hay un estado previo de login en localStorage
-    useEffect(() => {
-        const storedLoginState = localStorage.getItem('isLoggedIn');
-        if (storedLoginState === 'true') {
-            setIsLoggedIn(true);
-        }
-    }, []);
-
-    // Función para manejar el inicio de sesión
-    const handleLogin = () => {
-        setIsLoggedIn(true);
-        localStorage.setItem('isLoggedIn', 'true'); // Guardar el estado de login en localStorage
-    };
-
-    // Función para manejar el cierre de sesión
-    const handleLogout = () => {
-        setIsLoggedIn(false);
-        localStorage.setItem('isLoggedIn', 'false'); // Eliminar el estado de login en localStorage
-    };
-
-
+    const { isLogin } = useIsLogin();
 
     //Ubicación
-
     const [location, setLocation] = useState("Ubicación...");
 
     // Detectar ubicación automática
@@ -65,7 +41,7 @@ const Header = () => {
             <header className={styles.header}>
                 <div className={styles.headerContainer}>
                     <div className={styles.logoContainer}>
-                        <GoProjectRoadmap color="white" size={"35px"} />
+                        <TiChevronRightOutline color="gray" size={"35px"} />
                         <Link to="/">
                             <UnServicioLogo color={"white"} height={"35px"} />
                         </Link>
@@ -82,12 +58,12 @@ const Header = () => {
                         </form>
                     </div>
                     <div className={styles.profileContainer}>
-                        {isLoggedIn ? (
-                            <Link to="/account/profile" onClick={handleLogout} >
+                        {isLogin ? (
+                            <Link to="/account/profile">
                                 <IoPersonCircleSharp color="white" size={"35px"} />
                             </Link>
                         ) : (
-                            <Link to="/login" onClick={handleLogin} className={styles.loginContainer}>
+                            <Link to="/login" className={styles.loginContainer}>
                                 <IoLogIn color="white" size={"35px"} />
                                 <span className={styles.loginSpan}>Ingresar</span>
                             </Link>
@@ -96,7 +72,7 @@ const Header = () => {
                 </div>
                 <div className={styles.headerBottom}>
                     <div className={styles.headerBottomContainer}>
-                        <LuMapPinHouse color="white" size={"20px"} />
+                        <RiMapPinRangeFill color="white" size={"20px"} />
                         <span>{location}</span>
                     </div>
                 </div>

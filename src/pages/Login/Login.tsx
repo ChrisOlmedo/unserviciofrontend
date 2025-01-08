@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
+import { useIsLogin } from '../../components/Context/IsLogin'
 //import { GoogleLogin } from 'react-google-login';
 
 const Login = () => {
@@ -11,6 +12,18 @@ const Login = () => {
         console.log('Login Failed:', response);
         // Handle login failure
     };*/
+    const { isLogin, setIsLogin } = useIsLogin();
+    const navigate = useNavigate();
+    // Función para manejar el inicio de sesión
+    const handleLogin = () => {
+        navigate("/");
+        localStorage.setItem('isLoggedIn', 'true'); // Guardar el estado de login en localStorage;
+        setIsLogin(true);
+    };
+    if (isLogin) {
+        // Si no está autenticado, redirige a /login
+        navigate("/");
+    }
 
     return (
         <div className="d-flex flex-column justify-content-center align-items-center bg-light vh-100 gap-3">
@@ -22,7 +35,7 @@ const Login = () => {
                 onFailure={handleLoginFailure}
                 cookiePolicy={'single_host_origin'}
             />*/}
-            <Link to="/" className="btn btn-primary">Regresar</Link>
+            <button className="btn btn-primary" onClick={handleLogin}>Regresar</button>
         </div>
     );
 };
