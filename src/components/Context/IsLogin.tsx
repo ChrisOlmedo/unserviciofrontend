@@ -32,13 +32,6 @@ const loginReducer = (state: Authstate, action: Action): Authstate => {
     }
 }
 
-// Verificar si hay un estado previo de login en localStorage
-/*useEffect(() => {
-    const storedLoginState = localStorage.getItem('isLoggedIn');
-    if (storedLoginState === 'true') {
-        dispatch("Login");
-    }
-}, []);*/
 
 export const IsLoginProvider = ({ children }: { children: ReactNode }) => {
     const [state, dispatch] = useReducer(loginReducer, initialLoginState);
@@ -55,5 +48,10 @@ export const useIsLogin = () => {
     if (!context) {
         throw new Error('useIsLogin must be used within an IsLoginProvider');
     }
-    return context;
+    const { state, dispatch } = context;
+
+    const login = () => dispatch({ type: "Login" });
+    const logout = () => dispatch({ type: "Logout" });
+
+    return { state, login, logout };
 };

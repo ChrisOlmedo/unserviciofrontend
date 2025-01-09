@@ -5,12 +5,12 @@ import { useIsLogin } from '../../components/Context/IsLogin'
 
 const AccountLayout = () => {
 
-    const { state, dispatch } = useIsLogin();
+    const { state, logout } = useIsLogin();
 
     const navigate = useNavigate();
     // Función para manejar el cierre de sesión
     const handleLogout = () => {
-        dispatch({ type: "Logout" });
+        logout;
     };
 
     useEffect(() => {
