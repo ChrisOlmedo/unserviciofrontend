@@ -1,5 +1,3 @@
-
-
 const Settings = () => {
 
     const repeatWord = (word: string, times: number) => {

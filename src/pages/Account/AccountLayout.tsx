@@ -1,24 +1,23 @@
-import { useEffect } from 'react';
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react'
+import { Link, Outlet, useNavigate } from 'react-router-dom'
 import { useIsLogin } from '../../components/Context/IsLogin'
 //import styles from './Account.module.css';
 
 const AccountLayout = () => {
 
-    const { isLogin, setIsLogin } = useIsLogin();
+    const { state, dispatch } = useIsLogin();
+
     const navigate = useNavigate();
     // Función para manejar el cierre de sesión
     const handleLogout = () => {
-        navigate("/");
-        localStorage.setItem('isLoggedIn', 'false'); // Eliminar el estado de login en localStorage
-        setIsLogin(false);
+        dispatch({ type: "Logout" });
     };
 
     useEffect(() => {
-        if (!isLogin) {
+        if (!state.isLogin) {
             navigate("/");
         }
-    }, [isLogin, navigate]);
+    }, [state, navigate]);
 
     return (
         <div className="container-fluid">

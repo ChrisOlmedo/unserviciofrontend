@@ -12,15 +12,14 @@ const Login = () => {
         console.log('Login Failed:', response);
         // Handle login failure
     };*/
-    const { isLogin, setIsLogin } = useIsLogin();
+    const { state, dispatch } = useIsLogin();
     const navigate = useNavigate();
     // Función para manejar el inicio de sesión
     const handleLogin = () => {
         navigate("/");
-        localStorage.setItem('isLoggedIn', 'true'); // Guardar el estado de login en localStorage;
-        setIsLogin(true);
+        dispatch({ type: "Login" });
     };
-    if (isLogin) {
+    if (state.isLogin) {
         // Si no está autenticado, redirige a /login
         navigate("/");
     }

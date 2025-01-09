@@ -10,7 +10,7 @@ import styles from './Header.module.css'
 import UnServicioLogo from '../UnServicio-logo/UnServicioLogo'
 
 const Header = () => {
-    const { isLogin } = useIsLogin();
+    const { state } = useIsLogin();
 
     //Ubicación
     const [location, setLocation] = useState("Ubicación...");
@@ -58,7 +58,7 @@ const Header = () => {
                         </form>
                     </div>
                     <div className={styles.profileContainer}>
-                        {isLogin ? (
+                        {state.isLogin ? (
                             <Link to="/account/profile">
                                 <IoPersonCircleSharp color="white" size={"35px"} />
                             </Link>
