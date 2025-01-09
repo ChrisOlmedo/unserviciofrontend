@@ -10,7 +10,7 @@ const AccountLayout = () => {
     const navigate = useNavigate();
     // Función para manejar el cierre de sesión
     const handleLogout = () => {
-        logout;
+        logout();
     };
 
     useEffect(() => {

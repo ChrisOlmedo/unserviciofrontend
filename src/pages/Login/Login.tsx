@@ -17,7 +17,7 @@ const Login = () => {
     // Función para manejar el inicio de sesión
     const handleLogin = () => {
         navigate("/");
-        login;
+        login();
     };
     if (state.isLogin) {
         // Si no está autenticado, redirige a /login
