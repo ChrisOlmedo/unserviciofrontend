@@ -1,13 +1,15 @@
+import AppVar from "../../mainvariables.json"
+
 const PrivacyPoliticals = () => {
     return (
-        <div>
-            <h1>Política de Privacidad</h1>
+        <div className="container my-5">
+            <h1 className="mb-4">Política de Privacidad</h1>
 
-            <p>Fecha de entrada en vigor: [Fecha actual]</p>
+            <p><strong>Fecha de entrada en vigor:</strong> 10-01-2025</p>
 
-            <p>Esta Política de Privacidad describe cómo [Nombre de tu aplicación] ("nosotros", "nuestro", "la aplicación") recopila, utiliza y protege la información personal de los usuarios ("usted", "su"). Al utilizar nuestra aplicación, usted acepta los términos descritos en esta política.</p>
+            <p>Esta Política de Privacidad describe cómo {AppVar.nameApp} ("nosotros", "nuestro", "la aplicación") recopila, utiliza y protege la información personal de los usuarios ("usted", "su"). Al utilizar nuestra aplicación, usted acepta los términos descritos en esta política.</p>
 
-            <h2>1. Información que recopilamos</h2>
+            <h2 className="mt-4">1. Información que recopilamos</h2>
 
             <p>Podemos recopilar los siguientes datos personales cuando usted interactúa con nuestra aplicación:</p>
 
@@ -16,7 +18,7 @@ const PrivacyPoliticals = () => {
                 <li><strong>Correo electrónico:</strong> Para enviarte notificaciones relacionadas con su cuenta, como actualizaciones importantes o recordatorios.</li>
             </ul>
 
-            <h2>2. Uso de la información</h2>
+            <h2 className="mt-4">2. Uso de la información</h2>
 
             <p>La información recopilada se utiliza para:</p>
 
@@ -34,7 +36,7 @@ const PrivacyPoliticals = () => {
                 <li>Ofrecer servicios personalizados o promociones relevantes.</li>
             </ul>
 
-            <h2>3. Servicios de terceros</h2>
+            <h2 className="mt-4">3. Servicios de terceros</h2>
 
             <p>Podemos integrar servicios externos que podrían recopilar información adicional. Estos servicios incluyen, pero no están limitados a:</p>
 
@@ -45,7 +47,7 @@ const PrivacyPoliticals = () => {
 
             <p>Nos aseguraremos de que cualquier proveedor externo cumpla con las leyes de privacidad aplicables.</p>
 
-            <h2>4. Protección de datos</h2>
+            <h2 className="mt-4">4. Protección de datos</h2>
 
             <p>Nos comprometemos a proteger la información de nuestros usuarios implementando las siguientes medidas:</p>
 
@@ -54,11 +56,11 @@ const PrivacyPoliticals = () => {
                 <li>Monitoreo constante de nuestros sistemas para prevenir accesos no autorizados.</li>
             </ul>
 
-            <h2>5. Alcance geográfico</h2>
+            <h2 className="mt-4">5. Alcance geográfico</h2>
 
             <p>Nuestra aplicación está diseñada para usuarios en México y cumple con las leyes locales de privacidad.</p>
 
-            <h2>6. Sus derechos</h2>
+            <h2 className="mt-4">6. Sus derechos</h2>
 
             <p>Como usuario, tiene derecho a:</p>
 
@@ -68,19 +70,19 @@ const PrivacyPoliticals = () => {
                 <li>Retirar su consentimiento para el procesamiento de sus datos en cualquier momento.</li>
             </ul>
 
-            <p>Para ejercer estos derechos, puede contactarnos en: [Tu correo de soporte].</p>
+            <p>Para ejercer estos derechos, puede contactarnos en: {AppVar.nameApp}.</p>
 
-            <h2>7. Cambios a esta política</h2>
+            <h2 className="mt-4">7. Cambios a esta política</h2>
 
             <p>Nos reservamos el derecho de actualizar esta política de privacidad para reflejar cambios en nuestras prácticas o servicios. Le notificaremos sobre cualquier cambio importante mediante correo electrónico o una notificación en la aplicación.</p>
 
-            <h2>8. Contacto</h2>
+            <h2 className="mt-4">8. Contacto</h2>
 
             <p>Si tiene preguntas o inquietudes sobre esta Política de Privacidad, contáctenos en:</p>
 
-            <p>Correo electrónico: [Tu correo de soporte]</p>
+            <p><strong>Correo electrónico:</strong> {AppVar.email}</p>
 
-            <p>Teléfono: [Tu número de contacto, opcional]</p>
+            <p><strong>Teléfono:</strong> {AppVar.phone}</p>
         </div>
     );
 };
