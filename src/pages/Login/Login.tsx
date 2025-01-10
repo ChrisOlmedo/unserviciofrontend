@@ -15,7 +15,6 @@ const Login = () => {
         navigate("/");
     }
 
-
     const handleLoginSuccess = (response: any) => {
         console.log('Login Success:', response);
     };
@@ -24,17 +23,19 @@ const Login = () => {
         console.log('Login Failed');
     };
 
+    const auth = false;
     return (
         <div className="d-flex flex-column justify-content-center align-items-center bg-light vh-100 gap-3">
             <h1>Login</h1>
             <button className="btn btn-primary" onClick={handleLogin}>Regresar</button>
-
-            <GoogleOAuthProvider clientId="TU_CLIENT_ID_DE_GOOGLE">
-                <GoogleLogin
-                    onSuccess={handleLoginSuccess}
-                    onError={handleLoginError}
-                />
-            </GoogleOAuthProvider>
+            {auth &&
+                <GoogleOAuthProvider clientId="TU_CLIENT_ID_DE_GOOGLE">
+                    <GoogleLogin
+                        onSuccess={handleLoginSuccess}
+                        onError={handleLoginError}
+                    />
+                </GoogleOAuthProvider>
+            }
         </div>
     );
 };

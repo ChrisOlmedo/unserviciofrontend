@@ -4,5 +4,15 @@
             "source": "/:path*",
             "destination": "/index.html"
         }
+    ],
+    "routes": [
+        {
+            "handle": "filesystem"
+        },
+        {
+            "src": "/.*",
+            "status": 404,
+            "dest": "/NoPage.html"
+        }
     ]
 }
