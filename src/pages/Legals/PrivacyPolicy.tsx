@@ -70,7 +70,7 @@ const PrivacyPoliticals = () => {
                 <li>Retirar su consentimiento para el procesamiento de sus datos en cualquier momento.</li>
             </ul>
 
-            <p>Para ejercer estos derechos, puede contactarnos en: {AppVar.nameApp}.</p>
+            <p>Para ejercer estos derechos, puede contactarnos en: {AppVar.nameApp}.com</p>
 
             <h2 className="mt-4">7. Cambios a esta política</h2>
 

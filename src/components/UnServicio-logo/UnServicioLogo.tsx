@@ -28,7 +28,7 @@ const UnServicioLogo = ({ color, height }: Props) => {
     return (
         <div className={styles.logoContainer} style={{ height }}>
             <UnServicioIcon color={color} />
-            <span id='logo-title' className={styles.logoTitle} style={{ color, fontSize }}>UnServicio</span>
+            <span id='logo-title' className={styles.logoTitle} style={{ color, fontSize }} lang="zxx" translate="no">UnServicio</span>
         </div >
     );
 };

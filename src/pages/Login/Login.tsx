@@ -1,6 +1,9 @@
 import { useNavigate } from 'react-router-dom'
 import { useIsLogin } from '../../components/Context/IsLogin'
-import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google'
+
+
+const googleId = import.meta.env.VITE_GOOGLE_AUTH_ID;
 
 const Login = () => {
     const { state, login } = useIsLogin();
@@ -23,13 +26,13 @@ const Login = () => {
         console.log('Login Failed');
     };
 
-    const auth = false;
+    const auth = true;
     return (
         <div className="d-flex flex-column justify-content-center align-items-center bg-light vh-100 gap-3">
             <h1>Login</h1>
             <button className="btn btn-primary" onClick={handleLogin}>Regresar</button>
             {auth &&
-                <GoogleOAuthProvider clientId="TU_CLIENT_ID_DE_GOOGLE">
+                <GoogleOAuthProvider clientId={googleId}>
                     <GoogleLogin
                         onSuccess={handleLoginSuccess}
                         onError={handleLoginError}

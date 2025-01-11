@@ -1,9 +1,18 @@
+import { useEffect } from 'react';
 import styles from './NoPage.module.css';
 import { TbError404 } from "react-icons/tb";
 import { Link } from 'react-router-dom';
 import UnServicioLogo from '../../components/UnServicio-logo/UnServicioLogo';
 
 const NoPage = () => {
+
+    useEffect(() => {
+        // Cambia el código de estado en el navegador (solo para motores de búsqueda como Google en SSR)
+        document.title = "404 - Página no encontrada";
+
+        // Si estás en un framework como Next.js o en Vercel, asegúrate de enviar el estado en el SSR
+    }, []);
+
     return (
         <>
             <div className={styles.noPage}>
