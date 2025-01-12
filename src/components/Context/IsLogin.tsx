@@ -1,32 +1,42 @@
-import React, { createContext, useContext, ReactNode, useReducer } from 'react';
+import React, { createContext, useContext, ReactNode, useReducer, useEffect } from 'react';
+
+import axiosClient from "./AxiosClient";
 
 type Action =
-    | { type: "Login" }
-    | { type: "Logout" };
+    | { type: "Login", idClient: string }
+    | { type: "Set_User_Data", data: userData }
+    | { type: "Logout" }
 
-type Authstate = {
-    isLogin: boolean,
+interface userData {
+    googleId?: string;
+    name: string;
+    email: string;
+}
+
+type userInfo = {
+    idClient: string,
+
+    userData: userData | null
 };
-const initialLoginState: Authstate = {
-    isLogin: localStorage.getItem('isLoggedIn') === 'true',
+
+const initialLoginState: userInfo = {
+    idClient: localStorage.getItem('userId') || "",
+    userData: null
 };
 
-const IsLoginContext = createContext<{ state: Authstate; dispatch: React.Dispatch<Action>; } | null>(null);
+const IsLoginContext = createContext<{ state: userInfo; dispatch: React.Dispatch<Action>; } | null>(null);
 
 
-const loginReducer = (state: Authstate, action: Action): Authstate => {
-    switch (action.type) {
+const loginReducer = (state: userInfo, payload: Action): userInfo => {
+    switch (payload.type) {
         case "Login":
-            localStorage.setItem('isLoggedIn', 'true');
-            return {
-                isLogin: true,
-            };
-
+            localStorage.setItem('userId', payload.idClient);
+            return { ...state, idClient: payload.idClient };
+        case "Set_User_Data":
+            return { ...state, userData: payload.data }
         case "Logout":
-            localStorage.setItem('isLoggedIn', 'false');
-            return {
-                isLogin: false,
-            }
+            localStorage.removeItem('userId');
+            return { ...initialLoginState }
         default:
             return state;
     }
@@ -35,6 +45,32 @@ const loginReducer = (state: Authstate, action: Action): Authstate => {
 
 export const IsLoginProvider = ({ children }: { children: ReactNode }) => {
     const [state, dispatch] = useReducer(loginReducer, initialLoginState);
+
+    // Obtiene el id si tiene sesión iniciada
+    useEffect(() => {
+        const storedId = localStorage.getItem("userId");
+        if (storedId) {
+            dispatch({ type: "Login", idClient: storedId });
+        }
+    }, []);
+
+
+    // Obtener datos del usuario cuando cambia el ID 
+    useEffect(() => {
+        if (!state.idClient) return;
+        const getData = async () => {
+            try {
+                const response = await axiosClient.get<userData>(`/api/user/${state.idClient}`);
+                dispatch({ type: "Set_User_Data", data: response.data });
+
+            } catch (err) {
+                console.error("Error al obtener datos del usuario:", err);
+                dispatch({ type: "Logout" });
+            }
+        }
+        getData();
+    }, [state.idClient]);
+
 
     return (
         <IsLoginContext.Provider value={{ state, dispatch }}>
@@ -50,7 +86,7 @@ export const useIsLogin = () => {
     }
     const { state, dispatch } = context;
 
-    const login = () => dispatch({ type: "Login" });
+    const login = (idClient: string) => dispatch({ type: "Login", idClient: idClient });
     const logout = () => dispatch({ type: "Logout" });
 
     return { state, login, logout };
