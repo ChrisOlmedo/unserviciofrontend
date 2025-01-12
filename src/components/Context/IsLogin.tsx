@@ -1,6 +1,6 @@
 import React, { createContext, useContext, ReactNode, useReducer, useEffect } from 'react';
 
-import axiosClient from "./AxiosClient";
+import axiosClient from "./axiosClient";
 
 type Action =
     | { type: "Login", idClient: string }

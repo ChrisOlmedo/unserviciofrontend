@@ -14,7 +14,7 @@ const AccountLayout = () => {
     };
 
     useEffect(() => {
-        if (!state.isLogin) {
+        if (!state.idClient) {
             navigate("/");
         }
     }, [state, navigate]);

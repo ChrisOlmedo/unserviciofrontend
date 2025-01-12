@@ -58,7 +58,7 @@ const Header = () => {
                         </form>
                     </div>
                     <div className={styles.profileContainer}>
-                        {state.isLogin ? (
+                        {state.idClient ? (
                             <Link to="/account/profile">
                                 <IoPersonCircleSharp color="white" size={"35px"} />
                             </Link>
