@@ -8,13 +8,11 @@ const apiUrl = import.meta.env.VITE_API_URL;
 const Login = () => {
     const { state, login } = useIsLogin();
     const navigate = useNavigate();
-
     // Función para manejar el inicio de sesión
     const handleLogin = () => {
         navigate("/");
     };
     if (state.idClient) {
-        // Si no está autenticado, redirige a /login
         navigate("/");
     }
 

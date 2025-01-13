@@ -1,6 +1,6 @@
 import React, { createContext, useContext, ReactNode, useReducer, useEffect } from 'react';
 
-import axiosClient from "./axiosClient";
+//import axiosClient from "./axiosClient";
 
 type Action =
     | { type: "Login", idClient: string }
@@ -15,7 +15,6 @@ interface userData {
 
 type userInfo = {
     idClient: string,
-
     userData: userData | null
 };
 
@@ -30,12 +29,12 @@ const IsLoginContext = createContext<{ state: userInfo; dispatch: React.Dispatch
 const loginReducer = (state: userInfo, payload: Action): userInfo => {
     switch (payload.type) {
         case "Login":
-            localStorage.setItem('userId', payload.idClient);
-            return { ...state, idClient: payload.idClient };
+            localStorage.setItem('userId', payload.idClient)
+            return { ...state, idClient: payload.idClient }
         case "Set_User_Data":
             return { ...state, userData: payload.data }
         case "Logout":
-            localStorage.removeItem('userId');
+            localStorage.removeItem('userId')
             return { ...initialLoginState }
         default:
             return state;
@@ -54,23 +53,23 @@ export const IsLoginProvider = ({ children }: { children: ReactNode }) => {
         }
     }, []);
 
-
-    // Obtener datos del usuario cuando cambia el ID 
-    useEffect(() => {
-        if (!state.idClient) return;
-        const getData = async () => {
-            try {
-                const response = await axiosClient.get<userData>(`/api/user/${state.idClient}`);
-                dispatch({ type: "Set_User_Data", data: response.data });
-
-            } catch (err) {
-                console.error("Error al obtener datos del usuario:", err);
-                dispatch({ type: "Logout" });
+    /*
+        // Obtener datos del usuario cuando cambia el ID 
+        useEffect(() => {
+            if (!state.idClient) return;
+            const getData = async () => {
+                try {
+                    const response = await axiosClient.get<userData>(`/api/user/${state.idClient}`);
+                    dispatch({ type: "Set_User_Data", data: response.data });
+    
+                } catch (err) {
+                    console.error("Error al obtener datos del usuario:", err);
+                    dispatch({ type: "Logout" });
+                }
             }
-        }
-        getData();
-    }, [state.idClient]);
-
+            getData();
+        }, [state.idClient]);
+    */
 
     return (
         <IsLoginContext.Provider value={{ state, dispatch }}>
