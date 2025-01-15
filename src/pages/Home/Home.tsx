@@ -1,43 +1,46 @@
 import { useState } from 'react'
-import reactLogo from '../../assets/react.svg'
-import viteLogo from '/vite.svg'
 import ConectDB from '../../test/Test'
 import UnServicioLogo from '../../components/UnServicio-logo/UnServicioLogo'
 import { MdWorkHistory } from "react-icons/md"
+import styles from './Home.module.css'
 //import Pruebas from './Pruebas'
 
 
 
 function Home() {
 
-    const [count, setCount] = useState(0);
-
     return (
         <>
-            <div className='header'>
-                <UnServicioLogo height='100px' color='black' />
-            </div>
-            <div className='react-container'>
-                <div >
-                    <a href="https://vite.dev" target="_blank">
-                        <img src={viteLogo} className="homelogo" alt="Vite logo" />
-                    </a>
-                    <a href="https://react.dev" target="_blank">
-                        <img src={reactLogo} className="homelogo react" alt="React logo" />
-                    </a>
+            <div className={styles.wrapper}>
+                <div className={styles.headerLogo}>
+                    <UnServicioLogo height='100px' color='white' />
                 </div>
-                <h1>Vite + React</h1>
-                <div className="cardb">
-                    <button className="react-counter" onClick={() => setCount((count) => count + 1)}>
-                        count is {count}
-                    </button>
-                    <h2 className="fs-1 fw-bold my-5 text-ligth">
-                        ¡Página en desarrollo! <MdWorkHistory />
-                    </h2>
-                </div>
-                <ConectDB />
                 {/*<Pruebas />*/}
-            </div >
+                <div className={styles.coming}>
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-md-12">
+                                <h2 >
+                                    ¡Página en desarrollo! <MdWorkHistory />
+                                </h2>
+                                <h3>Encuentra todos los servicios en un solo lugar próximamente...</h3>
+                                <ConectDB />
+                            </div>
+                        </div>
+                    </div>
+                </div>{/*}
+                <div className={styles.email}>
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-md-12">
+                                <p>GET NOTIFIED AT LAUNCH</p>
+                                <input type="email" placeholder="email address...."></input>
+                                <input type="submit" value="Go"></input>
+                            </div>
+                        </div>
+                    </div>
+                </div>*/}
+            </div>
         </>
     );
 }
