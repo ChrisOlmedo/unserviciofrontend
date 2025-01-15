@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import ConectDB from '../../test/Test'
 import UnServicioLogo from '../../components/UnServicio-logo/UnServicioLogo'
 import { MdWorkHistory } from "react-icons/md"
