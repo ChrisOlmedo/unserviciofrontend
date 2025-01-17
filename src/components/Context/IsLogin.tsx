@@ -19,7 +19,7 @@ type userInfo = {
 };
 
 const initialLoginState: userInfo = {
-    idClient: localStorage.getItem('userId') || "",
+    idClient: "",
     userData: null
 };
 
@@ -51,7 +51,7 @@ export const IsLoginProvider = ({ children }: { children: ReactNode }) => {
         if (storedId) {
             dispatch({ type: "Login", idClient: storedId });
         }
-    }, []);
+    }, [state.idClient]);
 
     /*
         // Obtener datos del usuario cuando cambia el ID 
