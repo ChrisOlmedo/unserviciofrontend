@@ -1,4 +1,5 @@
 import React, { createContext, useContext, ReactNode, useReducer, useEffect } from 'react';
+const apiUrl = import.meta.env.VITE_API_URL;
 
 //import axiosClient from "./axiosClient";
 
@@ -8,9 +9,11 @@ type Action =
     | { type: "Logout" }
 
 interface userData {
-    googleId?: string;
+    id: string;
     name: string;
     email: string;
+    _id?: string;
+    __v?: string;
 }
 
 type userInfo = {
@@ -50,26 +53,29 @@ export const IsLoginProvider = ({ children }: { children: ReactNode }) => {
         const storedId = localStorage.getItem("userId");
         if (storedId) {
             dispatch({ type: "Login", idClient: storedId });
+
         }
     }, [state.idClient]);
 
-    /*
-        // Obtener datos del usuario cuando cambia el ID 
-        useEffect(() => {
-            if (!state.idClient) return;
-            const getData = async () => {
-                try {
-                    const response = await axiosClient.get<userData>(`/api/user/${state.idClient}`);
-                    dispatch({ type: "Set_User_Data", data: response.data });
-    
-                } catch (err) {
-                    console.error("Error al obtener datos del usuario:", err);
-                    dispatch({ type: "Logout" });
+    // Obtener datos del usuario cuando cambia el ID 
+    useEffect(() => {
+        if (!state.idClient) return;
+        const getData = async () => {
+            try {
+                const response = await fetch(`${apiUrl}/api/auth/${state.idClient}`);
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
                 }
+                const data: userData = await response.json();
+                dispatch({ type: "Set_User_Data", data: data });
+            } catch (err) {
+                console.error("Error al obtener datos del usuario:", err);
+                dispatch({ type: "Logout" });
             }
-            getData();
-        }, [state.idClient]);
-    */
+        }
+        getData();
+    }, [state.idClient]);
+
 
     return (
         <IsLoginContext.Provider value={{ state, dispatch }}>

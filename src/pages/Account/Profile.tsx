@@ -4,9 +4,12 @@ const Profile = () => {
     const { state } = useIsLogin();
     return (
         <div>
-            <h1>{state.idClient}</h1>
-            <p>Hola {state.idClient} este es tu perfil!</p>
-            {/* Add more profile-related content here */}
+            <h1>{state.userData?.name}</h1>
+            <p>Hola {state.userData?.name} este es tu perfil!</p>
+            <p>Nombre: {state.userData?.name}</p>
+            <p>Correo: {state.userData?.email}</p>
+            <p>id: {state.idClient}</p>
+            <p>id de mongoDB: {state.userData?._id}</p>
         </div>
     );
 };
