@@ -9,11 +9,9 @@ type Action =
     | { type: "Logout" }
 
 interface userData {
-    id: string;
     name: string;
     email: string;
-    _id?: string;
-    __v?: string;
+    role: "normal" | "serviceprovider";
 }
 
 type userInfo = {
@@ -62,7 +60,7 @@ export const IsLoginProvider = ({ children }: { children: ReactNode }) => {
         if (!state.idClient) return;
         const getData = async () => {
             try {
-                const response = await fetch(`${apiUrl}/api/auth/${state.idClient}`);
+                const response = await fetch(`${apiUrl}/api/user/getData/${state.idClient}`);
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }
@@ -91,7 +89,7 @@ export const useIsLogin = () => {
     }
     const { state, dispatch } = context;
 
-    const login = (idClient: string) => dispatch({ type: "Login", idClient: idClient });
+    const login = (idClient: userInfo["idClient"]) => dispatch({ type: "Login", idClient: idClient });
     const logout = () => dispatch({ type: "Logout" });
 
     return { state, login, logout };

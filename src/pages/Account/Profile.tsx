@@ -9,7 +9,7 @@ const Profile = () => {
             <p>Nombre: {state.userData?.name}</p>
             <p>Correo: {state.userData?.email}</p>
             <p>id: {state.idClient}</p>
-            <p>id de mongoDB: {state.userData?._id}</p>
+            <p>role: {state.userData?.role} </p>
         </div>
     );
 };

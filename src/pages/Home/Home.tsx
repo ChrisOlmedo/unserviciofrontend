@@ -19,7 +19,7 @@ function Home() {
                     <div className="container">
                         <div className="row">
                             <div className="col-md-12">
-                                <h2 >
+                                <h2>
                                     ¡Página en desarrollo! <MdWorkHistory />
                                 </h2>
                                 <h3>Encuentra todos los servicios en un solo lugar próximamente...</h3>
