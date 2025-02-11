@@ -2,6 +2,7 @@ import ConectDB from '../../test/Test'
 import UnServicioLogo from '../../components/UnServicio-logo/UnServicioLogo'
 import { MdWorkHistory } from "react-icons/md"
 import styles from './Home.module.css'
+import ServicesIndex from './ServicesIndex'
 //import Pruebas from './Pruebas'
 
 
@@ -9,7 +10,7 @@ import styles from './Home.module.css'
 function Home() {
 
     return (
-        <>
+        <div className={styles.main}>
             <div className={styles.wrapper}>
                 <div className={styles.headerLogo}>
                     <UnServicioLogo height='100px' color='white' />
@@ -24,10 +25,16 @@ function Home() {
                                 </h2>
                                 <h3>Encuentra todos los servicios en un solo lugar próximamente...</h3>
                                 <ConectDB />
+
                             </div>
                         </div>
                     </div>
-                </div>{/*}
+                </div>
+
+
+
+
+                {/*}
                 <div className={styles.email}>
                     <div className="container">
                         <div className="row">
@@ -40,7 +47,8 @@ function Home() {
                     </div>
                 </div>*/}
             </div>
-        </>
+            <ServicesIndex />
+        </div>
     );
 }
 export default Home;

@@ -1,0 +1,44 @@
+.serviceCard {
+    display: flex;
+    width: 300px;
+    flex-direction: column;
+    border-radius: 20px;
+    /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+    transition: all 0.3s ease;
+    overflow: hidden;
+
+    /*borrar cuando el padre sea grid y use gap*/
+    margin: 20px;
+}
+
+.serviceCard h3 {
+    margin: 20px 0 0 0;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+    text-overflow: ellipsis;
+}
+
+.serviceCard span {
+    font-weight: 500;
+}
+
+.serviceCard img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    /*
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;*/
+}
+
+.serviceCard:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+}
+
+.infoCard {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+}

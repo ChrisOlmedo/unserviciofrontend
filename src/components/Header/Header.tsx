@@ -4,7 +4,7 @@ import { IoLogIn, IoPersonCircleSharp, IoSearch } from "react-icons/io5"
 import { BiSolidMapPin } from "react-icons/bi"
 import { TiChevronRightOutline } from "react-icons/ti"
 import { RiMapPinRangeFill } from "react-icons/ri"
-import { useIsLogin } from '../Context/IsLogin'
+import { useIsLogin } from '../../context/userContext'
 
 import styles from './Header.module.css'
 import UnServicioLogo from '../UnServicio-logo/UnServicioLogo'
@@ -58,7 +58,7 @@ const Header = () => {
                         </form>
                     </div>
                     <div className={styles.profileContainer}>
-                        {state.idClient ? (
+                        {state.id ? (
                             <Link to="/account/profile">
                                 <IoPersonCircleSharp color="white" size={"35px"} />
                             </Link>

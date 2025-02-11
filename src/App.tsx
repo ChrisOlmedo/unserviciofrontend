@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
-import { IsLoginProvider } from './components/Context/IsLogin'
+import { UserProvider } from './context/userContext'
 
 //Import pages
 import Home from './pages/Home/Home'
@@ -11,18 +11,23 @@ import Settings from './pages/Account/Settings'
 import AccountLayout from './pages/Account/AccountLayout'
 import PrivacyPoliticals from './pages/Legals/PrivacyPolicy'
 import Conditionals from './pages/Legals/Conditions'
+import ServiceProviderPage from './pages/Services/ServiceProviderPage'
+import MainServices from './pages/Services/MainServices'
 
 //Style
 import './styles/App.css'
+import LoginProvider from './pages/Login/LoginProvider'
 
 
 function App() {
   return (
     <>
-      <IsLoginProvider>
+      <UserProvider>
         <Routes>
           <Route path="/" element={<MainLayout />}>
             <Route index element={<Home />} />
+            <Route path="/services" element={<MainServices />} />
+            <Route path="services/:slug" element={<ServiceProviderPage />} />
             <Route path="/privacy-policy" element={<PrivacyPoliticals />} />
             <Route path="/terms-conditionals" element={<Conditionals />} />
             <Route path="account" element={<AccountLayout />}>
@@ -32,8 +37,10 @@ function App() {
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<NoPage />} />
+          {/* Solo son pruebas */}
+          <Route path="/login-provider" element={<LoginProvider />} />
         </Routes>
-      </IsLoginProvider>
+      </UserProvider>
     </>
   )
 }

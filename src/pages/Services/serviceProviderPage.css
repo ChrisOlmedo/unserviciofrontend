@@ -1,0 +1,78 @@
+.serviceProvider-page {
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    gap: 20px;
+}
+
+.serviceProvider-header {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+}
+
+.serviceProviderContent {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.serviceProvider-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.serviceProvider-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.services {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    padding: 50px 0;
+}
+
+.services-tarjet {
+    display: flex;
+    flex-direction: column;
+    width: 550px;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.aboutMe {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 200px);
+    gap: 16px;
+}
+
+.gallery img {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.contact {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+}
+
+.reviews {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

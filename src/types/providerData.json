@@ -1,0 +1,207 @@
+[
+    {
+        "id": 1,
+        "enterpriseName": "Electrosoluciones",
+        "phone": "33 1234 5678",
+        "typeService": "Electricidad",
+        "location": "Guadalajara, Jalisco",
+        "rating": 4.5,
+        "logo": "https://electrosolucionesurgentes.com/images/thumbnail_Logopit_1611089485214.png",
+        "providerPageData": {
+            "services": [
+                "Instalaciones eléctricas residenciales",
+                "Mantenimiento de redes eléctricas",
+                "Automatización industrial",
+                "Reparación de cortocircuitos",
+                "Iluminación LED y eficiencia energética"
+            ],
+            "aboutMe": "Electrosoluciones es una empresa con más de 10 años de experiencia en el sector eléctrico. Nos especializamos en instalaciones eléctricas, mantenimiento industrial y soluciones eficientes para hogares y negocios.",
+            "gallery": [
+                {
+                    "url": "https://picsum.photos/200/300"
+                },
+                {
+                    "url": "https://placebear.com/500/500"
+                },
+                {
+                    "url": "https://loremflickr.com/600/400"
+                }
+            ]
+        },
+        "reviews": [
+            {
+                "comment": "Servicio rápido y confiable. Muy recomendados."
+            },
+            {
+                "comment": "Solucionaron mi problema eléctrico en menos de una hora."
+            },
+            {
+                "comment": "Precios justos y excelente atención."
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "enterpriseName": "AquaFix",
+        "phone": "33 8765 4321",
+        "typeService": "Plomería",
+        "location": "Zapopan, Jalisco",
+        "rating": 4.7,
+        "logo": "https://cdn-icons-png.flaticon.com/512/2965/2965879.png",
+        "providerPageData": {
+            "services": [
+                "Reparación de fugas de agua",
+                "Instalación de calentadores",
+                "Mantenimiento de tuberías",
+                "Destapado de drenajes",
+                "Instalación de llaves y grifos"
+            ],
+            "aboutMe": "AquaFix ofrece soluciones rápidas y efectivas en plomería. Contamos con personal calificado y las mejores herramientas para resolver cualquier problema de agua.",
+            "gallery": [
+                {
+                    "url": "https://picsum.photos/200/300"
+                },
+                {
+                    "url": "https://placebear.com/500/500"
+                },
+                {
+                    "url": "https://loremflickr.com/600/400"
+                }
+            ]
+        },
+        "reviews": [
+            {
+                "comment": "Me salvaron de una gran fuga en mi cocina."
+            },
+            {
+                "comment": "El técnico fue muy amable y explicó todo el proceso."
+            },
+            {
+                "comment": "Rápidos y con buen precio."
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "enterpriseName": "Mecánica Rápida",
+        "phone": "33 5566 7788",
+        "typeService": "Mecánica Automotriz",
+        "location": "Tlaquepaque, Jalisco",
+        "rating": 4.2,
+        "logo": "https://cdn-icons-png.flaticon.com/512/3466/3466287.png",
+        "providerPageData": {
+            "services": [
+                "Cambio de aceite",
+                "Afinación de motor",
+                "Diagnóstico computarizado",
+                "Reparación de frenos",
+                "Balanceo y alineación"
+            ],
+            "aboutMe": "En Mecánica Rápida nos preocupamos por la seguridad de tu auto. Ofrecemos mantenimiento y reparación con la mejor tecnología del mercado.",
+            "gallery": [
+                {
+                    "url": "https://picsum.photos/200/300"
+                },
+                {
+                    "url": "https://placebear.com/500/500"
+                },
+                {
+                    "url": "https://loremflickr.com/600/400"
+                }
+            ]
+        },
+        "reviews": [
+            {
+                "comment": "Revisaron mi coche en tiempo récord."
+            },
+            {
+                "comment": "El mejor taller al que he ido."
+            },
+            {
+                "comment": "Honestos y con precios accesibles."
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "enterpriseName": "Vidrios y Aluminios Jalisco",
+        "phone": "33 7654 3210",
+        "typeService": "Carpintería de Aluminio",
+        "location": "Tonalá, Jalisco",
+        "rating": 4.6,
+        "logo": "https://cdn-icons-png.flaticon.com/512/869/869869.png",
+        "providerPageData": {
+            "services": [
+                "Fabricación de ventanas y puertas de aluminio",
+                "Instalación de canceles de baño",
+                "Vidrios templados para oficinas",
+                "Reparación de estructuras de aluminio",
+                "Diseño de barandales de cristal"
+            ],
+            "aboutMe": "Especialistas en la fabricación e instalación de estructuras de aluminio y vidrio templado. Trabajamos con materiales de alta calidad y diseño moderno.",
+            "gallery": [
+                {
+                    "url": "https://picsum.photos/200/300"
+                },
+                {
+                    "url": "https://placebear.com/500/500"
+                },
+                {
+                    "url": "https://loremflickr.com/600/400"
+                }
+            ]
+        },
+        "reviews": [
+            {
+                "comment": "Excelente calidad en sus ventanas."
+            },
+            {
+                "comment": "Atención profesional y materiales duraderos."
+            },
+            {
+                "comment": "Mis canceles quedaron espectaculares, muy recomendados."
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "enterpriseName": "Pinturas Express",
+        "phone": "33 9876 5432",
+        "typeService": "Pintura y Decoración",
+        "location": "Tlajomulco, Jalisco",
+        "rating": 4.8,
+        "logo": "https://cdn-icons-png.flaticon.com/512/2903/2903797.png",
+        "providerPageData": {
+            "services": [
+                "Pintura residencial e industrial",
+                "Aplicación de recubrimientos especiales",
+                "Impermeabilización de techos",
+                "Decoración con papel tapiz",
+                "Pintura epóxica para pisos"
+            ],
+            "aboutMe": "Somos expertos en pintura y decoración. Transformamos tus espacios con materiales de primera calidad y técnicas innovadoras.",
+            "gallery": [
+                {
+                    "url": "https://picsum.photos/200/300"
+                },
+                {
+                    "url": "https://placebear.com/500/500"
+                },
+                {
+                    "url": "https://loremflickr.com/600/400"
+                }
+            ]
+        },
+        "reviews": [
+            {
+                "comment": "Trabajo impecable y muy profesional."
+            },
+            {
+                "comment": "Me ayudaron a elegir los colores perfectos para mi casa."
+            },
+            {
+                "comment": "Puntuales, limpios y muy detallistas."
+            }
+        ]
+    }
+]

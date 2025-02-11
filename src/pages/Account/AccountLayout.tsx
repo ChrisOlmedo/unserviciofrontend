@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
-import { useIsLogin } from '../../components/Context/IsLogin'
+import { useIsLogin } from '../../context/userContext'
 //import styles from './Account.module.css';
 
 const AccountLayout = () => {
@@ -14,7 +14,7 @@ const AccountLayout = () => {
     };
 
     useEffect(() => {
-        if (!state.idClient) {
+        if (!state.id) {
             navigate("/");
         }
     }, [state, navigate]);

@@ -1,6 +1,9 @@
+.main {
+    height: 100%;
+}
+
 .wrapper {
     background: #262626;
-    height: 100%;
     padding: 150px 0 100px 0;
 }
 
