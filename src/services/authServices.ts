@@ -4,7 +4,7 @@ import { userData } from '../types/types';
 
 const loginByGoogle = async (token: string, login: (userData: userData) => void): Promise<void> => {
     try {
-        const response: any = await apiClient.post('/api/auth/google', { token });
+        const response: any = await apiClient.post('/api/auth/google', { token }, { withCredentials: true });
         console.log('Response:', response.data);
         login(response.data);
     } catch (error) {

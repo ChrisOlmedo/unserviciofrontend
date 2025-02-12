@@ -30,11 +30,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
     // Obtiene el id si tiene sesión iniciada
     useEffect(() => {
-        const storedId = localStorage.getItem("userId");
-        console.log('StoredId:', storedId);
-        if (storedId) {
-            getData(storedId, dispatch);
-        }
+        getData(dispatch);
     }, []);
 
     return (
