@@ -1,13 +1,14 @@
+import { UserState } from "../types/types";
 import apiClient from "./axiosClient.config";
-import { Action } from "../types/types";
 
-export const getData = async (dispatch: React.Dispatch<Action>) => {
+export const getData = async (): Promise<UserState | null> => {
     try {
-        const response: any = await apiClient.get(`/api/user/getData`, { withCredentials: true });
-        console.log("Datos del usuario:", response.data);
-        dispatch({ type: "Set_User_Data", data: response.data });
-    } catch (err) {
-        console.error("Error al obtener datos del usuario:", err);
-        dispatch({ type: "Logout" });
+        const response = await apiClient.get<UserState>("/api/user/getData", { withCredentials: true });
+
+        // Si no hay datos, devolver null en lugar de undefined
+        return response.data ?? null;
+    } catch (error) {
+        console.error("Error al obtener los datos:", error);
+        return null; // Si hay un error (ej. token inválido), devolvemos null
     }
-}
+};

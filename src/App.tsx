@@ -13,6 +13,7 @@ import PrivacyPoliticals from './pages/Legals/PrivacyPolicy'
 import Conditionals from './pages/Legals/Conditions'
 import ServiceProviderPage from './pages/Services/ServiceProviderPage'
 import MainServices from './pages/Services/MainServices'
+import ServiceProvider from './context/providerServicesContext';
 
 //Style
 import './styles/App.css'
@@ -23,24 +24,26 @@ function App() {
   return (
     <>
       <UserProvider>
-        <Routes>
-          <Route path="/" element={<MainLayout />}>
-            <Route index element={<Home />} />
-            <Route path="/services" element={<MainServices />} />
-            <Route path="services/:slug" element={<ServiceProviderPage />} />
-            <Route path="/privacy-policy" element={<PrivacyPoliticals />} />
-            <Route path="/terms-conditionals" element={<Conditionals />} />
-            <Route path="account" element={<AccountLayout />}>
-              <Route path="profile" element={<Profile />} />
-              <Route path="settings" element={<Settings />} />
+        <ServiceProvider>
+          <Routes>
+            <Route path="/" element={<MainLayout />}>
+              <Route index element={<Home />} />
+              <Route path="/services" element={<MainServices />} />
+              <Route path="services/:slug" element={<ServiceProviderPage />} />
+              <Route path="/privacy-policy" element={<PrivacyPoliticals />} />
+              <Route path="/terms-conditionals" element={<Conditionals />} />
+              <Route path="account" element={<AccountLayout />}>
+                <Route path="profile" element={<Profile />} />
+                <Route path="settings" element={<Settings />} />
+              </Route>
             </Route>
-          </Route>
-          <Route path="/login" element={<Login />} />
-          <Route path="*" element={<NoPage />} />
-          {/* Solo son pruebas */}
-          <Route path="/login-provider" element={<LoginProvider />} />
-        </Routes>
-      </UserProvider>
+            <Route path="/login" element={<Login />} />
+            <Route path="*" element={<NoPage />} />
+            {/* Solo son pruebas */}
+            <Route path="/login-provider" element={<LoginProvider />} />
+          </Routes>
+        </ServiceProvider>
+      </UserProvider >
     </>
   )
 }

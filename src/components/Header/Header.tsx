@@ -4,13 +4,13 @@ import { IoLogIn, IoPersonCircleSharp, IoSearch } from "react-icons/io5"
 import { BiSolidMapPin } from "react-icons/bi"
 import { TiChevronRightOutline } from "react-icons/ti"
 import { RiMapPinRangeFill } from "react-icons/ri"
-import { useIsLogin } from '../../context/userContext'
+import { useUser } from '../../context/userContext'
 
 import styles from './Header.module.css'
 import UnServicioLogo from '../UnServicio-logo/UnServicioLogo'
 
 const Header = () => {
-    const { state } = useIsLogin();
+    const { userState } = useUser();
 
     //Ubicación
     const [location, setLocation] = useState("Ubicación...");
@@ -58,7 +58,7 @@ const Header = () => {
                         </form>
                     </div>
                     <div className={styles.profileContainer}>
-                        {state.id ? (
+                        {userState.user ? (
                             <Link to="/account/profile">
                                 <IoPersonCircleSharp color="white" size={"35px"} />
                             </Link>

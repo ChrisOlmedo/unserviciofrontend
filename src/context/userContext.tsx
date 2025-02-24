@@ -1,54 +1,59 @@
 import React, { createContext, useContext, ReactNode, useReducer, useEffect } from 'react';
-import { userData, Action } from '../types/types';
+import { UserState, UserAction, userData } from '../types/types';
 import { getData } from '../services/userServices';
+import { logout } from '../services/authServices';
 
-
-const initialUserState: userData = {
-    id: "",
-    user: null,
+const initialUserState: UserState = {
+    isLoading: false,
+    user: null
 };
-const userReducer = (state: userData, payload: Action): userData => {
+const userReducer = (state: UserState, payload: UserAction): UserState => {
     switch (payload.type) {
-        case "Login":
-            localStorage.setItem('userId', payload.data.id)
-            return { ...state, user: payload.data.user, id: payload.data.id }
-        case "Set_User_Data":
-            return { ...state, user: payload.data.user, id: payload.data.id }
-        case "Logout":
-            localStorage.removeItem('userId')
+        case "SET_USER":
+            return { ...state, user: payload.data.user, isLoading: false };
+        case "LOGOUT":
+            logout();
             return { ...initialUserState }
+        case "SET_LOADING":
+            return { ...state, isLoading: payload.isLoading }
         default:
             return state;
     }
 }
 //import axiosClient from "./axiosClient";
 
-const UserContext = createContext<{ state: userData; dispatch: React.Dispatch<Action>; } | null>(null);
+const UserContext = createContext<{ userState: UserState; userDispatch: React.Dispatch<UserAction>; } | null>(null);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-    const [state, dispatch] = useReducer(userReducer, initialUserState);
+    const [userState, userDispatch] = useReducer(userReducer, initialUserState);
 
     // Obtiene el id si tiene sesión iniciada
     useEffect(() => {
-        getData(dispatch);
+        const fetchUser = async () => {
+            const getUser = await getData();
+            if (!getUser) {
+                return;
+            }
+            userDispatch({ type: "SET_USER", data: getUser });
+        };
+        fetchUser();
     }, []);
 
     return (
-        <UserContext.Provider value={{ state, dispatch }}>
+        <UserContext.Provider value={{ userState, userDispatch }}>
             {children}
         </UserContext.Provider>
     );
 };
 
-export const useIsLogin = () => {
+export const useUser = () => {
     const context = useContext(UserContext);
     if (!context) {
         throw new Error('useIsLogin must be used within an IsLoginProvider');
     }
-    const { state, dispatch } = context;
+    const { userState, userDispatch } = context;
+    const setUser = (data: userData) => userDispatch({ type: "SET_USER", data });
+    const logoutUser = () => userDispatch({ type: "LOGOUT" });
 
-    const login = (userData: userData) => dispatch({ type: "Login", data: userData });
-    const logout = () => dispatch({ type: "Logout" });
-
-    return { state, login, logout };
+    return { userState, setUser, logoutUser };
 };

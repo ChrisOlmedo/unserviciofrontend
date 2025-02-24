@@ -1,19 +1,21 @@
 
-export type Action =
-    | { type: "Login", data: userData }
-    | { type: "Set_User_Data", data: userData }
-    | { type: "Logout" }
+export type UserAction =
+    | { type: "SET_USER", data: userData }
+    | { type: "LOGOUT" }
+    | { type: "SET_LOADING", isLoading: boolean };
 
 export interface userData {
-    id: string;
     user: {
-        name: string;
-        email: string;
-        role: 'user' | 'serviceprovider';
+        name: string | null;
+        email: string | null;
+        role: string | null;
     } | null;
 }
+export interface UserState extends userData {
+    isLoading: boolean;
+}
 
-export interface serviceCard {
+export interface ServiceCard {
     id: number;
     enterpriseName: string;
     logo: string;
@@ -21,7 +23,7 @@ export interface serviceCard {
     rating: number;
 }
 
-export interface servicePage extends serviceCard {
+export interface servicePage extends ServiceCard {
     phone: string;
     location: string;
     providerPageData: {

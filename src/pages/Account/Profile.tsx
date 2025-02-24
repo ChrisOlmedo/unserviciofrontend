@@ -1,15 +1,14 @@
-import { useIsLogin } from "../../context/userContext";
+import { useUser } from "../../context/userContext";
 
 const Profile = () => {
-    const { state } = useIsLogin();
+    const { userState } = useUser();
     return (
         <div>
-            <h1>{state.user?.name}</h1>
-            <p>Hola {state.user?.name} este es tu perfil!</p>
-            <p>Nombre: {state.user?.name}</p>
-            <p>Correo: {state.user?.email}</p>
-            <p>id: {state.id}</p>
-            <p>role: {state.user?.role} </p>
+            <h1>{userState.user?.name}</h1>
+            <p>Hola {userState.user?.name} este es tu perfil!</p>
+            <p>Nombre: {userState.user?.name}</p>
+            <p>Correo: {userState.user?.email}</p>
+            <p>role: {userState.user?.role} </p>
         </div>
     );
 };

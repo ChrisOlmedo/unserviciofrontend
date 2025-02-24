@@ -1,23 +1,25 @@
 import { useEffect } from 'react'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
-import { useIsLogin } from '../../context/userContext'
+import { useUser } from '../../context/userContext'
+import { logout } from '../../services/authServices'
 //import styles from './Account.module.css';
 
 const AccountLayout = () => {
 
-    const { state, logout } = useIsLogin();
+    const { userState, logoutUser } = useUser();
 
     const navigate = useNavigate();
     // Función para manejar el cierre de sesión
     const handleLogout = () => {
         logout();
+        logoutUser();
     };
 
     useEffect(() => {
-        if (!state.id) {
+        if (!userState.user) {
             navigate("/");
         }
-    }, [state, navigate]);
+    }, [userState.user, navigate]);
 
     return (
         <div className="container-fluid">
