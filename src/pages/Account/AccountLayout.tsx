@@ -28,10 +28,13 @@ const AccountLayout = () => {
                     <nav>
                         <ul className="nav flex-column ms-5">
                             <li className="nav-item">
-                                <Link className="nav-link text-light" to="/account/profile">Profile</Link>
+                                <Link className="nav-link text-light" to="/account/profile">Pérfil</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link text-light" to="/account/settings">Settings</Link>
+                                <Link className="nav-link text-light" to="/account/settings">Configuración</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link text-light" to="/account/bepartner">Crear mi página</Link>
                             </li>
                             <li className="nav-item">
                                 <button type="button" className="btn btn-danger" onClick={handleLogout}>Cerrar Sesión</button>

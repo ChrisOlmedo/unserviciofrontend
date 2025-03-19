@@ -6,12 +6,14 @@
 }
 
 .serviceProvider-header {
+    position: relative;
     width: 250px;
     display: flex;
     flex-direction: column;
 }
 
 .serviceProviderContent {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -19,6 +21,7 @@
 }
 
 .serviceProvider-image {
+    position: relative;
     width: 100%;
     height: auto;
     object-fit: cover;
@@ -26,18 +29,25 @@
 }
 
 .serviceProvider-info {
+    position: relative;
     display: flex;
     flex-direction: column;
 }
 
 .services {
+    position: relative;
     display: flex;
     align-items: center;
     margin: auto;
     padding: 50px 0;
 }
 
+.serviceProvider-enterpriseName {
+    position: relative;
+}
+
 .services-tarjet {
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 550px;
@@ -48,13 +58,19 @@
 }
 
 .aboutMe {
+    position: relative;
     background-color: rgba(0, 0, 0, 0.1);
 }
 
 .gallery-grid {
+    position: relative;
     display: grid;
     grid-template-columns: repeat(auto-fill, 200px);
     gap: 16px;
+}
+
+.gallery {
+    position: relative;
 }
 
 .gallery img {
@@ -65,6 +81,7 @@
 }
 
 .contact {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 10px;

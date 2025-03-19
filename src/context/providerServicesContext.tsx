@@ -15,7 +15,7 @@ export const ServiceProvider = ({ children }: { children: React.ReactNode }) => 
 
     const fetchServices = async () => {
         try {
-            const response = await apiClient.get<ServiceCard[]>("/api/provider/getProviders");
+            const response = await apiClient.get<ServiceCard[]>("/api/providers/");
             if (!response) return;
             const data: ServiceCard[] = response.data;
 

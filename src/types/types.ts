@@ -15,21 +15,45 @@ export interface UserState extends userData {
     isLoading: boolean;
 }
 
-export interface ServiceCard {
-    id: number;
-    enterpriseName: string;
-    logo: string;
-    typeService: string;
-    rating: number;
+export type Image = { url: string };
+
+interface ServiceSlug {
+    slug?: string;
 }
 
-export interface servicePage extends ServiceCard {
+interface ServiceReview {
+    reviews: {
+        rating?: number;
+        comment: string;
+        user?: string;
+    }[];
+}
+
+export interface ServiceProviderBasics {
+    enterpriseName: string;
+    logo: Image;
+    typeService: string;
+    rating?: number;
+}
+
+export interface ServiceProviderDataPage {
     phone: string;
     location: string;
     providerPageData: {
         services: string[];
         aboutMe: string;
-        gallery: { url: string }[];
+        gallery: Image[];
     };
-    reviews: { comment: string }[];
+}
+
+export interface ServiceCard extends ServiceSlug, ServiceProviderBasics { }
+export interface ServicePage extends ServiceCard, ServiceReview, ServiceProviderDataPage { }
+
+
+export interface EditButtonConfig {
+    isConfig: boolean;
+    handleModalEdith: (field: string) => void;
+}
+export interface EditButtonProps {
+    context: string;
 }

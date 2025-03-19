@@ -3,7 +3,7 @@ import apiClient from "./axiosClient.config";
 
 export const getData = async (): Promise<UserState | null> => {
     try {
-        const response = await apiClient.get<UserState>("/api/user/getData", { withCredentials: true });
+        const response = await apiClient.get<UserState>("/api/users/", { withCredentials: true });
 
         // Si no hay datos, devolver null en lugar de undefined
         return response.data ?? null;

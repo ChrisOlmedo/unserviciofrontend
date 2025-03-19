@@ -6,7 +6,9 @@
         "typeService": "Electricidad",
         "location": "Guadalajara, Jalisco",
         "rating": 4.5,
-        "logo": "https://electrosolucionesurgentes.com/images/thumbnail_Logopit_1611089485214.png",
+        "logo": {
+            "url": "https://electrosolucionesurgentes.com/images/thumbnail_Logopit_1611089485214.png"
+        },
         "providerPageData": {
             "services": [
                 "Instalaciones eléctricas residenciales",
@@ -47,7 +49,9 @@
         "typeService": "Plomería",
         "location": "Zapopan, Jalisco",
         "rating": 4.7,
-        "logo": "https://cdn-icons-png.flaticon.com/512/2965/2965879.png",
+        "logo": {
+            "url": "https://cdn-icons-png.flaticon.com/512/2965/2965879.png"
+        },
         "providerPageData": {
             "services": [
                 "Reparación de fugas de agua",
@@ -88,7 +92,9 @@
         "typeService": "Mecánica Automotriz",
         "location": "Tlaquepaque, Jalisco",
         "rating": 4.2,
-        "logo": "https://cdn-icons-png.flaticon.com/512/3466/3466287.png",
+        "logo": {
+            "url": "https://cdn-icons-png.flaticon.com/512/3466/3466287.png"
+        },
         "providerPageData": {
             "services": [
                 "Cambio de aceite",
@@ -129,7 +135,9 @@
         "typeService": "Carpintería de Aluminio",
         "location": "Tonalá, Jalisco",
         "rating": 4.6,
-        "logo": "https://cdn-icons-png.flaticon.com/512/869/869869.png",
+        "logo": {
+            "url": "https://cdn-icons-png.flaticon.com/512/869/869869.png"
+        },
         "providerPageData": {
             "services": [
                 "Fabricación de ventanas y puertas de aluminio",
@@ -170,7 +178,9 @@
         "typeService": "Pintura y Decoración",
         "location": "Tlajomulco, Jalisco",
         "rating": 4.8,
-        "logo": "https://cdn-icons-png.flaticon.com/512/2903/2903797.png",
+        "logo": {
+            "url": "https://cdn-icons-png.flaticon.com/512/2903/2903797.png"
+        },
         "providerPageData": {
             "services": [
                 "Pintura residencial e industrial",
