@@ -27,6 +27,14 @@ export const useAuth = () => {
     return { user, loading };
 };
 
+export const logout = async (): Promise<void> => {
+    try {
+        await apiClient.post("/api/users/logout", {}, { withCredentials: true });
+    } catch (error) {
+        console.error("Error al cerrar sesión:", error);
+    }
+
+};
 
 const loginByGoogle = async (token: string): Promise<userData | null> => {
     try {
@@ -46,11 +54,3 @@ const loginByGoogle = async (token: string): Promise<userData | null> => {
 
 export default loginByGoogle;
 
-export const logout = async (): Promise<void> => {
-    try {
-        await apiClient.post("/api/user/logout", {}, { withCredentials: true });
-    } catch (error) {
-        console.error("Error al cerrar sesión:", error);
-    }
-
-};

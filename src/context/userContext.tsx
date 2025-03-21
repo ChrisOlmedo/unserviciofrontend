@@ -1,7 +1,6 @@
 import React, { createContext, useContext, ReactNode, useReducer, useEffect } from 'react';
 import { UserState, UserAction, userData } from '../types/types';
 import { getData } from '../services/userServices';
-import { logout } from '../services/authServices';
 
 const initialUserState: UserState = {
     isLoading: false,
@@ -12,7 +11,6 @@ const userReducer = (state: UserState, payload: UserAction): UserState => {
         case "SET_USER":
             return { ...state, user: payload.data.user, isLoading: false };
         case "LOGOUT":
-            logout();
             return { ...initialUserState }
         case "SET_LOADING":
             return { ...state, isLoading: payload.isLoading }
@@ -20,7 +18,6 @@ const userReducer = (state: UserState, payload: UserAction): UserState => {
             return state;
     }
 }
-//import axiosClient from "./axiosClient";
 
 const UserContext = createContext<{ userState: UserState; userDispatch: React.Dispatch<UserAction>; } | null>(null);
 
