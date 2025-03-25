@@ -3,7 +3,7 @@ import { ServicePage } from '../../types/types.ts';
 
 import dataPage from '../../types/providerData.json';
 import { useParams } from "react-router-dom";
-import ServiceProviderIndex from '../../components/ServiceProviderSectionPage/ServiceProviderIndex.tsx';
+import ServiceProviderIndex from '../../components/ServiceProviderPage/ServiceProviderIndex.tsx';
 
 const ServiceProviderPage = () => {
 

@@ -9,6 +9,7 @@ const Profile = () => {
             <p>Nombre: {userState.user?.name}</p>
             <p>Correo: {userState.user?.email}</p>
             <p>role: {userState.user?.role} </p>
+            <p>isLoading: {userState.isLoading ? "true" : "false"} </p>
         </div>
     );
 };

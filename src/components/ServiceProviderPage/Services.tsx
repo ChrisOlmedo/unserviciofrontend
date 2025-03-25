@@ -3,6 +3,10 @@ import EditButtonAbsolute from "./EditButtonAbsolute";
 
 const Services = ({ services }: { services: string[] }) => {
     return (
+
+
+
+
         <section className="services">
             <div className="services-tarjet">
                 <h2>Servicios</h2>

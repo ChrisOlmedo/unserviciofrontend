@@ -1,6 +1,5 @@
-import styles from "./modal.module.css";
 import { useState } from "react";
-import Modal from "./Modal";
+import Modal from "../Modal/Modal";
 /****************************************************
  * 
  * 
@@ -13,7 +12,7 @@ import Modal from "./Modal";
  * 
  * 
  ****************************************************/
-function EditarModal({ onClose, children }: any) {
+function EditModal({ children }: any) {
 
     //const { hasBeenChanged, setHasBeenChanged } = useModal();
     const [hasBeenChanged, setHasBeenChanged] = useState(true);
@@ -25,7 +24,7 @@ function EditarModal({ onClose, children }: any) {
         } else {
             window.history.back(); // Regresar a la página anterior
             // Vamos a usar ^ lo de arriba y ya no sera necesario usar onClose
-            onClose(); // Cerrar modal sin preguntar
+            // // Cerrar modal sin preguntar
         }
     };
 
@@ -34,7 +33,6 @@ function EditarModal({ onClose, children }: any) {
         setShowConfirmModal(false);
         window.history.back(); // Regresar a la página anterior
         // Vamos a usar ^ lo de arriba y ya no sera necesario usar onClose
-        onClose(); // Cerramos el modal principal
     };
     //modal manejara hasBeenModified y si true manejara otro modal con la alerta de que se perderan los cambios
     return (
@@ -45,8 +43,8 @@ function EditarModal({ onClose, children }: any) {
 
             {showConfirmModal && (
                 <Modal onClose={() => setShowConfirmModal(false)}>
-                    <div className={styles.modal} style={{ zIndex: "1000" }}>
-                        <h2>Descartar cambios</h2>
+                    <h2>Descartar cambios</h2>
+                    <div>
                         <p>¿Deseas descartar los cambios?</p>
                         <button onClick={() => setShowConfirmModal(false)}>Cancelar</button>
                         <button onClick={handleConfirmClose}>Descartar</button>
@@ -60,4 +58,4 @@ function EditarModal({ onClose, children }: any) {
 }
 
 
-export default EditarModal;
+export default EditModal;

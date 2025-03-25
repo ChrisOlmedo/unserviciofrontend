@@ -16,10 +16,15 @@ const AccountLayout = () => {
     };
 
     useEffect(() => {
-        if (!userState.user) {
+
+        if (!userState.user && !userState.isLoading) {
             navigate("/");
         }
-    }, [userState.user, navigate]);
+    }, [userState.isLoading, userState.user, navigate]);
+
+    if (userState.isLoading) {
+        return <h1>Cargando...</h1>
+    }
 
     return (
         <div className="container-fluid">
@@ -34,6 +39,16 @@ const AccountLayout = () => {
                                 <Link className="nav-link text-light" to="/account/settings">Configuración</Link>
                             </li>
                             <li className="nav-item">
+                                {/* 
+                                *
+                                *
+                                * Proxima actualizacion, agregar al usuario un campo que contenga el slug de su pagina
+                                * por defecto debera llevar un nombre como "Mi pagina" y el slug sera "mi-pagina"
+                                * 
+                                * <Link className="nav-link text-light" to="/account/:slug">Crear mi página</Link>
+                                * o if(role == 'user') { <Link className="nav-link text-light" to="/account/mi-pagina">Crear mi página</Link> }
+                                * 
+                                */}
                                 <Link className="nav-link text-light" to="/account/bepartner">Crear mi página</Link>
                             </li>
                             <li className="nav-item">

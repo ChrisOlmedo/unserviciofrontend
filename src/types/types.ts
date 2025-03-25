@@ -52,8 +52,5 @@ export interface ServicePage extends ServiceCard, ServiceReview, ServiceProvider
 
 export interface EditButtonConfig {
     isConfig: boolean;
-    handleModalEdith: (field: string) => void;
 }
-export interface EditButtonProps {
-    context: string;
-}
+

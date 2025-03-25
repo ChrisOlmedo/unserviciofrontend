@@ -13,7 +13,7 @@ const Login = () => {
     // Función para manejar el inicio de sesión
     const handleLogin = () => {
         navigate("/");
-    }
+    };
     useEffect(() => {
         if (userState.user) {
             navigate("/");
@@ -45,6 +45,9 @@ const Login = () => {
         console.log('Login Failed');
     };
 
+    if (userState.isLoading) {
+        return <h1>Cargando...</h1>
+    }
     return (
         <div className="d-flex flex-column justify-content-center align-items-center bg-light vh-100 gap-3">
             <h1>Login</h1>

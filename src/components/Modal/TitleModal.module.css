@@ -1,0 +1,12 @@
+.header {
+    height: 90px;
+    border-bottom: 1px solid rgb(253, 243, 243);
+}
+
+.headerContainer {
+    position: fixed;
+}
+
+.headerPlaceholder {
+    height: 90px;
+}

@@ -6,16 +6,15 @@ import Services from "./Services";
 import AboutSection from "./AboutSection";
 import GallerySection from "./GallerySection";
 import { ServicePage, EditButtonConfig } from "../../types/types";
-import { ConfigContext } from "../../context/configServiceProviderContext";
+import { ConfigContext } from "../../context/ConfigServiceProviderContext";
 
 interface ServiceProviderIndexProps extends EditButtonConfig {
     serviceProviderData: ServicePage;
-
 }
 
-const ServiceProviderIndex = ({ serviceProviderData, isConfig, handleModalEdith }: ServiceProviderIndexProps) => {
+const ServiceProviderIndex = ({ serviceProviderData, isConfig }: ServiceProviderIndexProps) => {
     return (
-        <ConfigContext.Provider value={{ isConfig, handleModalEdith }}>
+        <ConfigContext.Provider value={{ isConfig }}>
             <div className="serviceProvider-page">
                 <div className="serviceProvider-header">
                     <Logo

@@ -9,7 +9,7 @@ const AboutSection = ({ aboutSection }: { aboutSection: string }) => {
             <p>{aboutSection}</p>
 
             <EditButtonAbsolute>
-                <EditButton context="aboutsection" />
+                <EditButton context="about" />
             </EditButtonAbsolute>
         </section>
     );

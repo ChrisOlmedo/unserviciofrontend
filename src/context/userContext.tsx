@@ -3,7 +3,7 @@ import { UserState, UserAction, userData } from '../types/types';
 import { getData } from '../services/userServices';
 
 const initialUserState: UserState = {
-    isLoading: false,
+    isLoading: true,
     user: null
 };
 const userReducer = (state: UserState, payload: UserAction): UserState => {
@@ -11,7 +11,7 @@ const userReducer = (state: UserState, payload: UserAction): UserState => {
         case "SET_USER":
             return { ...state, user: payload.data.user, isLoading: false };
         case "LOGOUT":
-            return { ...initialUserState }
+            return { ...initialUserState, isLoading: false };
         case "SET_LOADING":
             return { ...state, isLoading: payload.isLoading }
         default:
@@ -26,12 +26,20 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
     // Obtiene el id si tiene sesión iniciada
     useEffect(() => {
+        userDispatch({ type: "SET_LOADING", isLoading: true });
         const fetchUser = async () => {
-            const getUser = await getData();
-            if (!getUser) {
-                return;
+            try {
+
+                const getUser = await getData();
+                if (!getUser) {
+                    return;
+                }
+                userDispatch({ type: "SET_USER", data: getUser });
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            } finally {
+                userDispatch({ type: "SET_LOADING", isLoading: false });
             }
-            userDispatch({ type: "SET_USER", data: getUser });
         };
         fetchUser();
     }, []);

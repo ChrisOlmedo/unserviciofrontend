@@ -2,7 +2,6 @@ import { createContext, useContext } from "react";
 
 interface ConfigContextType {
     isConfig: boolean;
-    handleModalEdith: (context: string) => void;
 }
 
 export const ConfigContext = createContext<ConfigContextType | null>(null);

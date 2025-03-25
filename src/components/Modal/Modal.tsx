@@ -13,17 +13,14 @@ function Modal({ onClose, children }: ModalProps) {
         <>
             <div className={styles.overlay}>
                 <div className={styles.modal}>
+                    <button onClick={onClose} className={styles.closeButton}>
+                        <span>X</span>
+                    </button>
+                    <div className={styles.headerPlaceholder}></div>
                     <div className={styles.content}>
-
                         {children}
-
                     </div>
 
-                    <div className={styles.buttons}>
-                        <button onClick={onClose} className={styles.button}>
-                            Cerrar
-                        </button>
-                    </div>
                 </div>
             </div>
         </>

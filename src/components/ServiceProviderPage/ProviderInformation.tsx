@@ -15,7 +15,7 @@ const ProviderInformation = ({ enterpriseName, rating, typeService, phone }: Pro
                 <p>Teléfono: {phone}</p>
             </section>
             <EditButtonAbsolute>
-                <EditButton context="providerInformation" />
+                <EditButton context="contact" />
             </EditButtonAbsolute>
 
         </div>

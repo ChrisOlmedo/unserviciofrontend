@@ -13,7 +13,6 @@ const Logo = ({ logo }: LogoProps) => {
             <EditButtonAbsolute>
                 <EditButton context="logo" />
             </EditButtonAbsolute>
-
         </div>
     );
 };

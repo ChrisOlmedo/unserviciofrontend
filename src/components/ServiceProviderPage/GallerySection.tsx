@@ -14,7 +14,7 @@ const GallerySection = ({ gallery }: { gallery: Image[] }) => {
                 ))}
             </div>
             <EditButtonAbsolute>
-                <EditButton context="gallerysection" />
+                <EditButton context="gallery" />
             </EditButtonAbsolute>
         </section>
     )

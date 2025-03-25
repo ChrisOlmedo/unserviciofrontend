@@ -8,7 +8,7 @@ const EnterPriseName = ({ enterpriseName }: { enterpriseName: string }) => {
             <h1 className='text-center'>{enterpriseName}</h1>
 
             <EditButtonAbsolute>
-                <EditButton context="enterpriseName" />
+                <EditButton context="contact" />
             </EditButtonAbsolute>
         </div>
     );
