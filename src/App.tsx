@@ -1,25 +1,33 @@
-import { Routes, Route } from 'react-router-dom'
-import { UserProvider } from './context/userContext'
+import { Routes, Route, Navigate } from 'react-router-dom'
 
 //Import pages
 import Home from './pages/Home/Home'
 import NoPage from './pages/NoPage/NoPage'
-import Login from './pages/Login/Login'
 import MainLayout from './pages/MainLayout'
-import Profile from './pages/Account/UserAccount/Profile'
-import Settings from './pages/Account/Settings'
-import AccountLayout from './pages/Account/AccountLayout'
+import Profile from './modules/user/pages/Profile'
+import Settings from './modules/user/pages/Settings'
+import AccountLayout from './modules/account/layout/AccountLayout'
+import LoginPage from './modules/auth/pages/LoginPage'
 import PrivacyPoliticals from './pages/Legals/PrivacyPolicy'
 import Conditionals from './pages/Legals/Conditions'
-import ServiceProviderPage from './pages/Services/ServiceProviderPage'
-import MainServices from './pages/Services/MainServices'
-import ServiceProvider from './context/providerServicesContext';
-import ServiceProviderConfigPage from './pages/Account/ServiceAccount/ServiceProviderConfigPage'
-import SelectServiceProviderForm from './components/ServiceProviderForm/SelectServiceProviderForm'
+import ServiceProviderPage from './modules/service-provider/pages/ServiceProviderPage'
+import MainServices from './modules/services/pages/MainServices'
+import ServiceProviderConfigPage from './modules/service-provider/pages/ServiceProviderConfigPage'
+
+//Context
+import ServiceProvider from './modules/service-provider/context/providerServicesContext';
+import UserProvider from './modules/user/context/userContext'
+
+//Import routes
+import ServiceProviderFormRoutes from './modules/service-provider/config/routes/FormRoutes'
+
+//Import guards
+import ValidateSlugRoute from './guards/ValidateSlugRoute'
+import RequireAuth from './guards/ValidateLogin'
 
 //Style
 import './styles/App.css'
-import LoginProvider from './pages/Login/LoginProvider'
+import LoginProvider from './modules/auth/pages/LoginProvider'
 
 
 function App() {
@@ -31,31 +39,32 @@ function App() {
             <Route path="/" element={<MainLayout />}>
               <Route index element={<Home />} />
               <Route path="/services" element={<MainServices />} />
-              <Route path="services/:slug" element={<ServiceProviderPage />} />
+              <Route path="/services/:slug" element={<ServiceProviderPage />} />
               <Route path="/privacy-policy" element={<PrivacyPoliticals />} />
               <Route path="/terms-conditionals" element={<Conditionals />} />
-              <Route path="/account" element={<AccountLayout />}>
+
+              <Route path="/account" element={
+                <RequireAuth>
+                  <AccountLayout />
+                </RequireAuth>}>
                 <Route path="profile" element={<Profile />} />
                 <Route path="settings" element={<Settings />} />
-                {/* 
-                                *
-                                *
-                                * Proxima actualizacion, agregar al usuario un campo que contenga el slug de su pagina
-                                * por defecto debera llevar un nombre como "Mi pagina" y el slug sera "mi-pagina"
-                                * 
-                                * <Link className="nav-link text-light" to="/account/:slug">Crear mi página</Link>
-                                * <Route path=":slug" element={<CreateServicePage />}>
-                                * 
-                                */}
-                <Route path="bepartner" element={<ServiceProviderConfigPage />}>
-                  <Route path=":section/edit" element={<SelectServiceProviderForm />} />
+                <Route path=":slug" element={
+                  <ValidateSlugRoute>
+                    <ServiceProviderConfigPage />
+                  </ValidateSlugRoute>
+                }>
+                  <Route path="edit">
+                    {ServiceProviderFormRoutes()}
+                    <Route path="*" element={<Navigate to="/404" replace />} />
+                  </Route>
                 </Route>
               </Route>
             </Route>
-            <Route path="/login" element={<Login />} />
-            <Route path="*" element={<NoPage />} />
+            <Route path="/login" element={<LoginPage />} />
             {/* Solo son pruebas */}
             <Route path="/login-provider" element={<LoginProvider />} />
+            <Route path="*" element={<NoPage />} />
           </Routes>
         </ServiceProvider>
       </UserProvider >

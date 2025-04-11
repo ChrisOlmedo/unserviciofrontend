@@ -1,6 +1,6 @@
 import { useReducer, useEffect } from "react";
 import { ServicePage } from '../../../types/types';
-import ServiceProviderIndex from "../../../components/ServiceProviderPage/ServiceProviderIndex.tsx";
+import ServiceProviderIndex from "../../../modules/service-provider/components/ServiceProviderIndex.tsx";
 import { Outlet, useMatch } from "react-router-dom";
 
 // Tipos para el reducer
@@ -88,8 +88,6 @@ function ServiceProviderPageConfig() {
             <ServiceProviderIndex
                 serviceProviderData={state.data}
                 isConfig={true}
-                hasUnsavedChanges={state.modified}
-                onSave={handleGuardar}
             />
 
             <Outlet context={outletContext} />

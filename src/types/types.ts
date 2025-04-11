@@ -1,27 +1,35 @@
 
-export type UserAction =
-    | { type: "SET_USER", data: userData }
-    | { type: "LOGOUT" }
-    | { type: "SET_LOADING", isLoading: boolean };
 
+export type User =
+    {
+        name: string | "";
+        email: string | "";
+        role: string | "";
+        slug?: string | "";
+    }
 export interface userData {
     user: {
-        name: string | null;
-        email: string | null;
-        role: string | null;
+        name: string | "";
+        email: string | "";
+        role: string | "";
+        slug?: string | "";
     } | null;
 }
 export interface UserState extends userData {
     isLoading: boolean;
 }
+// Types básicos
+export type Image = {
+    url: string;
+    file?: File | null;
+};
 
-export type Image = { url: string };
-
-interface ServiceSlug {
+// Interfaces de características
+interface Slugable {
     slug?: string;
 }
 
-interface ServiceReview {
+interface Reviewable {
     reviews: {
         rating?: number;
         comment: string;
@@ -29,26 +37,52 @@ interface ServiceReview {
     }[];
 }
 
-export interface ServiceProviderBasics {
+// Interfaces de información del proveedor
+export interface ProviderBasicInfo {
     enterpriseName: string;
     logo: Image;
     typeService: string;
     rating?: number;
 }
 
-export interface ServiceProviderDataPage {
+export interface ProviderContactInfo {
     phone: string;
+    whatsapp: string; // Nuevo campo
+    email: string; // Nuevo campo
+}
+
+export interface ProviderServiceArea {
     location: string;
-    providerPageData: {
-        services: string[];
-        aboutMe: string;
-        gallery: Image[];
+    coverage?: { // Nuevo campo
+        maxDistance: number; // en kilómetros
+        cities?: string[]; // ciudades específicas
     };
 }
 
-export interface ServiceCard extends ServiceSlug, ServiceProviderBasics { }
-export interface ServicePage extends ServiceCard, ServiceReview, ServiceProviderDataPage { }
+export interface ProviderPageContent {
+    services: string[];
+    aboutMe: string;
+    gallery: Image[];
+}
 
+// Interfaces compuestas
+export interface ServiceCard extends Slugable, ProviderServiceArea, ProviderBasicInfo { }
+
+export interface ServicePage extends
+    ServiceCard,
+    Reviewable,
+    ProviderContactInfo,
+    ProviderPageContent { }
+
+
+export interface ServiceProviderPageConfig extends
+    ServiceCard,
+    ProviderContactInfo,
+    ProviderPageContent {
+
+    hasChangesForm: boolean;
+    hasModifiedObject: boolean;
+}
 
 export interface EditButtonConfig {
     isConfig: boolean;

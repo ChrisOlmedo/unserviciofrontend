@@ -5,22 +5,14 @@ interface ModalProps {
     children: React.ReactNode;
 }
 function Modal({ onClose, children }: ModalProps) {
-
-
-
-    //modal manejara hasBeenModified y si true manejara otro modal con la alerta de que se perderan los cambios
     return (
         <>
             <div className={styles.overlay}>
                 <div className={styles.modal}>
                     <button onClick={onClose} className={styles.closeButton}>
-                        <span>X</span>
+                        X
                     </button>
-                    <div className={styles.headerPlaceholder}></div>
-                    <div className={styles.content}>
-                        {children}
-                    </div>
-
+                    {children}
                 </div>
             </div>
         </>
@@ -29,4 +21,19 @@ function Modal({ onClose, children }: ModalProps) {
 }
 
 
+// Subcomponentes (solo si los necesitas)
+Modal.Header = function ({ children }: { children: React.ReactNode }) {
+    return <header className={styles.header}>{children}</header>;
+};
+
+Modal.Body = function ({ children }: { children: React.ReactNode }) {
+    return <main className={styles.body}>{children}</main>;
+};
+
+Modal.Footer = function ({ children }: { children: React.ReactNode }) {
+    return <footer className={styles.footer}>{children}</footer>;
+};
+
+
+// Exportamos todo junto
 export default Modal;

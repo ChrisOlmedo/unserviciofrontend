@@ -4,7 +4,7 @@ import { IoLogIn, IoPersonCircleSharp, IoSearch } from "react-icons/io5"
 import { BiSolidMapPin } from "react-icons/bi"
 import { TiChevronRightOutline } from "react-icons/ti"
 import { RiMapPinRangeFill } from "react-icons/ri"
-import { useUser } from '../../context/userContext'
+import { useUser } from '../../modules/user/context/userContext'
 
 import styles from './Header.module.css'
 import UnServicioLogo from '../UnServicio-logo/UnServicioLogo'

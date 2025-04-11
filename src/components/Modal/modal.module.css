@@ -16,21 +16,39 @@
     background-color: #fff;
     border-radius: 8px;
     max-width: 90%;
-    max-height: 80%;
+    max-height: 90vh;
     overflow: hidden;
-}
 
-.content {
     display: grid;
-    grid-template-rows: 1fr 100%;
-    margin-bottom: 20px;
+    grid-template-rows: auto 1fr auto;
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    padding: 20px;
+    background: white;
+    border-bottom: 1px solid #f3f3f3;
     overflow: hidden;
 }
 
-.buttons {
+.body {
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.footer {
+    position: sticky;
+    bottom: 0;
+    background: white;
+    border-top: 1px solid #f3f3f3;
     display: flex;
+    align-items: center;
     justify-content: flex-end;
+    /* Para alinear botones a la derecha */
+    padding: 20px;
     gap: 10px;
+    /* Espacio entre botones */
 }
 
 .closeButton {
@@ -39,6 +57,8 @@
     right: 0;
     padding: 8px 16px;
     border: none;
+    background: transparent;
+    z-index: 1;
     border-radius: 4px;
     cursor: pointer;
 }
