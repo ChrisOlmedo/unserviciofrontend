@@ -6,6 +6,7 @@
 
 - [React](https://reactjs.org/) + [Vite](https://vitejs.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
+- Deploy en Vercel
 - La autenticación se realiza mediante **Google OAuth**, utilizando la librería [`@react-oauth/google`](https://www.npmjs.com/package/@react-oauth/google).
 - Context API (para manejo de estado global)
 - React Router (para navegación)
