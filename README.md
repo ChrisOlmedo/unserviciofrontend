@@ -6,21 +6,20 @@
 
 - [React](https://reactjs.org/) + [Vite](https://vitejs.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
+- La autenticación se realiza mediante **Google OAuth**, utilizando la librería [`@react-oauth/google`](https://www.npmjs.com/package/@react-oauth/google).
 - Context API (para manejo de estado global)
 - React Router (para navegación)
-- SWC (como bundler/transpilador)
 - Firebase (autenticación y hosting)
 
 ## 🚀 Características principales
 
 - Registro e inicio de sesión de usuarios
-- Perfiles personalizables para prestadores de servicio
+- Perfiles profesionales personalizables para prestadores de servicio
 - Navegación rápida y responsive
 - Diseño adaptable a dispositivos móviles
-- Futuro soporte para comentarios y calificaciones de servicios
+- Soporte para comentarios y calificaciones de servicios
 
-  
 ## 📝 Licencia
+
 Este proyecto está en desarrollo y aún no tiene una licencia oficial definida.
 Proyecto creado con fines educativos y de mejora profesional.
