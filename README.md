@@ -1,50 +1,26 @@
-# React + TypeScript + Vite
+# UnServicio – Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**UnServicio** es una plataforma web desarrollada para conectar prestadores de servicios domésticos e industriales con usuarios finales en México. Este repositorio contiene el código del frontend de la aplicación.
 
-Currently, two official plugins are available:
+## 🧰 Tecnologías utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [React](https://reactjs.org/) + [Vite](https://vitejs.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- Context API (para manejo de estado global)
+- React Router (para navegación)
+- SWC (como bundler/transpilador)
+- Firebase (autenticación y hosting)
 
-## Expanding the ESLint configuration
+## 🚀 Características principales
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- Registro e inicio de sesión de usuarios
+- Perfiles personalizables para prestadores de servicio
+- Navegación rápida y responsive
+- Diseño adaptable a dispositivos móviles
+- Futuro soporte para comentarios y calificaciones de servicios
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+  
+## 📝 Licencia
+Este proyecto está en desarrollo y aún no tiene una licencia oficial definida.
+Proyecto creado con fines educativos y de mejora profesional.
