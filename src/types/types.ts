@@ -4,16 +4,11 @@ export type User =
     {
         name: string | "";
         email: string | "";
-        role: string | "";
+        role: "user" | "service-provider" | "";
         slug?: string | "";
     }
 export interface userData {
-    user: {
-        name: string | "";
-        email: string | "";
-        role: string | "";
-        slug?: string | "";
-    } | null;
+    user: User | null;
 }
 export interface UserState extends userData {
     isLoading: boolean;
@@ -47,13 +42,13 @@ export interface ProviderBasicInfo {
 
 export interface ProviderContactInfo {
     phone: string;
-    whatsapp: string; // Nuevo campo
-    email: string; // Nuevo campo
+    whatsapp: string;
+    email: string;
 }
 
 export interface ProviderServiceArea {
     location: string;
-    coverage?: { // Nuevo campo
+    coverage?: {
         maxDistance: number; // en kilómetros
         cities?: string[]; // ciudades específicas
     };

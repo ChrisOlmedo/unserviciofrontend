@@ -1,5 +1,5 @@
 
-const LogoForm = () => {
+export const LogoForm = () => {
     const gallery = {
         url: '',
     }
@@ -26,5 +26,3 @@ const LogoForm = () => {
         </>
     );
 }
-
-export default LogoForm;

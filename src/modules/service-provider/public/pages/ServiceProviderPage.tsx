@@ -1,9 +1,9 @@
 import './ServiceProviderPage.css';
 
-import dataPage from '../../../types/providerData.json';
+import dataPage from '../../../../types/providerData.json';
 import { useParams } from "react-router-dom";
-import ServiceProviderIndex from '../components/ServiceProviderIndex';
-import NoPage from '../../../pages/NoPage/NoPage';
+import ServiceProviderIndex from '../../components/ServiceProviderIndex';
+import NoPage from '../../../../pages/NoPage/NoPage';
 
 const ServiceProviderPage = () => {
 

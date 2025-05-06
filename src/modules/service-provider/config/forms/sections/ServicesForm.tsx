@@ -57,7 +57,7 @@ const styles = {
     },
 };
 
-const ServicesForm = () => {
+export const ServicesForm = () => {
     const [services, setServices] = useState<string[]>([]);
     const [newService, setNewService] = useState("");
     const [showSaveMessage, setShowSaveMessage] = useState(false);
@@ -144,5 +144,3 @@ const ServicesForm = () => {
         </div>
     );
 }
-
-export default ServicesForm;

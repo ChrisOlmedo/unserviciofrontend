@@ -3,13 +3,17 @@ import Modal from "../../../../components/Modal/Modal";
 import CancelButton from "../../../../components/Button/CancelButton";
 import SaveButton from "../../../../components/Button/SaveButton";
 
-interface FormModalProps {
-    titleModal: string;
-    children: React.ReactNode;
-}
+import { FORM_COMPONENTS } from "../const/formConst";
 
-function FormModal({ titleModal, children }: FormModalProps) {
+type FormConfig = (typeof FORM_COMPONENTS)[keyof typeof FORM_COMPONENTS];
 
+type FormModalProps = {
+    formConfig: FormConfig;
+};
+
+const FormModal = ({ formConfig }: FormModalProps) => {
+
+    const { title, component: Component } = formConfig;
     //const { hasBeenChanged, setHasBeenChanged } = useModal();
     const [hasBeenChanged, setHasBeenChanged] = useState(true);
     const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -21,6 +25,9 @@ function FormModal({ titleModal, children }: FormModalProps) {
             window.history.back(); // Regresar a la página anterior
         }
     };
+    const handleSave = () => {
+        window.history.back();
+    };
 
     const handleConfirmClose = () => {
         setHasBeenChanged(false); // Reseteamos el estado
@@ -31,14 +38,15 @@ function FormModal({ titleModal, children }: FormModalProps) {
         <>
             <Modal onClose={handleClose}>
                 <Modal.Header>
-                    <h1>{titleModal}</h1>
+                    <h1>{title}</h1>
                 </Modal.Header>
                 <Modal.Body>
-                    {children}
+                    <Component />
+                    {/* <Component /> */}
                 </Modal.Body>
                 <Modal.Footer>
                     <CancelButton onClick={handleClose} />
-                    <SaveButton onClick={handleClose} />
+                    <SaveButton onClick={handleSave} />
                 </Modal.Footer>
             </Modal>
 

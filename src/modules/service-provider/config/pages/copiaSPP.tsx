@@ -1,7 +1,7 @@
 import './ServiceProviderPage.css';
-import { ServicePage } from '../../../types/types.ts';
+import { ServicePage } from '../../../../types/types.ts';
 
-import dataPage from '../../../types/providerData.json';
+import dataPage from '../../../../types/providerData.json';
 import { useParams } from "react-router-dom";
 
 

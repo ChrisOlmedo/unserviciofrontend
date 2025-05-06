@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
 
-const GalleryForm = () => {
+export const GalleryForm = () => {
 
     const initialGallery = [
         {
@@ -53,5 +53,3 @@ const GalleryForm = () => {
         </div>
     );
 }
-
-export default GalleryForm;

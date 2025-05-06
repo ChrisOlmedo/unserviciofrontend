@@ -10,12 +10,12 @@ import AccountLayout from './modules/account/layout/AccountLayout'
 import LoginPage from './modules/auth/pages/LoginPage'
 import PrivacyPoliticals from './pages/Legals/PrivacyPolicy'
 import Conditionals from './pages/Legals/Conditions'
-import ServiceProviderPage from './modules/service-provider/pages/ServiceProviderPage'
+import ServiceProviderPage from './modules/service-provider/public/pages/ServiceProviderPage'
 import MainServices from './modules/services/pages/MainServices'
-import ServiceProviderConfigPage from './modules/service-provider/pages/ServiceProviderConfigPage'
+import ServiceProviderConfigPage from './modules/service-provider/config/pages/ServiceProviderConfigPage'
 
 //Context
-import ServiceProvider from './modules/service-provider/context/providerServicesContext';
+import ServiceProvider from './modules/services/context/providerServicesContext';
 import UserProvider from './modules/user/context/userContext'
 
 //Import routes
@@ -61,6 +61,7 @@ function App() {
                 </Route>
               </Route>
             </Route>
+            {/* Crear una proteccion para login */}
             <Route path="/login" element={<LoginPage />} />
             {/* Solo son pruebas */}
             <Route path="/login-provider" element={<LoginProvider />} />

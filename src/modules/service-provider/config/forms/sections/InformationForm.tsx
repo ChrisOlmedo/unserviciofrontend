@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const InformationForm = () => {
+export const InformationForm = () => {
     const [formData, setFormData] = useState({
         enterpriseName: "",
         typeService: "",
@@ -76,4 +76,3 @@ const InformationForm = () => {
         </div>
     );
 }
-export default InformationForm;

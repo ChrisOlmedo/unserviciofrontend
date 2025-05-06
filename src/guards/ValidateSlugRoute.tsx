@@ -1,9 +1,11 @@
-import { useParams, Navigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useUser } from "../modules/user/context/userContext";
 import { ReactNode } from "react";
 import NoPage from "../pages/NoPage/NoPage";
+import { ServiceProviderConfigProvider } from "../modules/service-provider/config/context/ServiceProviderConfigContext";
 
 const ValidateSlugRoute = ({ children }: { children: ReactNode }) => {
+
     const { slug } = useParams(); // Slug de la URL (ej: "electro-soluciones")
     const { userState } = useUser(); // Contexto con user.slug y user.isProvider
 
@@ -14,12 +16,15 @@ const ValidateSlugRoute = ({ children }: { children: ReactNode }) => {
     }
 
     // Caso 2: Proveedor con slug incorrecto => Redirige a su slug real
-    if (userState.user?.role === "provider" && userState.user.slug !== slug) {
-        return <Navigate to={`/account/${userState.user.slug}`} replace />;
+    if (userState.user?.role === "service-provider" && userState.user.slug !== slug) {
+        return <NoPage />;
     }
 
-    // Caso 3: Slug válido (proveedor o "create-page")
-    return children;
+    return (
+        <ServiceProviderConfigProvider>
+            {children}
+        </ServiceProviderConfigProvider>
+    );
 };
 
 export default ValidateSlugRoute;
