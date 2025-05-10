@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useServiceProvider } from "../../../account/config-page/hooks/useServiceProvider.ts";
+import { useServiceProvider } from "../../hooks/useServiceProvider.ts";
 
 
 export const AboutForm = () => {

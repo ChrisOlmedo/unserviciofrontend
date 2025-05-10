@@ -60,6 +60,10 @@ export interface ProviderPageContent {
     gallery: Image[];
 }
 
+
+export type RouteSection = 'logo' | 'about' | 'services' | 'gallery' | 'information';
+export type CompletionStatus = Record<RouteSection, boolean>;
+
 // Interfaces compuestas
 export interface ServiceCard extends Slugable, ProviderServiceArea, ProviderBasicInfo { }
 
@@ -77,6 +81,7 @@ export interface ServiceProviderPageConfig extends
 
     hasChangesForm: boolean;
     hasModifiedObject: boolean;
+    completionStatus: CompletionStatus;
 }
 
 export interface EditButtonConfig {

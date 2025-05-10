@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Modal from "../../../../components/Modal/Modal";
-import CancelButton from "../../../../components/Button/CancelButton";
-import SaveButton from "../../../../components/Button/SaveButton";
+import Modal from "../../../../../components/Modal/Modal";
+import CancelButton from "../../../../../components/Button/CancelButton";
+import SaveButton from "../../../../../components/Button/SaveButton";
 
 import { FORM_COMPONENTS } from "../const/formConst";
 

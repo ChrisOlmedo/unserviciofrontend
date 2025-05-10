@@ -1,10 +1,11 @@
 
-import ServiceProviderIndex from "../../components/ServiceProviderIndex.tsx";
+import ServiceProviderIndex from "../../../components/ServiceProviderIndex.tsx";
 import { Outlet } from "react-router-dom";
 import { useState } from "react";
-import Modal from "../../../../components/Modal/Modal.tsx"; // Adjust the path as needed
-import { useUser } from "../../../user/context/userContext.tsx";
+import Modal from "../../../../../components/Modal/Modal.tsx"; // Adjust the path as needed
+import { useUser } from "../../../../user/context/userContext.tsx";
 import { useServiceProvider } from "../hooks/useServiceProvider.ts";
+import { ServiceProviderConfigProvider } from "../context/ServiceProviderConfigContext.tsx"; // Importa el contexto
 function ServiceProviderConfigPage() {
 
     const { userState } = useUser();
@@ -54,30 +55,34 @@ function ServiceProviderConfigPage() {
 */
 
     return (
-        <>
-            <ServiceProviderIndex serviceProviderData={serviceProviderState} isConfig={true} />
-            {/* Crear un contexto para compartir hasBeenModified y su set, que indica que cualquier input ha sido modificado*/}
-            <Outlet />
-            {userState.user?.role === "service-provider" ? (
-                <button onClick={handleUpdate} className="btn btn-primary">Actualizar página</button>
-            ) : (
-                <button onClick={handleCreate} className="btn btn-primary">Crear página</button>
-            )}
 
-            {oka && (
-                <Modal onClose={ok}>
-                    <Modal.Header>
-                        <h2>Error</h2>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <p>Completa todos los campos obligatorios</p>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <button onClick={ok}>OK</button>
-                    </Modal.Footer>
-                </Modal>
-            )}
-        </>
+        <ServiceProviderConfigProvider>
+            <>
+                <ServiceProviderIndex serviceProviderData={serviceProviderState} isConfig={true} />
+                {/* Crear un contexto para compartir hasBeenModified y su set, que indica que cualquier input ha sido modificado*/}
+                <Outlet />
+                {userState.user?.role === "service-provider" ? (
+                    <button onClick={handleUpdate} className="btn btn-primary">Actualizar página</button>
+                ) : (
+                    <button onClick={handleCreate} className="btn btn-primary">Crear página</button>
+                )}
+
+                {oka && (
+                    <Modal onClose={ok}>
+                        <Modal.Header>
+                            <h2>Error</h2>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <p>Completa todos los campos obligatorios</p>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <button onClick={ok}>OK</button>
+                        </Modal.Footer>
+                    </Modal>
+                )}
+            </>
+
+        </ServiceProviderConfigProvider >
     );
 }
 

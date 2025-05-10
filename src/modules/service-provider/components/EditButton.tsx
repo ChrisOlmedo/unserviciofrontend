@@ -1,25 +1,25 @@
 import { useConfig } from "../context/ConfigFlagContext";
 import { useNavigate } from 'react-router-dom';
-import { RouteSection } from '../../../router/routePaths'; // Ajusta la ruta
-import { useRoutes } from '../config/hooks/useRoutes';
+import { RouteSection } from '../../../types/types'; // Ajusta la ruta
+import { useRoutes } from '../account/config-page/hooks/useRoutes';
+import { useServiceProvider } from "../account/config-page/hooks/useServiceProvider";
 
 type EditButtonProps = {
     context: RouteSection; // Asegúrate que coincida con RouteSection
-    status: "valid" | "invalid";
 };
 
 
-const EditButton = ({ context, status }: EditButtonProps) => {
+const EditButton = ({ context }: EditButtonProps) => {
     const navigate = useNavigate();
     const { getSectionEdit } = useRoutes();
     const { isConfig } = useConfig();
+    const { completionStatus } = useServiceProvider();
+    const isComplete = completionStatus[context];
 
     if (!isConfig) return null
 
-    const color = {
-        valid: "blue",
-        invalid: "red",
-    }[status];;
+    const color = isComplete ? "green" : "red";
+
 
     const handleEditClick = (e: React.MouseEvent) => {
         e.preventDefault();

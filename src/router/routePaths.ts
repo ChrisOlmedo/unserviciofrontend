@@ -1,7 +1,6 @@
-
+import { RouteSection } from "../types/types";
 
 // Tipos para autocompletado y validación
-export type RouteSection = 'logo' | 'about' | 'services' | 'gallery' | 'information';
 
 export const routePaths = {
 

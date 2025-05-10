@@ -1,5 +1,6 @@
-import { ServiceProviderPageConfig } from '../../../../types/types';
-import { Image } from '../../../../types/types';
+import { ServiceProviderPageConfig } from '../../../../../types/types';
+import { Image } from '../../../../../types/types';
+import { CompletionStatus } from '../../../../../types/types';
 
 export const initialStateServiceProviderPage: ServiceProviderPageConfig = {
     slug: "",
@@ -19,13 +20,21 @@ export const initialStateServiceProviderPage: ServiceProviderPageConfig = {
     aboutMe: "",
     gallery: [],
     hasChangesForm: false,
-    hasModifiedObject: false
+    hasModifiedObject: false,
+    completionStatus: {
+        logo: false,
+        about: false,
+        services: false,
+        gallery: false,
+        information: false,
+    },
 };
 // Acciones iniciales
 export type ServiceProviderAction =
     | { type: 'UPDATE_NAME'; enterpriseName: string }
     | { type: 'UPDATE_LOGO'; logo: Image }
-    | { type: 'UPDATE_ABOUT_ME'; aboutMe: string };
+    | { type: 'UPDATE_ABOUT_ME'; aboutMe: string }
+    | { type: 'MARK_SECTION_COMPLETE'; section: keyof CompletionStatus; completed: boolean };
 
 export const serviceProviderReducer = (state: ServiceProviderPageConfig, action: ServiceProviderAction): ServiceProviderPageConfig => {
     switch (action.type) {
@@ -36,6 +45,15 @@ export const serviceProviderReducer = (state: ServiceProviderPageConfig, action:
 
         case 'UPDATE_ABOUT_ME':
             return { ...state, aboutMe: action.aboutMe };
+
+        case 'MARK_SECTION_COMPLETE':
+            return {
+                ...state,
+                completionStatus: {
+                    ...state.completionStatus,
+                    [action.section]: action.completed,
+                },
+            };
         /*
         case 'SET_INITIAL_DATA':
             return {

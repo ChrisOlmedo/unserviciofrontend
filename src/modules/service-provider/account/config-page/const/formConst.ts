@@ -1,5 +1,5 @@
-import { LogoForm, AboutForm, ServicesForm, GalleryForm, InformationForm } from "../forms/index";
-import { RouteSection } from '../../../../router/routePaths';
+import { LogoForm, AboutForm, ServicesForm, GalleryForm, InformationForm } from "../../../account/config-page/forms/index";
+import { RouteSection } from '../../../../../types/types';
 
 export const FORM_COMPONENTS = {
     logo: {

@@ -1,6 +1,6 @@
 import { Image } from "../../../../types/types";
 import EditButton from "../EditButton";
-import EditButtonAbsolute from "./EditButtonAbsolute";
+import EditButtonAbsolute from "../EditButtonAbsolute";
 
 const GallerySection = ({ gallery }: { gallery: Image[] }) => {
 

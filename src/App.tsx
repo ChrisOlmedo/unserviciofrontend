@@ -12,14 +12,14 @@ import PrivacyPoliticals from './pages/Legals/PrivacyPolicy'
 import Conditionals from './pages/Legals/Conditions'
 import ServiceProviderPage from './modules/service-provider/public/pages/ServiceProviderPage'
 import MainServices from './modules/services/pages/MainServices'
-import ServiceProviderConfigPage from './modules/service-provider/config/pages/ServiceProviderConfigPage'
+import ServiceProviderConfigPage from './modules/service-provider/account/config-page/pages/ServiceProviderConfigPage'
 
 //Context
 import ServiceProvider from './modules/services/context/providerServicesContext';
 import UserProvider from './modules/user/context/userContext'
 
 //Import routes
-import ServiceProviderFormRoutes from './modules/service-provider/config/routes/FormRoutes'
+import ServiceProviderFormRoutes from './modules/service-provider/account/config-page/routes/FormRoutes'
 
 //Import guards
 import ValidateSlugRoute from './guards/ValidateSlugRoute'
@@ -47,6 +47,7 @@ function App() {
                 <RequireAuth>
                   <AccountLayout />
                 </RequireAuth>}>
+
                 <Route path="profile" element={<Profile />} />
                 <Route path="settings" element={<Settings />} />
                 <Route path=":slug" element={
@@ -60,6 +61,7 @@ function App() {
                   </Route>
                 </Route>
               </Route>
+
             </Route>
             {/* Crear una proteccion para login */}
             <Route path="/login" element={<LoginPage />} />

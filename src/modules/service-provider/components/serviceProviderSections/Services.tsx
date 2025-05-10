@@ -1,5 +1,5 @@
 import EditButton from "../EditButton";
-import EditButtonAbsolute from "./EditButtonAbsolute";
+import EditButtonAbsolute from "../EditButtonAbsolute";
 
 const Services = ({ services }: { services: string[] }) => {
     return (

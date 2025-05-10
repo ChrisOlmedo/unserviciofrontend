@@ -1,5 +1,5 @@
 import { ServicePage } from "../../../../types/types";
-import EditButtonAbsolute from "./EditButtonAbsolute";
+import EditButtonAbsolute from "../EditButtonAbsolute";
 import EditButton from "../EditButton";
 
 type ProviderInformationProps = Pick<ServicePage, 'enterpriseName' | 'rating' | 'typeService' | 'phone'>;

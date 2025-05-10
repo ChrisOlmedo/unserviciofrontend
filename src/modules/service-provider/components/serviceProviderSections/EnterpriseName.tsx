@@ -1,5 +1,5 @@
 import EditButton from "../EditButton";
-import EditButtonAbsolute from "./EditButtonAbsolute";
+import EditButtonAbsolute from "../EditButtonAbsolute";
 
 
 const EnterPriseName = ({ enterpriseName }: { enterpriseName: string }) => {

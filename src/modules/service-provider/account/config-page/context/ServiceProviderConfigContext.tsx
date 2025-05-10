@@ -1,7 +1,7 @@
-import { ServiceProviderPageConfig } from '../../../../types/types';
+import { ServiceProviderPageConfig } from '../../../../../types/types'; // Adjusted path to match the correct module location
 import { createContext, useContext, useEffect, useReducer } from 'react';
 import { serviceProviderReducer, initialStateServiceProviderPage, ServiceProviderAction } from '../reducers/serviceProviderReducer';
-import { useUser } from '../../../user/context/userContext';
+import { useUser } from '../../../../user/context/userContext';
 
 export const ServiceProviderConfigContext =
     createContext<{ serviceProviderState: ServiceProviderPageConfig; ServiceProviderDispatch: React.Dispatch<ServiceProviderAction>; }>

@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useUser } from "../modules/user/context/userContext";
 import { ReactNode } from "react";
 import NoPage from "../pages/NoPage/NoPage";
-import { ServiceProviderConfigProvider } from "../modules/service-provider/config/context/ServiceProviderConfigContext";
+import { ServiceProviderConfigProvider } from "../modules/service-provider/account/config-page/context/ServiceProviderConfigContext";
 
 const ValidateSlugRoute = ({ children }: { children: ReactNode }) => {
 

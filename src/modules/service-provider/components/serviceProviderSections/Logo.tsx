@@ -1,5 +1,5 @@
 import { Image } from "../../../../types/types";
-import EditButtonAbsolute from "./EditButtonAbsolute";
+import EditButtonAbsolute from "../EditButtonAbsolute";
 import EditButton from "../EditButton";
 
 interface LogoProps {
