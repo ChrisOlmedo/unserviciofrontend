@@ -26,12 +26,37 @@ export const useServiceProvider = () => {
         };
     }
 
+    const saveForm = () => {
+        const { shouldSave } = serviceProviderState;
+        return {
+            shouldSave,
+            triggerSave: () => {
+                ServiceProviderDispatch({ type: 'TRIGGER_SAVE' });
+            },
+            resetShouldSave: () => {
+                ServiceProviderDispatch({ type: 'RESET_SHOULD_SAVE' });
+            },
+        };
+    }
+
+    const hasChangesForm = () => {
+        const { hasChangesForm } = serviceProviderState;
+        return {
+            hasChangesForm,
+            setHasChangesForm: (value: boolean) => {
+                ServiceProviderDispatch({ type: value ? 'SET_FORM_CHANGED' : 'RESET_FORM_CHANGED' });
+            },
+        };
+    }
+
 
     return {
         serviceProviderState,
         ServiceProviderDispatch,
         aboutMeSection,
         completionStatus,
+        saveForm,
+        hasChangesForm,
     }
 
 } 

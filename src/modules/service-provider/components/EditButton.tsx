@@ -14,7 +14,7 @@ const EditButton = ({ context }: EditButtonProps) => {
     const { getSectionEdit } = useRoutes();
     const { isConfig } = useConfig();
     const { completionStatus } = useServiceProvider();
-    const isComplete = completionStatus[context];
+    const isComplete = completionStatus().completionStatus[context];
 
     if (!isConfig) return null
 

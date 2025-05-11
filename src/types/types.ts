@@ -81,6 +81,7 @@ export interface ServiceProviderPageConfig extends
 
     hasChangesForm: boolean;
     hasModifiedObject: boolean;
+    shouldSave: boolean;
     completionStatus: CompletionStatus;
 }
 
