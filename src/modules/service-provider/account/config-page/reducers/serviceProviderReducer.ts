@@ -35,6 +35,8 @@ export type ServiceProviderAction =
     | { type: 'UPDATE_NAME'; enterpriseName: string }
     | { type: 'UPDATE_LOGO'; logo: Image }
     | { type: 'UPDATE_ABOUT_ME'; aboutMe: string }
+    | { type: 'UPDATE_SERVICES'; services: string[] }
+    | { type: 'UPDATE_GALLERY'; gallery: Image[] }
     | { type: 'MARK_SECTION_COMPLETE'; section: keyof CompletionStatus; completed: boolean }
     | { type: 'TRIGGER_SAVE' }
     | { type: 'RESET_SHOULD_SAVE' }
@@ -50,6 +52,9 @@ export const serviceProviderReducer = (state: ServiceProviderPageConfig, action:
 
         case 'UPDATE_ABOUT_ME':
             return { ...state, aboutMe: action.aboutMe };
+
+        case 'UPDATE_SERVICES':
+            return { ...state, services: action.services };
 
         case 'MARK_SECTION_COMPLETE':
             return {

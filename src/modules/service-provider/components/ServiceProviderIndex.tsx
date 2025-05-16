@@ -8,6 +8,7 @@ import GallerySection from "./serviceProviderSections/GallerySection";
 import { EditButtonConfig } from "../../../types/types";
 import { ConfigContext } from "../context/ConfigFlagContext";
 
+
 interface ServiceProviderIndexProps extends EditButtonConfig {
     serviceProviderData: any;
 }

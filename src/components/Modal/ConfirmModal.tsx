@@ -1,31 +1,38 @@
 import Modal from "./Modal";
+import styles from "./confirmModal.module.css";
 
 interface ConfirmModalProps {
-    onClose: () => void;
-    onSave: () => void;
+    onCancel: () => void;
+    onDiscard: () => void;
 }
 
-const ConfirmModal = ({ onClose, onSave }: ConfirmModalProps) => {
+const ConfirmModal = ({ onCancel, onDiscard }: ConfirmModalProps) => {
 
-    const handleClose = () => {
-        onClose();
+    const handleCancel = () => {
+        onCancel();
     };
 
-    const handleSave = () => {
-        onSave();
+    const handleDiscard = () => {
+        onDiscard();
     };
 
     return (
-        <Modal onClose={handleClose}>
+        <Modal onClose={handleCancel}>
             <Modal.Header>
-                <h2>Descartar cambios</h2>
+                <div className={styles.titleModal}>
+                    <h3>Descartar cambios</h3>
+                </div>
             </Modal.Header>
             <Modal.Body>
-                <p>¿Deseas descartar los cambios?</p>
+                <div className={styles.bodyModal}>
+                    <p>¿Deseas descartar los cambios?</p>
+                </div>
             </Modal.Body>
             <Modal.Footer>
-                <button onClick={handleClose}>Cancelar</button>
-                <button onClick={handleSave}>Descartar</button>
+                <div className={styles.buttonsModal}>
+                    <button onClick={handleCancel}>Cancelar</button>
+                    <button onClick={handleDiscard}>Descartar</button>
+                </div>
             </Modal.Footer>
         </Modal>
     );

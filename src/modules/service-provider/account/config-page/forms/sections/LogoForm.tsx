@@ -1,5 +1,10 @@
+import { useServiceProvider } from "../../hooks/useServiceProvider";
+import { useEffect } from "react";
 
 export const LogoForm = () => {
+
+    const { serviceProviderState } = useServiceProvider();
+    const { saveForm } = useServiceProvider();
     const gallery = {
         url: '',
     }
@@ -9,6 +14,13 @@ export const LogoForm = () => {
             gallery.url = url;
         }
     };
+    useEffect(() => {
+        if (saveForm().shouldSave) {
+            saveForm().resetShouldSave();
+            console.log(serviceProviderState);
+        }
+
+    }, [saveForm().shouldSave]);
 
     return (
         <>

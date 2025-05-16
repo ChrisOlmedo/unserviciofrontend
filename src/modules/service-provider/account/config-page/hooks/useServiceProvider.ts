@@ -16,6 +16,16 @@ export const useServiceProvider = () => {
         };
     }
 
+    const servicesSection = () => {
+        const { services } = serviceProviderState;
+        return {
+            services,
+            updateServices: (value: string[]) => {
+                ServiceProviderDispatch({ type: 'UPDATE_SERVICES', services: value });
+            },
+        };
+    }
+
     const completionStatus = () => {
         const { completionStatus } = serviceProviderState;
         return {
@@ -54,6 +64,7 @@ export const useServiceProvider = () => {
         serviceProviderState,
         ServiceProviderDispatch,
         aboutMeSection,
+        servicesSection,
         completionStatus,
         saveForm,
         hasChangesForm,

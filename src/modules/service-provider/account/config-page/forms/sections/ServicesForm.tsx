@@ -1,11 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useTriggerListener } from "../../hooks/useTriggerListener";
+import { useServiceProvider } from "../../hooks/useServiceProvider";
 // Estilos (puedes moverlos a un CSS module)
 const styles = {
     serviceEditor: {
-        background: "white",
-        padding: "20px 80px",
-        borderRadius: "10px",
-        boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
         maxWidth: "600px",
         minWidth: "400px",
         margin: "0 auto",
@@ -58,31 +56,14 @@ const styles = {
 };
 
 export const ServicesForm = () => {
-    const [services, setServices] = useState<string[]>([]);
     const [newService, setNewService] = useState("");
-    const [showSaveMessage, setShowSaveMessage] = useState(false);
-
-    // Cargar servicios al inicio (desde localStorage o API)
-    useEffect(() => {
-        if (localStorage.getItem("services")) {
-            const savedServices = JSON.parse(localStorage.getItem("services") || "[]");
-            setServices(savedServices);
-        }
-    }, []);
-
-    // Guardar servicios cuando cambian
-    useEffect(() => {
-        if (services.length > 0 || localStorage.getItem("services")) {
-            localStorage.setItem("services", JSON.stringify(services));
-        }
-    }, [services]);
-
+    const { services: savedServices, updateServices } = useServiceProvider().servicesSection();
+    const [services, setServices] = useState<string[]>(savedServices || []);
     // Agregar servicio
     const handleAddService = () => {
         if (newService.trim()) {
             setServices([...services, newService.trim()]);
             setNewService("");
-            showTempMessage();
         }
     };
 
@@ -90,15 +71,15 @@ export const ServicesForm = () => {
     const handleDeleteService = (index: number) => {
         const updatedServices = services.filter((_, i) => i !== index);
         setServices(updatedServices);
-        showTempMessage();
     };
 
-    // Mensaje temporal de "Guardado"
-    const showTempMessage = () => {
-        setShowSaveMessage(true);
-        setTimeout(() => setShowSaveMessage(false), 2000);
-    };
-
+    useTriggerListener({
+        validate: () => services.length > 0,
+        onError: () => alert("Debes agregar al menos un servicio."),
+        onSave: () => {
+            updateServices(services);
+        },
+    });
     return (
         <div style={styles.serviceEditor}>
             <h2>📝 Mis Servicios</h2>
@@ -115,18 +96,6 @@ export const ServicesForm = () => {
                     Agregar
                 </button>
             </div>
-
-            {showSaveMessage && (
-                <div style={styles.saveMessage}>¡Cambios guardados!</div>
-            )}
-
-            {/* Input oculto para enviar el array en formularios */}
-            <input
-                type="hidden"
-                name="services"
-                value={JSON.stringify(services)}
-            />
-
 
             <ul style={styles.servicesList}>
                 {services.map((service, index) => (

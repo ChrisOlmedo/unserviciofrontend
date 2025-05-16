@@ -1,3 +1,4 @@
+import styles from './buttons.module.css';
 
 interface CancelButtonProps {
     onClick: () => void;
@@ -5,7 +6,7 @@ interface CancelButtonProps {
 
 function CancelButton({ onClick }: CancelButtonProps) {
     return (
-        <button onClick={onClick} className="bg-red-500 text-white px-4 py-2 rounded">
+        <button onClick={onClick} className={`${styles.button} ${styles.cancelButton}`}>
             Cancel
         </button>
     );

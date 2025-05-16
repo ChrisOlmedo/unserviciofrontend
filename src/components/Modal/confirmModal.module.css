@@ -1,0 +1,22 @@
+.titleModal {
+    padding: 20px;
+}
+
+.titleModal h3 {
+    text-align: left;
+    margin: 0;
+    font-size: 1.25em;
+}
+
+.bodyModal {
+    padding: 20px;
+    /* Espacio entre elementos */
+}
+
+.buttonsModal {
+    padding: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    /* Espacio entre botones */
+}
