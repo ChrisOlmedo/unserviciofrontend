@@ -8,7 +8,7 @@
         },
         "typeService": "Electricidad",
         "rating": 4.5,
-        "phone": "33 1234 5678",
+        "phone": "+52 33 1234 5678",
         "whatsapp": "33 1234 5678",
         "email": "contacto@electrosoluciones.com",
         "location": "Guadalajara, Jalisco",
@@ -40,6 +40,22 @@
             {
                 "url": "https://loremflickr.com/600/400",
                 "file": null
+            }
+        ],
+        "reviews": [
+            {
+                "id": "1",
+                "comment": "Excelente servicio, muy profesionales y puntuales.",
+                "rating": 5,
+                "author": "Juan Pérez",
+                "date": "2024-03-15"
+            },
+            {
+                "id": "2",
+                "comment": "Buen trabajo, resolvieron mi problema rápidamente.",
+                "rating": 4,
+                "author": "María García",
+                "date": "2024-03-10"
             }
         ],
         "hasChangesForm": false,
@@ -88,6 +104,22 @@
                 "file": null
             }
         ],
+        "reviews": [
+            {
+                "id": "1",
+                "comment": "Excelente servicio, muy profesionales y puntuales.",
+                "rating": 5,
+                "author": "Juan Pérez",
+                "date": "2024-03-15"
+            },
+            {
+                "id": "2",
+                "comment": "Buen trabajo, resolvieron mi problema rápidamente.",
+                "rating": 4,
+                "author": "María García",
+                "date": "2024-03-10"
+            }
+        ],
         "hasChangesForm": false,
         "hasModifiedObject": false
     },
@@ -131,6 +163,22 @@
             {
                 "url": "https://loremflickr.com/600/400",
                 "file": null
+            }
+        ],
+        "reviews": [
+            {
+                "id": "1",
+                "comment": "Excelente servicio, muy profesionales y puntuales.",
+                "rating": 5,
+                "author": "Juan Pérez",
+                "date": "2024-03-15"
+            },
+            {
+                "id": "2",
+                "comment": "Buen trabajo, resolvieron mi problema rápidamente.",
+                "rating": 4,
+                "author": "María García",
+                "date": "2024-03-10"
             }
         ],
         "hasChangesForm": false,
@@ -179,6 +227,22 @@
                 "file": null
             }
         ],
+        "reviews": [
+            {
+                "id": "1",
+                "comment": "Excelente servicio, muy profesionales y puntuales.",
+                "rating": 5,
+                "author": "Juan Pérez",
+                "date": "2024-03-15"
+            },
+            {
+                "id": "2",
+                "comment": "Buen trabajo, resolvieron mi problema rápidamente.",
+                "rating": 4,
+                "author": "María García",
+                "date": "2024-03-10"
+            }
+        ],
         "hasChangesForm": false,
         "hasModifiedObject": false
     },
@@ -223,6 +287,22 @@
             {
                 "url": "https://loremflickr.com/600/400",
                 "file": null
+            }
+        ],
+        "reviews": [
+            {
+                "id": "1",
+                "comment": "Excelente servicio, muy profesionales y puntuales.",
+                "rating": 5,
+                "author": "Juan Pérez",
+                "date": "2024-03-15"
+            },
+            {
+                "id": "2",
+                "comment": "Buen trabajo, resolvieron mi problema rápidamente.",
+                "rating": 4,
+                "author": "María García",
+                "date": "2024-03-10"
             }
         ],
         "hasChangesForm": false,

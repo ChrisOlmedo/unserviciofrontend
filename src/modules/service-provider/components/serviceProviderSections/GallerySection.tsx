@@ -1,23 +1,38 @@
 import { Image } from "../../../../types/types";
-import EditButton from "../EditButton";
+import styles from './GallerySection.module.css';
 import EditButtonAbsolute from "../EditButtonAbsolute";
+import EditButton from "../EditButton";
+import { useConfig } from "../../context/ConfigFlagContext";
 
-const GallerySection = ({ gallery }: { gallery: Image[] }) => {
+interface GallerySectionProps {
+    gallery: Image[];
+}
+
+const GallerySection = ({ gallery }: GallerySectionProps) => {
+    const { isConfig } = useConfig();
 
     return (
-
-        <section className="gallery">
-            <h2>Galería</h2>
-            <div className="gallery-grid">
-                {gallery.map((photo, index) => (
-                    <img key={index} src={photo.url} alt={`Foto ${index + 1}`} />
+        <div className={styles.galleryContainer}>
+            <h2 className={styles.title}>Galería</h2>
+            <div className={styles.galleryGrid}>
+                {gallery.map((image, index) => (
+                    <div key={index} className={styles.galleryItem}>
+                        <img 
+                            src={image.url} 
+                            alt={`Imagen ${index + 1} de la galería`}
+                            className={styles.galleryImage}
+                        />
+                    </div>
                 ))}
             </div>
-            <EditButtonAbsolute>
-                <EditButton context="gallery" />
-            </EditButtonAbsolute>
-        </section>
-    )
-}
+
+            {isConfig && (
+                <EditButtonAbsolute>
+                    <EditButton context="gallery" />
+                </EditButtonAbsolute>
+            )}
+        </div>
+    );
+};
 
 export default GallerySection;

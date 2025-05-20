@@ -1,23 +1,29 @@
-import { ServicePage } from "../../../../types/types";
+import { ServiceProviderPage } from "../../../../types/types";
 import EditButtonAbsolute from "../EditButtonAbsolute";
 import EditButton from "../EditButton";
+import { useConfig } from "../../context/ConfigFlagContext";
+import styles from './ProviderInformation.module.css';
 
-type ProviderInformationProps = Pick<ServicePage, 'enterpriseName' | 'rating' | 'typeService' | 'phone'>;
+type ProviderInformationProps = Pick<ServiceProviderPage, 'enterpriseName' | 'rating' | 'typeService'>;
 
-const ProviderInformation = ({ enterpriseName, rating, typeService, phone }: ProviderInformationProps) => {
+const ProviderInformation = ({ enterpriseName, rating, typeService }: ProviderInformationProps) => {
+    const { isConfig } = useConfig();
+
     return (
-        <div className="serviceProvider-info">
-            <h2>{enterpriseName}</h2>
-            <p className="rating"><strong>Calificación: {rating}</strong>⭐</p>
-            <p className="description"><strong>Oficio:</strong> {typeService}</p>
-            <section className="contact">
-                <button aria-label="Llamar al proveedor de servicios">Llamar</button>
-                <p>Teléfono: {phone}</p>
-            </section>
-            <EditButtonAbsolute>
-                <EditButton context="information" />
-            </EditButtonAbsolute>
+        <div className={styles.infoContainer}>
+            <h2 className={styles.title}>{enterpriseName}</h2>
+            <p className={styles.rating}>
+                <strong>Calificación: {rating?.toFixed(1)}</strong>⭐
+            </p>
+            <p className={styles.description}>
+                <strong>Oficio:</strong> {typeService}
+            </p>
 
+            {isConfig && (
+                <EditButtonAbsolute>
+                    <EditButton context="logo" />
+                </EditButtonAbsolute>
+            )}
         </div>
     );
 };

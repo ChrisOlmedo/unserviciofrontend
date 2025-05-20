@@ -13,6 +13,7 @@ import Conditionals from './pages/Legals/Conditions'
 import ServiceProviderPage from './modules/service-provider/public/pages/ServiceProviderPage'
 import MainServices from './modules/services/pages/MainServices'
 import ServiceProviderConfigPage from './modules/service-provider/account/config-page/pages/ServiceProviderConfigPage'
+import ServiceProviderPagePrueba from './types/prueba'
 
 //Context
 import ServiceProvider from './modules/services/context/providerServicesContext';
@@ -67,6 +68,8 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             {/* Solo son pruebas */}
             <Route path="/login-provider" element={<LoginProvider />} />
+            <Route path="/prueba" element={<ServiceProviderPagePrueba />} />
+            {/* Fin de pruebas */}
             <Route path="*" element={<NoPage />} />
           </Routes>
         </ServiceProvider>

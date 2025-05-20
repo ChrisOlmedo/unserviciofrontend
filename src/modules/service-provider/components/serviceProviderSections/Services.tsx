@@ -1,12 +1,11 @@
 import EditButton from "../EditButton";
 import EditButtonAbsolute from "../EditButtonAbsolute";
+import { useConfig } from "../../context/ConfigFlagContext";
 
 const Services = ({ services }: { services: string[] }) => {
+    const { isConfig } = useConfig();
+
     return (
-
-
-
-
         <section className="services">
             <div className="services-tarjet">
                 <h2>Servicios</h2>
@@ -17,10 +16,11 @@ const Services = ({ services }: { services: string[] }) => {
                 </ul>
             </div>
 
-
-            <EditButtonAbsolute>
-                <EditButton context="services" />
-            </EditButtonAbsolute>
+            {isConfig && (
+                <EditButtonAbsolute>
+                    <EditButton context="services" />
+                </EditButtonAbsolute>
+            )}
         </section>
     );
 }

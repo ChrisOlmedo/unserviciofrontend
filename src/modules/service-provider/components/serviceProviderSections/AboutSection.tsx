@@ -1,16 +1,20 @@
 import EditButton from "../EditButton";
 import EditButtonAbsolute from "../EditButtonAbsolute";
+import { useConfig } from "../../context/ConfigFlagContext";
 
 const AboutSection = ({ aboutSection }: { aboutSection: string }) => {
-    return (
+    const { isConfig } = useConfig();
 
-        <section className="aboutMe">
+    return (
+        <section>
             <h2>Quien soy/Quienes somos</h2>
             <p>{aboutSection}</p>
 
-            <EditButtonAbsolute>
-                <EditButton context="about" />
-            </EditButtonAbsolute>
+            {isConfig && (
+                <EditButtonAbsolute>
+                    <EditButton context="about" />
+                </EditButtonAbsolute>
+            )}
         </section>
     );
 }
