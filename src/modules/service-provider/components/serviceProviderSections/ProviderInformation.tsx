@@ -21,7 +21,7 @@ const ProviderInformation = ({ enterpriseName, rating, typeService }: ProviderIn
 
             {isConfig && (
                 <EditButtonAbsolute>
-                    <EditButton context="logo" />
+                    <EditButton context="information" />
                 </EditButtonAbsolute>
             )}
         </div>

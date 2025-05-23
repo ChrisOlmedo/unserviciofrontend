@@ -1,0 +1,32 @@
+.editButton {
+    background: white;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    height: 35px;
+    width: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.editButton:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.editButton.complete {
+    color: #22c55e;
+}
+
+.editButton.incomplete {
+    color: #ef4444;
+}
+
+.editButton svg {
+    height: 100%;
+    width: 100%;
+} 

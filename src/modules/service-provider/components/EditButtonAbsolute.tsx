@@ -1,8 +1,9 @@
 import { ReactNode } from 'react';
+import styles from './EditButtonAbsolute.module.css';
 
 const EditButtonAbsolute = ({ children }: { children: ReactNode }) => {
     return (
-        <div style={{ height: '25px', width: 'auto', position: 'absolute', top: '0', right: '0', }} >
+        <div className={styles.editButtonContainer}>
             {children}
         </div>
     );

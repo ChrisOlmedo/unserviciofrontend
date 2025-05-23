@@ -5,6 +5,8 @@ import EditButtonAbsolute from "../EditButtonAbsolute";
 import EditButton from "../EditButton";
 import { Image } from "../../../../types/types";
 import { FaPhone, FaWhatsapp, FaEnvelope, FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { useConfig } from '../../context/ConfigFlagContext';
+
 
 interface ProfileSidebarProps {
     logo: Image;
@@ -14,7 +16,6 @@ interface ProfileSidebarProps {
     phone: string;
     email?: string;
     address?: string;
-    isConfig?: boolean;
 }
 
 const ProfileSidebar = ({
@@ -25,10 +26,9 @@ const ProfileSidebar = ({
     phone,
     email,
     address,
-    isConfig,
 }: ProfileSidebarProps) => {
     const [showContact, setShowContact] = useState(false);
-
+    const { isConfig } = useConfig();
     const toggleContact = () => {
         setShowContact(!showContact);
     };
@@ -41,90 +41,109 @@ const ProfileSidebar = ({
         <div className={styles.sidebar}>
             <div className={styles.profileCard}>
                 <div className={styles.logoContainer}>
-                    <img 
-                        src={logo.url} 
-                        alt="Logo del prestador de servicios" 
-                        className={styles.profileImage} 
-                    />
-
-                </div>
-                <ProviderInformation
-                    enterpriseName={enterpriseName}
-                    rating={rating}
-                    typeService={typeService}
-                />
-                
-                <div className={styles.contactActions}>
-                    <a 
-                        href={`tel:${formatPhone(phone)}`}
-                        className={styles.actionButton}
-                        aria-label="Llamar al proveedor"
-                    >
-                        <FaPhone className={styles.actionIcon} />
-                        Llamar
-                    </a>
-                    <a 
-                        href={`https://wa.me/${formatPhone(phone)}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={styles.actionButton}
-                        aria-label="Contactar por WhatsApp"
-                    >
-                        <FaWhatsapp className={styles.actionIcon} />
-                        WhatsApp
-                    </a>
-                    {email && (
-                        <a 
-                            href={`mailto:${email}`}
-                            className={styles.actionButton}
-                            aria-label="Enviar correo electrónico"
-                        >
-                            <FaEnvelope className={styles.actionIcon} />
-                            Correo
-                        </a>
+                    {isConfig && (
+                        <EditButtonAbsolute>
+                            <EditButton context="logo" />
+                        </EditButtonAbsolute>
                     )}
+                    <div className={styles.logoWrapper}>
+                        <img 
+                            src={logo.url} 
+                            alt="Logo del prestador de servicios" 
+                            className={styles.profileImage} 
+                        />
+                    </div>
                 </div>
 
-                <button 
-                    className={styles.showContactButton}
-                    onClick={toggleContact}
-                    aria-label={showContact ? "Ocultar datos de contacto" : "Ver datos de contacto"}
-                >
-                    <span>Ver datos de contacto</span>
-                    {showContact ? <FaChevronUp /> : <FaChevronDown />}
-                </button>
+                <div className={styles.infoContainer}>
+                    {isConfig && (
+                        <EditButtonAbsolute>
+                            <EditButton context="information" />
+                        </EditButtonAbsolute>
+                    )}
+                    
+                    <div className={styles.businessInfo}>
+                        <h2 className={styles.enterpriseName}>{enterpriseName}</h2>
+                        <div className={styles.ratingContainer}>
+                            <div className={styles.ratingInfo}>
+                                <span className={styles.ratingNumber}>{rating.toFixed(1)}</span>
+                                <span className={styles.starFilled}>★</span>
+                            </div>
+                            <span className={styles.reviewCount}>• {rating} reseñas</span>
+                        </div>
+                        <div className={styles.serviceType}>
+                            <span className={styles.serviceBadge}>{typeService}</span>
+                        </div>
+                    </div>
 
-                {showContact && (
-                    <div className={styles.contactDetails}>
-                        <div className={styles.contactItem}>
-                            <FaPhone className={styles.contactIcon} />
-                            <span>{phone}</span>
-                        </div>
+                    <div className={styles.contactActions}>
+                        <a 
+                            href={`tel:${formatPhone(phone)}`}
+                            className={styles.actionButton}
+                            aria-label="Llamar al proveedor"
+                        >
+                            <FaPhone className={styles.actionIcon} />
+                            <span className={styles.actionText}>Llamar</span>
+                        </a>
+                        <a 
+                            href={`https://wa.me/${formatPhone(phone)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.actionButton}
+                            aria-label="Contactar por WhatsApp"
+                        >
+                            <FaWhatsapp className={styles.actionIcon} />
+                            <span className={styles.actionText}>WhatsApp</span>
+                        </a>
                         {email && (
-                            <div className={styles.contactItem}>
-                                <FaEnvelope className={styles.contactIcon} />
-                                <span>{email}</span>
-                            </div>
-                        )}
-                        <div className={styles.contactItem}>
-                            <FaWhatsapp className={styles.contactIcon} />
-                            <span>{phone}</span>
-                        </div>
-                        {address && (
-                            <div className={styles.contactItem}>
-                                <span className={styles.contactIcon}>📍</span>
-                                <span>{address}</span>
-                            </div>
+                            <a 
+                                href={`mailto:${email}`}
+                                className={styles.actionButton}
+                                aria-label="Enviar correo electrónico"
+                            >
+                                <FaEnvelope className={styles.actionIcon} />
+                                <span className={styles.actionText}>Correo</span>
+                            </a>
                         )}
                     </div>
-                )}
-            </div>
 
-            {isConfig && (
-                <EditButtonAbsolute>
-                    <EditButton context="information" />
-                </EditButtonAbsolute>
-            )}
+                    <button 
+                        className={styles.showContactButton}
+                        onClick={toggleContact}
+                        aria-label={showContact ? "Ocultar datos de contacto" : "Ver datos de contacto"}
+                    >
+                        <span className={styles.contactButtonText}>
+                            {showContact ? "Ocultar datos de contacto" : "Ver datos de contacto"}
+                        </span>
+                        {showContact ? <FaChevronUp /> : <FaChevronDown />}
+                    </button>
+
+                    {showContact && (
+                        <div className={styles.contactDetails}>
+                            <div className={styles.contactItem}>
+                                <FaPhone className={styles.contactIcon} />
+                                <span>{phone}</span>
+                            </div>
+                            {email && (
+                                <div className={styles.contactItem}>
+                                    <FaEnvelope className={styles.contactIcon} />
+                                    <span>{email}</span>
+                                </div>
+                            )}
+                            <div className={styles.contactItem}>
+                                <FaWhatsapp className={styles.contactIcon} />
+                                <span>{phone}</span>
+                            </div>
+                            {address && (
+                                <div className={styles.contactItem}>
+                                    <span className={styles.contactIcon}>📍</span>
+                                    <span>{address}</span>
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </div>
+            </div>
         </div>
     );
 };
