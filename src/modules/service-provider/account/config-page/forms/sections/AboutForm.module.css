@@ -1,0 +1,64 @@
+.aboutContainer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.label {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+.textarea {
+    width: 100%;
+    min-height: 200px;
+    padding: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    line-height: 1.5;
+    resize: vertical;
+    transition: all 0.3s ease;
+}
+
+.textarea:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.textarea::placeholder {
+    color: #95a5a6;
+}
+
+.errorMessage {
+    color: #e74c3c;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background-color: #fdf3f2;
+    border-radius: 4px;
+    border-left: 3px solid #e74c3c;
+}
+
+.characterCount {
+    font-size: 0.85rem;
+    color: #7f8c8d;
+    text-align: right;
+    margin-top: 0.5rem;
+}
+
+.characterCount.warning {
+    color: #f39c12;
+}
+
+.characterCount.error {
+    color: #e74c3c;
+} 

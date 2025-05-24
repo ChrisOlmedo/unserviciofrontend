@@ -1,0 +1,74 @@
+.serviceEditor {
+    max-width: 600px;
+    min-width: 400px;
+    margin: 0 auto;
+}
+
+.inputGroup {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.serviceInput {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.addButton {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.addButton:hover {
+    background: #45a049;
+}
+
+.servicesList {
+    padding: 0;
+    min-height: 50px;
+    list-style: none;
+}
+
+.serviceItem {
+    background: #f1f8ff;
+    padding: 12px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 4px solid #3498db;
+    transition: transform 0.2s;
+}
+
+.serviceItem:hover {
+    transform: translateX(5px);
+}
+
+.deleteButton {
+    color: #e74c3c;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 16px;
+    padding: 5px;
+    transition: color 0.3s;
+}
+
+.deleteButton:hover {
+    color: #c0392b;
+}
+
+.saveMessage {
+    color: #27ae60;
+    font-size: 14px;
+    margin-top: 10px;
+} 

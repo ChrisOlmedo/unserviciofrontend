@@ -9,7 +9,6 @@
 
 .sidebar {
     position: sticky;
-    top: 2rem;
     width: 350px;
     height: fit-content;
     display: flex;

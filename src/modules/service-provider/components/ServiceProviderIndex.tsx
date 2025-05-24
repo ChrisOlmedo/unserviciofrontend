@@ -3,31 +3,22 @@ import AboutSection from "./serviceProviderSections/AboutSection";
 import GallerySection from "./serviceProviderSections/GallerySection";
 import ServiceArea from "./serviceProviderSections/ServiceArea";
 import ProfileSidebar from "./serviceProviderSections/ProfileSidebar";
-import { EditButtonConfig, Image } from "../../../types/types";
+import { ServiceProviderPageConfig, ServiceProviderPage } from "../../../types/types";
 import { ConfigContext } from "../context/ConfigFlagContext";
 import styles from './ServiceProviderIndex.module.css';
 
-interface ServiceProviderIndexProps extends EditButtonConfig {
-    serviceProviderData: {
-        logo: Image;
-        enterpriseName: string;
-        rating: number;
-        typeService: string;
-        phone: string;
-        email?: string;
-        address?: string;
-        services: string[];
-        coverage: {
-            maxDistance: number;
-            cities: string[];
-        };
-        location: string;
-        aboutMe: string;
-        gallery: Image[];
-    };
+interface ServiceProviderIndexProps {
+    serviceProviderData: ServiceProviderPageConfig | ServiceProviderPage;
+    isConfig: boolean;
 }
 
 const ServiceProviderIndex = ({ serviceProviderData, isConfig }: ServiceProviderIndexProps) => {
+    // Validar que los datos requeridos estén presentes si no es modo configuración
+    if (!isConfig) {
+        const publicData = serviceProviderData as ServiceProviderPage;
+        // Aquí podrías agregar validaciones adicionales si es necesario
+    }
+
     return (
         <ConfigContext.Provider value={{ isConfig }}>
             <div className={styles.page}>

@@ -70,12 +70,14 @@ const Header = () => {
                         )}
                     </div>
                 </div>
+                {/*
                 <div className={styles.headerBottom}>
                     <div className={styles.headerBottomContainer}>
                         <RiMapPinRangeFill color="white" size={"20px"} />
                         <span>{location}</span>
                     </div>
                 </div>
+                */}
             </header>
         </>
     );
