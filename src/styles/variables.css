@@ -1,0 +1,93 @@
+:root {
+    /* Colors */
+    --color-primary: #1a365d;      /* Azul corporativo oscuro */
+    --color-primary-dark: #0f2942;
+    --color-primary-darker: #0a1f33;
+    --color-primary-light: #2c5282;
+    
+    --color-danger: #9b2c2c;       /* Rojo corporativo */
+    --color-danger-dark: #822727;
+    --color-danger-darker: #63171b;
+    --color-danger-light: #b91c1c;
+    
+    --color-success: #1a365d;      /* Mismo azul corporativo para éxito */
+    --color-success-dark: #0f2942;
+    --color-success-darker: #0a1f33;
+    --color-success-light: #2c5282;
+    
+    --color-warning: #9b2c2c;      /* Mismo rojo corporativo para advertencias */
+    --color-warning-dark: #822727;
+    --color-warning-darker: #63171b;
+    --color-warning-light: #b91c1c;
+    
+    --color-gray-50: #f9fafb;
+    --color-gray-100: #f3f4f6;
+    --color-gray-200: #e5e7eb;
+    --color-gray-300: #d1d5db;
+    --color-gray-400: #9ca3af;
+    --color-gray-500: #6b7280;
+    --color-gray-600: #4b5563;
+    --color-gray-700: #374151;
+    --color-gray-800: #1f2937;
+    --color-gray-900: #111827;
+
+    /* Header Colors */
+    --header-bg: #000000;
+    --header-bg-transparent: rgba(0, 0, 0, 0.8);
+    --header-text: #ffffff;
+    --header-border: #ffffff;
+    --header-search-bg: #dfdfdf;
+    --header-search-border: #ffffff;
+    --header-search-caret: rgb(98, 173, 155);
+    --header-bottom-bg: rgba(0, 0, 0, 0.4);
+
+    /* Service Provider Colors */
+    --sp-bg: #ffffff;
+    --sp-bg-alt: #f8f9fa;
+    --sp-text: #1a365d;
+    --sp-text-light: #4a5568;
+    --sp-border: #e2e8f0;
+    --sp-hover: #f7fafc;
+    --sp-shadow: rgba(0, 0, 0, 0.1);
+    --sp-rating: #1a365d;
+    --sp-rating-bg: #ebf8ff;
+    --sp-edit-bg: #ffffff;
+    --sp-edit-hover: #f7fafc;
+    --sp-edit-text: #1a365d;
+    --sp-edit-shadow: rgba(0, 0, 0, 0.1);
+    --sp-section-bg: #ffffff;
+    --sp-section-border: #e2e8f0;
+    --sp-section-hover: #f7fafc;
+    --sp-logo-bg: #ffffff;
+    --sp-logo-border: #e2e8f0;
+    --sp-logo-gradient-start: #1a365d;
+    --sp-logo-gradient-end: #2c5282;
+
+    /* Backdrop Filters */
+    --backdrop-blur-sm: blur(4px);
+    --backdrop-blur-md: blur(8px);
+    --backdrop-blur-lg: blur(12px);
+
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+
+    /* Border Radius */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.375rem;
+    --radius-lg: 0.5rem;
+    --radius-full: 9999px;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+
+    /* Transitions */
+    --transition-fast: 150ms;
+    --transition-normal: 300ms;
+    --transition-slow: 500ms;
+} 

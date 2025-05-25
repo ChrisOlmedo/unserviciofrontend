@@ -1,0 +1,144 @@
+.wrapper {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-md);
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--sp-text);
+    margin: 0 0 0 5vw;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    padding-right: 5vw;
+    gap: var(--spacing-md);
+}
+
+.viewMore {
+    background: none;
+    border: none;
+    color: var(--sp-primary);
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0;
+    font-size: 0.9rem;
+    transition: color var(--transition-normal);
+}
+
+.viewMore:hover {
+    color: var(--sp-primary-dark);
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    overflow: hidden;
+}
+
+.viewport {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+.slideContainer {
+    display: flex;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -khtml-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    margin-left: -10px;
+    width: 100%;
+}
+
+.slideContainer > * {
+    flex: 0 0 280px;
+    min-width: 0;
+    position: relative;
+    margin-left: 10px;
+    max-width: 280px;
+}
+
+.button {
+    background: var(--sp-bg-secondary);
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--sp-text);
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-normal);
+}
+
+.button:hover:not(:disabled) {
+    background: var(--sp-hover);
+    transform: scale(1.1);
+}
+
+.button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Gradientes para indicar scroll */
+.container::before,
+.container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.container::before {
+    left: 0;
+    width: 40px;
+    background: linear-gradient(to right, var(--sp-bg), transparent);
+}
+
+.container::after {
+    right: 0;
+    width: 100px;
+    background: linear-gradient(to left, var(--sp-bg), transparent);
+}
+
+.innerContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    display: flex;
+    gap: var(--spacing-md);
+    padding: 0 var(--spacing-lg);
+    transition: transform 0.1s ease-out;
+}
+
+.innerContainer > * {
+    flex: 0 0 280px; /* Ancho fijo para las tarjetas */
+    height: 100%;
+}
+
+@media (max-width: 768px) {
+    .slideContainer > * {
+        flex: 0 0 240px;
+        max-width: 240px;
+    }
+} 

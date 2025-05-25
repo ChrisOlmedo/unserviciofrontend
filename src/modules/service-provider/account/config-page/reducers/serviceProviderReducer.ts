@@ -6,7 +6,7 @@ export const initialStateServiceProviderPage: ServiceProviderPageConfig = {
     slug: "",
     enterpriseName: "",
     logo: { url: "", file: null },
-    typeService: "",
+    serviceCategories: [],
     rating: 0,
     phone: "",
     whatsapp: "",
@@ -55,6 +55,9 @@ export const serviceProviderReducer = (state: ServiceProviderPageConfig, action:
 
         case 'UPDATE_SERVICES':
             return { ...state, services: action.services };
+
+        case 'UPDATE_GALLERY':
+            return { ...state, gallery: action.gallery };
 
         case 'MARK_SECTION_COMPLETE':
             return {

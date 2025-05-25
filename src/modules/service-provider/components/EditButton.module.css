@@ -1,29 +1,38 @@
 .editButton {
-    background: white;
-    border: none;
-    padding: 8px;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: var(--sp-edit-bg);
+    color: var(--sp-edit-text);
+    border: 1px solid var(--sp-border);
+    padding: var(--spacing-xs);
+    border-radius: var(--radius-full);
     cursor: pointer;
-    height: 35px;
-    width: 35px;
+    transition: all var(--transition-normal);
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease;
-    border-radius: 50%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width: 35px;
+    height: 35px;
+    box-shadow: var(--sp-edit-shadow);
+    z-index: 10;
 }
 
 .editButton:hover {
+    background-color: var(--sp-edit-hover);
     transform: scale(1.1);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.editButton i {
+    font-size: 1.2rem;
 }
 
 .editButton.complete {
-    color: #22c55e;
+    color: var(--color-success);
 }
 
 .editButton.incomplete {
-    color: #ef4444;
+    color: var(--color-danger);
 }
 
 .editButton svg {

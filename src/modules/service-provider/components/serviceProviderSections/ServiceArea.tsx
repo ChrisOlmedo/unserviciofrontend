@@ -1,6 +1,7 @@
-import EditButtonAbsolute from "../EditButtonAbsolute";
-import EditButton from "../EditButton";
+import React from 'react';
 import styles from './ServiceArea.module.css';
+import EditButton from "../EditButton";
+import EditButtonAbsolute from "../EditButtonAbsolute";
 import { useConfig } from "../../context/ConfigFlagContext";
 
 interface ServiceAreaProps {
@@ -11,25 +12,28 @@ interface ServiceAreaProps {
     location: string;
 }
 
-const ServiceArea = ({ coverage, location }: ServiceAreaProps) => {
+const ServiceArea: React.FC<ServiceAreaProps> = ({ coverage, location }) => {
     const { isConfig } = useConfig();
 
     return (
-        <div className={styles.serviceAreaContainer}>
+        <section className={styles.section}>
+            <h2 className={styles.sectionTitle}>Área de Servicio</h2>
+
             <div className={styles.locationInfo}>
                 <div className={styles.locationCard}>
                     <h3>Ubicación Principal</h3>
-                    <p>{location || 'No especificada'}</p>
+                    <p>{location}</p>
                 </div>
+
                 <div className={styles.coverageCard}>
                     <h3>Radio de Cobertura</h3>
-                    <p>{coverage?.maxDistance ? `${coverage.maxDistance} km` : 'No especificado'}</p>
+                    <p>{coverage.maxDistance} km</p>
                 </div>
             </div>
-            
-            <div className={styles.citiesContainer}>
-                <h3>Ciudades de Cobertura</h3>
-                {coverage?.cities && coverage.cities.length > 0 ? (
+
+            <div className={styles.coverageContainer}>
+                <h3 className={styles.coverageTitle}>Ciudades de Cobertura</h3>
+                <div className={styles.citiesContainer}>
                     <div className={styles.citiesList}>
                         {coverage.cities.map((city, index) => (
                             <span key={index} className={styles.cityTag}>
@@ -37,14 +41,7 @@ const ServiceArea = ({ coverage, location }: ServiceAreaProps) => {
                             </span>
                         ))}
                     </div>
-                ) : (
-                    <div className={styles.emptyState}>
-                        <span className={styles.emptyStateIcon}>🏙️</span>
-                        <p className={styles.emptyStateText}>
-                            No se han especificado ciudades de cobertura
-                        </p>
-                    </div>
-                )}
+                </div>
             </div>
 
             {isConfig && (
@@ -52,7 +49,7 @@ const ServiceArea = ({ coverage, location }: ServiceAreaProps) => {
                     <EditButton context="information" />
                 </EditButtonAbsolute>
             )}
-        </div>
+        </section>
     );
 };
 

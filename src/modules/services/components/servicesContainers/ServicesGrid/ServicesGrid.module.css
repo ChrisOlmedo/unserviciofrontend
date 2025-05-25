@@ -1,0 +1,23 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 280px);
+    gap: var(--spacing-lg);
+    padding: var(--spacing-lg);
+    justify-content: center;
+}
+
+@media (max-width: 1024px) {
+    .grid {
+        grid-template-columns: repeat(auto-fill, 260px);
+        gap: var(--spacing-md);
+        padding: var(--spacing-md);
+    }
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(auto-fill, 240px);
+        gap: var(--spacing-sm);
+        padding: var(--spacing-sm);
+    }
+} 

@@ -1,44 +1,67 @@
 import { useServiceProvider } from "../../hooks/useServiceProvider";
-import { useEffect, useState, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import styles from './LogoForm.module.css';
+import SaveButton from "../../../../../../components/Button/SaveButton";
+import CancelButton from "../../../../../../components/Button/CancelButton";
+import { useTriggerListener } from '../../hooks/useTriggerListener';
+import { Image } from "../../../../../../types/types";
 
 export const LogoForm = () => {
-    const { serviceProviderState, saveForm } = useServiceProvider();
-    const [previewUrl, setPreviewUrl] = useState<string>(serviceProviderState.logo?.url || '');
+    const { logo, updateLogo } = useServiceProvider().logoSection();
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const [currentLogo, setCurrentLogo] = useState<Image>(logo);
+    const [error, setError] = useState(false);
+
+
+    const currentPreview = useMemo(() => {
+        return currentLogo.file
+            ? URL.createObjectURL(currentLogo.file)
+            : currentLogo.url;
+    }, [currentLogo.file, currentLogo.url]);
 
     const handleAddImage = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
-            const url = URL.createObjectURL(e.target.files[0]);
-            setPreviewUrl(url);
-            // Aquí deberías actualizar el estado del serviceProvider
+            setCurrentLogo({
+                file: e.target.files[0],
+                url: URL.createObjectURL(e.target.files[0])
+            });
         }
     };
 
     const handleDelete = () => {
-        setPreviewUrl('');
-        // Aquí deberías actualizar el estado del serviceProvider
+        setCurrentLogo({
+            file: null,
+            url: ''
+        });
     };
 
     const handleUploadClick = () => {
         fileInputRef.current?.click();
     };
-
-    useEffect(() => {
-        if (saveForm().shouldSave) {
-            saveForm().resetShouldSave();
-            console.log(serviceProviderState);
-        }
-    }, [saveForm().shouldSave]);
+    useTriggerListener({
+        validate: () => {
+            if (!currentLogo.file && !currentLogo.url) {
+                return false;
+            }
+            return true;
+        },
+        onError: () => {
+            setError(true);
+        },
+        onSave: () => {
+            console.log(currentLogo);
+            updateLogo(currentLogo);
+        },
+    });
 
     return (
         <div className={styles.logoContainer}>
             <div className={styles.previewContainer}>
-                {previewUrl ? (
+                {currentPreview ? (
                     <>
-                        <img 
-                            src={previewUrl} 
-                            alt="Logo preview" 
+                        <img
+                            src={currentPreview}
+                            alt="Logo preview"
                             className={styles.previewImage}
                         />
                         <div className={styles.uploadButton} onClick={handleUploadClick}>
@@ -58,21 +81,16 @@ export const LogoForm = () => {
                     className={styles.fileInput}
                 />
             </div>
-            
-            {previewUrl && (
+            {error && <span className={styles.error}>Debes subir un logo</span>}
+
+            {currentPreview && (
                 <div className={styles.actions}>
-                    <button 
-                        className={`${styles.actionButton} ${styles.deleteButton}`}
-                        onClick={handleDelete}
-                    >
+                    <CancelButton onClick={handleDelete}>
                         Eliminar
-                    </button>
-                    <button 
-                        className={`${styles.actionButton} ${styles.uploadNewButton}`}
-                        onClick={handleUploadClick}
-                    >
+                    </CancelButton>
+                    <SaveButton onClick={handleUploadClick}>
                         Subir nueva
-                    </button>
+                    </SaveButton>
                 </div>
             )}
         </div>

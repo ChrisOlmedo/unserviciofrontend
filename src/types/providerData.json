@@ -6,7 +6,10 @@
             "url": "https://electrosolucionesurgentes.com/images/thumbnail_Logopit_1611089485214.png",
             "file": null
         },
-        "typeService": "Electricidad",
+        "serviceCategories": [
+            "Electricidad",
+            "Instalacion General"
+        ],
         "rating": 4.5,
         "phone": "+52 33 1234 5678",
         "whatsapp": "33 1234 5678",
@@ -68,7 +71,9 @@
             "url": "https://cdn-icons-png.flaticon.com/512/2965/2965879.png",
             "file": null
         },
-        "typeService": "Plomería",
+        "serviceCategories": [
+            "Plomería"
+        ],
         "rating": 4.7,
         "phone": "33 8765 4321",
         "whatsapp": "33 8765 4321",
@@ -130,7 +135,9 @@
             "url": "https://cdn-icons-png.flaticon.com/512/3466/3466287.png",
             "file": null
         },
-        "typeService": "Mecánica Automotriz",
+        "serviceCategories": [
+            "Mecánica Automotriz"
+        ],
         "rating": 4.2,
         "phone": "33 5566 7788",
         "whatsapp": "33 5566 7788",
@@ -191,7 +198,9 @@
             "url": "https://cdn-icons-png.flaticon.com/512/869/869869.png",
             "file": null
         },
-        "typeService": "Carpintería de Aluminio",
+        "serviceCategories": [
+            "Carpintería de Aluminio"
+        ],
         "rating": 4.6,
         "phone": "33 7654 3210",
         "whatsapp": "33 7654 3210",
@@ -253,7 +262,9 @@
             "url": "https://cdn-icons-png.flaticon.com/512/2903/2903797.png",
             "file": null
         },
-        "typeService": "Pintura y Decoración",
+        "serviceCategories": [
+            "Pintura y Decoración"
+        ],
         "rating": 4.8,
         "phone": "33 9876 5432",
         "whatsapp": "33 9876 5432",

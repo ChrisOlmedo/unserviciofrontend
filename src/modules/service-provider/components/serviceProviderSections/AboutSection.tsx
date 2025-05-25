@@ -1,14 +1,23 @@
+import React from 'react';
+import styles from './AboutSection.module.css';
 import EditButton from "../EditButton";
 import EditButtonAbsolute from "../EditButtonAbsolute";
 import { useConfig } from "../../context/ConfigFlagContext";
 
-const AboutSection = ({ aboutSection }: { aboutSection: string }) => {
+interface AboutSectionProps {
+    aboutSection: string;
+    enterpriseName: string;
+}
+
+const AboutSection: React.FC<AboutSectionProps> = ({ aboutSection, enterpriseName }) => {
     const { isConfig } = useConfig();
 
     return (
-        <section>
-            <h2>Quien soy/Quienes somos</h2>
-            <p>{aboutSection}</p>
+        <section className={styles.section}>
+            <h2 className={styles.sectionTitle}>Sobre {enterpriseName}</h2>
+            <div className={styles.content}>
+                {aboutSection}
+            </div>
 
             {isConfig && (
                 <EditButtonAbsolute>
@@ -17,6 +26,6 @@ const AboutSection = ({ aboutSection }: { aboutSection: string }) => {
             )}
         </section>
     );
-}
+};
 
 export default AboutSection;

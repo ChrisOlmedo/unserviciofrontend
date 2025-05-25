@@ -12,7 +12,7 @@ export interface UserState extends userData {
     isLoading: boolean;
 }
 
-export type RouteSection = 'logo' | 'about' | 'services' | 'gallery' | 'information' ;
+export type RouteSection = 'logo' | 'about' | 'services' | 'gallery' | 'information';
 export type CompletionStatus = Record<RouteSection, boolean>;
 
 // Types básicos
@@ -28,8 +28,8 @@ export interface ProviderBasicInfo {
     slug?: string;
     enterpriseName: string;
     logo: Image;
-    typeService: string;
-    rating?: number;
+    serviceCategories: string[];
+    rating: number;
 }
 
 // Interfaces de información de contacto
@@ -42,9 +42,9 @@ export interface ProviderContactInfo {
 // Interfaces de área de servicio
 export interface ProviderServiceArea {
     location: string;
-    coverage?: {
+    coverage: {
         maxDistance: number; // en kilómetros
-        cities?: string[]; // ciudades específicas
+        cities: string[]; // ciudades específicas
     };
 }
 
@@ -71,7 +71,7 @@ export interface FormState {
 
 export interface ServiceCard extends ProviderServiceArea, ProviderBasicInfo { }
 
-export interface ServiceProviderData extends ServiceCard, ProviderContactInfo, ProviderPageContent {}
+export interface ServiceProviderData extends ServiceCard, ProviderContactInfo, ProviderPageContent { }
 
 //interfaces para la pagina de configuarcion del prestador de servicio
 export interface ServiceProviderPageConfig extends
@@ -80,10 +80,10 @@ export interface ServiceProviderPageConfig extends
     Modifiable {
     completionStatus: CompletionStatus;
 }
-export interface ServiceProviderPage extends 
+export interface ServiceProviderPage extends
     ServiceProviderData {
-        reviews: Review[];
-    }
+    reviews: Review[];
+}
 
 export interface EditButtonConfig {
     isConfig: boolean;

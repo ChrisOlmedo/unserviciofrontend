@@ -9,19 +9,19 @@
 
 .header a {
     text-decoration: none;
-    color: white;
+    color: var(--header-text);
 }
 
 .headerSpace {
     height: 60px;
-    background: #000;
+    background: var(--header-bg);
 }
 
 .headerContainer {
     display: flex;
     align-items: center;
-    gap: 15px;
-    background-color: #000;
+    gap: var(--spacing-md);
+    background-color: var(--header-bg);
     height: 100%;
     width: 100%;
 }
@@ -33,15 +33,15 @@
 }
 
 .headerBottomContainer {
-    backdrop-filter: blur(5px);
+    backdrop-filter: var(--backdrop-blur-sm);
     height: 100%;
     padding: 0 50px 0 20px;
-    color: white;
-    background-color: rgba(0, 0, 0, 0.4);
-    border-radius: 0 0 10px 0;
+    color: var(--header-text);
+    background-color: var(--header-bottom-bg);
+    border-radius: 0 0 var(--radius-md) 0;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: var(--spacing-sm);
 }
 
 .headerBottomContainer span {
@@ -55,7 +55,6 @@
 }
 
 @media (max-width: 768px) {
-
     .loginSpan,
     .header :global(#logo-title) {
         display: none;
@@ -67,24 +66,23 @@
 }
 
 @media (min-width: 768px) {
-
     .headerContainer {
-        padding-right: 30px;
+        padding-right: var(--spacing-lg);
     }
 
     .searchContainer {
-        padding: 0 30px;
+        padding: 0 var(--spacing-lg);
     }
 }
 
 .logoContainer {
     flex: 0 0 auto;
-    color: #ffffff;
-    padding: 0 15px 0 10px;
-    border-right: 1px solid #ffffff;
+    color: var(--header-text);
+    padding: 0 var(--spacing-md) 0 var(--spacing-sm);
+    border-right: 1px solid var(--header-border);
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: var(--spacing-md);
 }
 
 .searchContainer {
@@ -98,19 +96,19 @@
     align-items: center;
     width: 100%;
     height: 45px;
-    background-color: #dfdfdf;
-    border: 1px solid #ffffff;
-    border-radius: 5px;
-    transition: width 0.3s ease;
+    background-color: var(--header-search-bg);
+    border: 1px solid var(--header-search-border);
+    border-radius: var(--radius-md);
+    transition: width var(--transition-normal);
 }
 
 .searchInput {
     width: 100%;
     height: 100%;
-    padding-right: 0.5em;
+    padding-right: var(--spacing-sm);
     border: none;
-    background-color: #dfdfdf;
-    caret-color: rgb(98, 173, 155);
+    background-color: var(--header-search-bg);
+    caret-color: var(--header-search-caret);
 }
 
 .searchInput:focus {
@@ -118,15 +116,15 @@
 }
 
 .searchIcon {
-    color: rgb(98, 173, 155);
-    padding: 0 10px;
+    color: var(--header-search-caret);
+    padding: 0 var(--spacing-sm);
 }
 
 .searchButton {
     border: none;
-    background-color: #dfdfdf;
+    background-color: var(--header-search-bg);
     cursor: pointer;
-    padding: 0 10px;
+    padding: 0 var(--spacing-sm);
 }
 
 .loginProfile {
@@ -136,7 +134,7 @@
 .loginContainer {
     display: flex;
     align-items: center;
-    color: #ffffff;
+    color: var(--header-text);
 }
 
 .loginSpan {
@@ -146,6 +144,6 @@
 
 .profileContainer {
     flex: 0 0 auto;
-    padding: 0 15px;
-    border-left: 1px solid #ffffff;
+    padding: 0 var(--spacing-md);
+    border-left: 1px solid var(--header-border);
 }

@@ -1,10 +1,10 @@
-import { useReducer, useRef } from "react";
+import { useReducer, useRef, useState } from "react";
 import styles from './GalleryForm.module.css';
+import { useTriggerListener } from '../../hooks/useTriggerListener';
+import { useServiceProvider } from "../../hooks/useServiceProvider";
+import { Image } from "../../../../../../types/types";
 
-interface Image {
-    url: string;
-    file?: File;
-}
+
 
 interface GalleryAction {
     type: 'ADD' | 'REMOVE' | 'UPDATE';
@@ -17,6 +17,10 @@ const MAX_IMAGES = 6;
 
 export const GalleryForm = () => {
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const fileUpdateRef = useRef<HTMLInputElement>(null);
+    const [indexToUpdate, setIndexToUpdate] = useState<number | undefined>();
+
+    const { gallery: galleryInitial, updateGallery } = useServiceProvider().gallerySection();
 
     function galleryReducer(state: Image[], action: GalleryAction): Image[] {
         switch (action.type) {
@@ -35,8 +39,7 @@ export const GalleryForm = () => {
                 return state;
         }
     }
-
-    const [gallery, dispatchGallery] = useReducer(galleryReducer, []);
+    const [gallery, dispatchGallery] = useReducer(galleryReducer, galleryInitial);
 
     const handleAddImage = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
@@ -50,23 +53,42 @@ export const GalleryForm = () => {
         dispatchGallery({ type: "REMOVE", index });
     };
 
-    const handleUpdateImage = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleUpdateImage = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
             const url = URL.createObjectURL(file);
-            dispatchGallery({ type: "UPDATE", index, url, file });
+            dispatchGallery({ type: "UPDATE", index: indexToUpdate, url, file });
         }
     };
+    const handleUpdate = (index: number) => {
+        setIndexToUpdate(index);
+        fileUpdateRef.current?.click();
+    }
 
     const handleUploadClick = () => {
         fileInputRef.current?.click();
     };
 
+    useTriggerListener({
+        validate: () => {
+            if (gallery.length === 0) {
+                return false;
+            }
+            return true;
+        },
+        onError: () => {
+            console.error("Error: No images to save");
+        },
+        onSave: () => {
+            updateGallery(gallery);
+        },
+    });
+
     return (
         <div className={styles.galleryContainer}>
             <div className={styles.galleryHeader}>
                 <h2 className={styles.galleryTitle}>Galería de Imágenes</h2>
-                <button 
+                <button
                     className={styles.uploadButton}
                     onClick={handleUploadClick}
                     disabled={gallery.length >= MAX_IMAGES}
@@ -82,23 +104,30 @@ export const GalleryForm = () => {
                 onChange={handleAddImage}
                 className={styles.fileInput}
             />
+            <input
+                ref={fileUpdateRef}
+                type="file"
+                accept="image/*"
+                onChange={handleUpdateImage}
+                className={styles.fileInput}
+            />
 
             <div className={styles.galleryGrid}>
                 {gallery.map((img, index) => (
                     <div key={index} className={styles.imageContainer}>
-                        <img 
-                            src={img.url} 
-                            alt={`Galería ${index + 1}`} 
+                        <img
+                            src={img.url}
+                            alt={`Galería ${index + 1}`}
                             className={styles.imagePreview}
                         />
                         <div className={styles.imageOverlay}>
-                            <button 
+                            <button
                                 className={`${styles.actionButton} ${styles.editButton}`}
-                                onClick={() => fileInputRef.current?.click()}
+                                onClick={() => handleUpdate(index)}
                             >
                                 ✏️
                             </button>
-                            <button 
+                            <button
                                 className={`${styles.actionButton} ${styles.deleteButton}`}
                                 onClick={() => handleRemoveImage(index)}
                             >
@@ -107,9 +136,9 @@ export const GalleryForm = () => {
                         </div>
                     </div>
                 ))}
-                
+
                 {gallery.length < MAX_IMAGES && (
-                    <div 
+                    <div
                         className={`${styles.imageContainer} ${styles.empty}`}
                         onClick={handleUploadClick}
                     >

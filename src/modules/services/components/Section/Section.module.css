@@ -1,0 +1,22 @@
+.section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.title {
+    font-size: 1.5rem;
+    color: var(--sp-text);
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 2px solid var(--sp-border);
+}
+
+@media (max-width: 768px) {
+    .section {
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .title {
+        font-size: 1.25rem;
+        margin-bottom: var(--spacing-md);
+    }
+} 

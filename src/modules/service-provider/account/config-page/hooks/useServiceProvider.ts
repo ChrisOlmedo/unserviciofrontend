@@ -1,10 +1,21 @@
 import { useServiceProviderContext } from '../context/ServiceProviderConfigContext.tsx';
 import { CompletionStatus } from '../../../../../types/types'; // Adjust the path as needed
+import { Image } from '../../../../../types/types';
 
 
 export const useServiceProvider = () => {
 
     const { serviceProviderState, ServiceProviderDispatch } = useServiceProviderContext();
+
+    const logoSection = () => {
+        const { logo } = serviceProviderState;
+        return {
+            logo,
+            updateLogo: (value: Image) => {
+                ServiceProviderDispatch({ type: 'UPDATE_LOGO', logo: value });
+            },
+        };
+    }
 
     const aboutMeSection = () => {
         const { aboutMe } = serviceProviderState;
@@ -22,6 +33,16 @@ export const useServiceProvider = () => {
             services,
             updateServices: (value: string[]) => {
                 ServiceProviderDispatch({ type: 'UPDATE_SERVICES', services: value });
+            },
+        };
+    }
+
+    const gallerySection = () => {
+        const { gallery } = serviceProviderState;
+        return {
+            gallery,
+            updateGallery: (value: Image[]) => {
+                ServiceProviderDispatch({ type: 'UPDATE_GALLERY', gallery: value });
             },
         };
     }
@@ -61,10 +82,12 @@ export const useServiceProvider = () => {
 
 
     return {
+        logoSection,
         serviceProviderState,
         ServiceProviderDispatch,
         aboutMeSection,
         servicesSection,
+        gallerySection,
         completionStatus,
         saveForm,
         hasChangesForm,

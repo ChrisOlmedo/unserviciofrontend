@@ -23,7 +23,7 @@ const ServiceProviderPage = () => {
                     <Reviews reviews={dataService.reviews} />
                 </section>
                 <section className={styles.contactSection}>
-                    <h2 className={styles.sectionTitle}>Contacto</h2>
+                    <h2 className={styles.sectionTitle}>Haz una cotización o solicita un servicio</h2>
                     <ContactForm />
                 </section>
             </div>

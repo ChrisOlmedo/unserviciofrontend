@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import styles from './ProfileSidebar.module.css';
-import ProviderInformation from './ProviderInformation';
 import EditButtonAbsolute from "../EditButtonAbsolute";
 import EditButton from "../EditButton";
 import { Image } from "../../../../types/types";
@@ -12,20 +11,20 @@ interface ProfileSidebarProps {
     logo: Image;
     enterpriseName: string;
     rating: number;
-    typeService: string;
+    serviceCategories: string[];
     phone: string;
     email?: string;
-    address?: string;
+    location?: string;
 }
 
 const ProfileSidebar = ({
     logo,
     enterpriseName,
     rating,
-    typeService,
+    serviceCategories,
     phone,
     email,
-    address,
+    location,
 }: ProfileSidebarProps) => {
     const [showContact, setShowContact] = useState(false);
     const { isConfig } = useConfig();
@@ -47,10 +46,10 @@ const ProfileSidebar = ({
                         </EditButtonAbsolute>
                     )}
                     <div className={styles.logoWrapper}>
-                        <img 
-                            src={logo.url} 
-                            alt="Logo del prestador de servicios" 
-                            className={styles.profileImage} 
+                        <img
+                            src={logo.url}
+                            alt="Logo del prestador de servicios"
+                            className={styles.profileImage}
                         />
                     </div>
                 </div>
@@ -61,7 +60,7 @@ const ProfileSidebar = ({
                             <EditButton context="information" />
                         </EditButtonAbsolute>
                     )}
-                    
+
                     <div className={styles.businessInfo}>
                         <h2 className={styles.enterpriseName}>{enterpriseName}</h2>
                         <div className={styles.ratingContainer}>
@@ -71,13 +70,19 @@ const ProfileSidebar = ({
                             </div>
                             <span className={styles.reviewCount}>• {rating} reseñas</span>
                         </div>
-                        <div className={styles.serviceType}>
-                            <span className={styles.serviceBadge}>{typeService}</span>
-                        </div>
+                        {serviceCategories && (
+                            <div className={styles.serviceType}>
+                                {serviceCategories.map((category, index) => (
+                                    <span key={index} className={styles.serviceBadge}>
+                                        {category}
+                                    </span>
+                                ))}
+                            </div>
+                        )}
                     </div>
 
                     <div className={styles.contactActions}>
-                        <a 
+                        <a
                             href={`tel:${formatPhone(phone)}`}
                             className={styles.actionButton}
                             aria-label="Llamar al proveedor"
@@ -85,7 +90,7 @@ const ProfileSidebar = ({
                             <FaPhone className={styles.actionIcon} />
                             <span className={styles.actionText}>Llamar</span>
                         </a>
-                        <a 
+                        <a
                             href={`https://wa.me/${formatPhone(phone)}`}
                             target="_blank"
                             rel="noopener noreferrer"
@@ -95,19 +100,17 @@ const ProfileSidebar = ({
                             <FaWhatsapp className={styles.actionIcon} />
                             <span className={styles.actionText}>WhatsApp</span>
                         </a>
-                        {email && (
-                            <a 
-                                href={`mailto:${email}`}
-                                className={styles.actionButton}
-                                aria-label="Enviar correo electrónico"
-                            >
-                                <FaEnvelope className={styles.actionIcon} />
-                                <span className={styles.actionText}>Correo</span>
-                            </a>
-                        )}
+                        <a
+                            href={`mailto:${email}`}
+                            className={styles.actionButton}
+                            aria-label="Enviar correo electrónico"
+                        >
+                            <FaEnvelope className={styles.actionIcon} />
+                            <span className={styles.actionText}>Correo</span>
+                        </a>
                     </div>
 
-                    <button 
+                    <button
                         className={styles.showContactButton}
                         onClick={toggleContact}
                         aria-label={showContact ? "Ocultar datos de contacto" : "Ver datos de contacto"}
@@ -124,20 +127,18 @@ const ProfileSidebar = ({
                                 <FaPhone className={styles.contactIcon} />
                                 <span>{phone}</span>
                             </div>
-                            {email && (
-                                <div className={styles.contactItem}>
-                                    <FaEnvelope className={styles.contactIcon} />
-                                    <span>{email}</span>
-                                </div>
-                            )}
+                            <div className={styles.contactItem}>
+                                <FaEnvelope className={styles.contactIcon} />
+                                <span>{email}</span>
+                            </div>
                             <div className={styles.contactItem}>
                                 <FaWhatsapp className={styles.contactIcon} />
                                 <span>{phone}</span>
                             </div>
-                            {address && (
+                            {location && (
                                 <div className={styles.contactItem}>
                                     <span className={styles.contactIcon}>📍</span>
-                                    <span>{address}</span>
+                                    <span>{location}</span>
                                 </div>
                             )}
                         </div>

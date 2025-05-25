@@ -21,23 +21,35 @@ const FormModal = ({ formConfig }: FormModalProps) => {
 
     const { title, component: Component } = formConfig;
     const [showConfirmModal, setShowConfirmModal] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     const handleClose = () => {
         if (hasChangesForm().hasChangesForm) {
-            setShowConfirmModal(true); // Mostrar modal de confirmación
+            setShowConfirmModal(true);
         } else {
-            navigate("../../"); // Regresar a la página anterior
+            navigate("../../");
         }
     };
+
     const handleSave = () => {
-        triggerSave(); // Llama a la función de guardar cambiando el estado
+        try {
+            setIsLoading(true);
+            setError(null);
+            triggerSave();
+        } catch (err) {
+            setError(err instanceof Error ? err.message : "An error occurred while saving");
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const handleConfirmClose = () => {
         setShowConfirmModal(false);
-        hasChangesForm().setHasChangesForm(false); // Reiniciar el estado de cambios
-        navigate("../../"); // Regresar a la página anterior
+        hasChangesForm().setHasChangesForm(false);
+        navigate("../../");
     };
+
     return (
         <>
             <Modal onClose={handleClose}>
@@ -48,22 +60,35 @@ const FormModal = ({ formConfig }: FormModalProps) => {
                 </Modal.Header>
                 <Modal.Body>
                     <div className={styles.bodyModal}>
+                        {error && (
+                            <div className={styles.errorMessage}>
+                                {error}
+                            </div>
+                        )}
                         <Component />
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
                     <div className={styles.buttonsModal}>
-                        <CancelButton onClick={handleClose} />
-                        <SaveButton onClick={handleSave} />
+                        <CancelButton onClick={handleClose} disabled={isLoading} >
+                            Cancelar
+                        </CancelButton>
+
+                        <SaveButton onClick={handleSave} disabled={isLoading} >
+                            Guardar
+                        </SaveButton>
                     </div>
                 </Modal.Footer>
             </Modal>
 
-            {showConfirmModal && <ConfirmModal onCancel={() => { setShowConfirmModal(false) }} onDiscard={handleConfirmClose} />}
+            {showConfirmModal && (
+                <ConfirmModal
+                    onCancel={() => setShowConfirmModal(false)}
+                    onDiscard={handleConfirmClose}
+                />
+            )}
         </>
-
     );
-}
-
+};
 
 export default FormModal;
