@@ -1,5 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styles from './InformationForm.module.css';
+import { useServiceProvider } from "../../hooks/useServiceProvider"
+import { InformationFormData } from "../../../../../../types/types"
+import { useTriggerListener } from "../../hooks/useTriggerListener";
+import ErrorMessage from "../../../../../../components/ErrorInput/ErrorMessage";
 
 // Lista de áreas de servicio predefinidas
 const SERVICE_AREAS = [
@@ -20,37 +24,12 @@ const SERVICE_AREAS = [
     "Otro"
 ];
 
-interface InformationFormData {
-    enterpriseName: string;
-    serviceAreas: string[];
-    phone: string;
-    whatsapp: string;
-    email: string;
-    location: string;
-    coverage: {
-        maxDistance: number;
-        cities: string[];
-    };
-}
 
-interface InformationFormProps {
-    initialData?: Partial<InformationFormData>;
-    onSave?: (data: InformationFormData) => void;
-}
+export const InformationForm = () => {
+    const { information, updateInformation } = useServiceProvider().informationSection();
+    const { hasChangesForm, setHasChangesForm } = useServiceProvider().hasChangesForm();
+    const [formData, setFormData] = useState<InformationFormData>(information);
 
-export const InformationForm = ({ initialData, onSave }: InformationFormProps) => {
-    const [formData, setFormData] = useState<InformationFormData>({
-        enterpriseName: initialData?.enterpriseName || "",
-        serviceAreas: initialData?.serviceAreas || [],
-        phone: initialData?.phone || "",
-        whatsapp: initialData?.whatsapp || "",
-        email: initialData?.email || "",
-        location: initialData?.location || "",
-        coverage: initialData?.coverage || {
-            maxDistance: 0,
-            cities: []
-        }
-    });
 
     const [errors, setErrors] = useState<Partial<Record<keyof InformationFormData, string>>>({});
     const [newArea, setNewArea] = useState("");
@@ -69,13 +48,14 @@ export const InformationForm = ({ initialData, onSave }: InformationFormProps) =
                 [name]: undefined
             }));
         }
+        !hasChangesForm && setHasChangesForm(true);
     };
 
     const handleAddArea = () => {
-        if (newArea.trim() && !formData.serviceAreas.includes(newArea.trim())) {
+        if (newArea.trim() && !formData.serviceCategories.includes(newArea.trim())) {
             setFormData(prev => ({
                 ...prev,
-                serviceAreas: [...prev.serviceAreas, newArea.trim()]
+                serviceCategories: [...prev.serviceCategories, newArea.trim()]
             }));
             setNewArea("");
         }
@@ -84,7 +64,7 @@ export const InformationForm = ({ initialData, onSave }: InformationFormProps) =
     const handleRemoveArea = (areaToRemove: string) => {
         setFormData(prev => ({
             ...prev,
-            serviceAreas: prev.serviceAreas.filter(area => area !== areaToRemove)
+            serviceCategories: prev.serviceCategories.filter(area => area !== areaToRemove)
         }));
     };
 
@@ -113,33 +93,33 @@ export const InformationForm = ({ initialData, onSave }: InformationFormProps) =
 
     const validateForm = (): boolean => {
         const newErrors: Partial<Record<keyof InformationFormData, string>> = {};
-        
+
         if (!formData.enterpriseName.trim()) {
             newErrors.enterpriseName = "El nombre de la empresa es requerido";
         }
-        
-        if (formData.serviceAreas.length === 0) {
-            newErrors.serviceAreas = "Debes agregar al menos un área de servicio";
+
+        if (formData.serviceCategories.length === 0) {
+            newErrors.serviceCategories = "Debes agregar al menos un área de servicio";
         }
-        
+
         if (!formData.phone.trim()) {
             newErrors.phone = "El teléfono es requerido";
-        } else if (!/^\+?[\d\s-]{10,}$/.test(formData.phone)) {
-            newErrors.phone = "Ingresa un número de teléfono válido";
+        } else if (!/^\d{10}$/.test(formData.phone)) {
+            newErrors.phone = "Ingresa un número de teléfono válido a 10 dígitos sin lada";
         }
-        
+
         if (!formData.whatsapp.trim()) {
             newErrors.whatsapp = "El WhatsApp es requerido";
-        } else if (!/^\+?[\d\s-]{10,}$/.test(formData.whatsapp)) {
-            newErrors.whatsapp = "Ingresa un número de WhatsApp válido";
+        } else if (!/^\d{10}$/.test(formData.whatsapp)) {
+            newErrors.whatsapp = "Ingresa un número de WhatsApp válido a 10 dígitos sin lada";
         }
-        
+
         if (!formData.email.trim()) {
             newErrors.email = "El correo electrónico es requerido";
         } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
             newErrors.email = "Ingresa un correo electrónico válido";
         }
-        
+
         if (!formData.location.trim()) {
             newErrors.location = "La ubicación es requerida";
         }
@@ -156,12 +136,15 @@ export const InformationForm = ({ initialData, onSave }: InformationFormProps) =
         return Object.keys(newErrors).length === 0;
     };
 
-    useEffect(() => {
-        if (onSave && validateForm()) {
-            onSave(formData);
+    useTriggerListener(
+        {
+            validate: validateForm,
+            onError: () => console.error("Errores en el formulario", errors),
+            onSave: () => {
+                updateInformation(formData);
+            }
         }
-    }, [formData]);
-
+    )
     return (
         <div className={styles.formContainer}>
             {/* Sección de Información Básica */}
@@ -181,7 +164,7 @@ export const InformationForm = ({ initialData, onSave }: InformationFormProps) =
                         placeholder="Nombre de la empresa"
                     />
                     {errors.enterpriseName && (
-                        <div className={styles.errorMessage}>{errors.enterpriseName}</div>
+                        <ErrorMessage message={errors.enterpriseName} />
                     )}
                 </div>
 
@@ -191,7 +174,7 @@ export const InformationForm = ({ initialData, onSave }: InformationFormProps) =
                     </label>
                     <div className={styles.tagsContainer}>
                         <div className={styles.tagsList}>
-                            {formData.serviceAreas.map(area => (
+                            {formData.serviceCategories.map(area => (
                                 <div key={area} className={styles.tag}>
                                     <span>{area}</span>
                                     <button
@@ -226,8 +209,8 @@ export const InformationForm = ({ initialData, onSave }: InformationFormProps) =
                             </button>
                         </div>
                     </div>
-                    {errors.serviceAreas && (
-                        <div className={styles.errorMessage}>{errors.serviceAreas}</div>
+                    {errors.serviceCategories && (
+                        <ErrorMessage message={errors.serviceCategories} />
                     )}
                 </div>
             </div>
@@ -246,10 +229,10 @@ export const InformationForm = ({ initialData, onSave }: InformationFormProps) =
                         value={formData.phone}
                         onChange={handleChange}
                         className={styles.input}
-                        placeholder="+52 123 456 7890"
+                        placeholder="Ej. 123 456 7890"
                     />
                     {errors.phone && (
-                        <div className={styles.errorMessage}>{errors.phone}</div>
+                        <ErrorMessage message={errors.phone} />
                     )}
                 </div>
 
@@ -264,10 +247,10 @@ export const InformationForm = ({ initialData, onSave }: InformationFormProps) =
                         value={formData.whatsapp}
                         onChange={handleChange}
                         className={styles.input}
-                        placeholder="+52 123 456 7890"
+                        placeholder="Ej. 123 456 7890"
                     />
                     {errors.whatsapp && (
-                        <div className={styles.errorMessage}>{errors.whatsapp}</div>
+                        <ErrorMessage message={errors.whatsapp} />
                     )}
                 </div>
 
@@ -285,7 +268,7 @@ export const InformationForm = ({ initialData, onSave }: InformationFormProps) =
                         placeholder="correo@ejemplo.com"
                     />
                     {errors.email && (
-                        <div className={styles.errorMessage}>{errors.email}</div>
+                        <ErrorMessage message={errors.email} />
                     )}
                 </div>
             </div>
@@ -307,7 +290,7 @@ export const InformationForm = ({ initialData, onSave }: InformationFormProps) =
                         placeholder="Ciudad, Estado"
                     />
                     {errors.location && (
-                        <div className={styles.errorMessage}>{errors.location}</div>
+                        <ErrorMessage message={errors.location} />
                     )}
                 </div>
 
@@ -320,19 +303,22 @@ export const InformationForm = ({ initialData, onSave }: InformationFormProps) =
                         id="maxDistance"
                         name="maxDistance"
                         value={formData.coverage.maxDistance}
-                        onChange={(e) => setFormData(prev => ({
-                            ...prev,
-                            coverage: {
-                                ...prev.coverage,
-                                maxDistance: parseInt(e.target.value) || 0
-                            }
-                        }))}
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            setFormData(prev => ({
+                                ...prev,
+                                coverage: {
+                                    ...prev.coverage,
+                                    maxDistance: value === "" ? 0 : parseInt(value)
+                                }
+                            }))
+                        }}
                         className={styles.input}
                         min="0"
                         placeholder="0"
                     />
                     {errors.coverage && (
-                        <div className={styles.errorMessage}>{errors.coverage}</div>
+                        <ErrorMessage message={errors.coverage} />
                     )}
                 </div>
 
@@ -373,7 +359,7 @@ export const InformationForm = ({ initialData, onSave }: InformationFormProps) =
                         </div>
                     </div>
                     {errors.coverage && (
-                        <div className={styles.errorMessage}>{errors.coverage}</div>
+                        <ErrorMessage message={errors.coverage} />
                     )}
                 </div>
             </div>

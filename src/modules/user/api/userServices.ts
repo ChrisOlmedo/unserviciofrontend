@@ -1,9 +1,10 @@
 import { UserState } from "../../../types/types";
 import apiClient from "../../../services/axiosClient.config";
+import { API_ROUTES } from "../../../constants/apiRoutes";
 
-export const getData = async (): Promise<UserState | null> => {
+export const getUser = async (): Promise<UserState | null> => {
     try {
-        const response = await apiClient.get<UserState>("/api/users/", { withCredentials: true });
+        const response = await apiClient.get<UserState>(API_ROUTES.USERS.ME, { withCredentials: true });
 
         // Si no hay datos, devolver null en lugar de undefined
         return response.data ?? null;

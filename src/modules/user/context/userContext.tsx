@@ -1,6 +1,6 @@
 import React, { createContext, useContext, ReactNode, useReducer, useEffect } from 'react';
 import { UserState, userData } from '../../../types/types';
-import { getData } from '../api/userServices';
+import { getUser } from '../api/userServices';
 
 type UserAction =
     | { type: "SET_USER", payload: userData }
@@ -35,11 +35,11 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
         const fetchUser = async () => {
             try {
 
-                const getUser = await getData();
-                if (!getUser) {
+                const userData = await getUser();
+                if (!userData) {
                     return;
                 }
-                userDispatch({ type: "SET_USER", payload: getUser });
+                userDispatch({ type: "SET_USER", payload: userData });
             } catch (error) {
                 console.error("Error fetching user data:", error);
             } finally {

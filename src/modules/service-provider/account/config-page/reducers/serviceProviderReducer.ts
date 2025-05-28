@@ -1,6 +1,6 @@
 import { ServiceProviderPageConfig } from '../../../../../types/types';
 import { Image } from '../../../../../types/types';
-import { CompletionStatus } from '../../../../../types/types';
+import { CompletionStatus, InformationFormData } from '../../../../../types/types';
 
 export const initialStateServiceProviderPage: ServiceProviderPageConfig = {
     slug: "",
@@ -36,6 +36,7 @@ export type ServiceProviderAction =
     | { type: 'UPDATE_LOGO'; logo: Image }
     | { type: 'UPDATE_ABOUT_ME'; aboutMe: string }
     | { type: 'UPDATE_SERVICES'; services: string[] }
+    | { type: 'UPDATE_INFORMATION'; information: InformationFormData }
     | { type: 'UPDATE_GALLERY'; gallery: Image[] }
     | { type: 'MARK_SECTION_COMPLETE'; section: keyof CompletionStatus; completed: boolean }
     | { type: 'TRIGGER_SAVE' }
@@ -45,19 +46,65 @@ export type ServiceProviderAction =
 
 export const serviceProviderReducer = (state: ServiceProviderPageConfig, action: ServiceProviderAction): ServiceProviderPageConfig => {
     switch (action.type) {
-        case 'UPDATE_NAME':
-            return { ...state, enterpriseName: action.enterpriseName };
+
         case 'UPDATE_LOGO':
-            return { ...state, logo: action.logo };
+            return {
+                ...state,
+                logo: action.logo,
+                completionStatus: {
+                    ...state.completionStatus,
+                    logo: true // o tu lógica de validación
+                }
+            };
 
         case 'UPDATE_ABOUT_ME':
-            return { ...state, aboutMe: action.aboutMe };
+            return {
+                ...state,
+                aboutMe: action.aboutMe,
+                completionStatus: {
+                    ...state.completionStatus,
+                    about: true // o tu lógica de validación
+                }
+            };
 
         case 'UPDATE_SERVICES':
-            return { ...state, services: action.services };
+            return {
+                ...state,
+                services: action.services,
+                completionStatus: {
+                    ...state.completionStatus,
+                    services: true // o tu lógica de validación
+                }
+            };
+
+        case 'UPDATE_INFORMATION':
+            return {
+                ...state,
+                enterpriseName: action.information.enterpriseName,
+                serviceCategories: action.information.serviceCategories,
+                phone: action.information.phone,
+                whatsapp: action.information.whatsapp,
+                email: action.information.email,
+                location: action.information.location,
+                coverage: {
+                    maxDistance: action.information.coverage.maxDistance,
+                    cities: action.information.coverage.cities,
+                },
+                completionStatus: {
+                    ...state.completionStatus,
+                    information: true // o tu lógica de validación
+                }
+            };
 
         case 'UPDATE_GALLERY':
-            return { ...state, gallery: action.gallery };
+            return {
+                ...state,
+                gallery: action.gallery,
+                completionStatus: {
+                    ...state.completionStatus,
+                    gallery: true // o tu lógica de validación
+                }
+            };
 
         case 'MARK_SECTION_COMPLETE':
             return {
@@ -83,28 +130,6 @@ export const serviceProviderReducer = (state: ServiceProviderPageConfig, action:
                 ...state,
                 hasChangesForm: true,
             };
-
-        /*
-        case 'SET_INITIAL_DATA':
-            return {
-                ...action.payload,
-                hasChangesForm: false,
-                hasModifiedObject: false
-            };
-        case 'UPDATE_FIELD':
-            return {
-                ...state,
-                [action.field]: action.value,
-                hasChangesForm: true,
-                hasModifiedObject: true
-            };
-        case 'MARK_AS_SAVED':
-            return {
-                ...state,
-                hasChangesForm: false,
-                hasModifiedObject: false
-            };
-            */
         default:
             return state;
     }

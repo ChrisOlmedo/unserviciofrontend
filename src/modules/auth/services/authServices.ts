@@ -1,4 +1,5 @@
 import apiClient from '../../../services/axiosClient.config';
+import { API_ROUTES } from '../../../constants/apiRoutes';
 import { userData } from '../../../types/types';
 import { useEffect, useState } from "react";
 
@@ -9,12 +10,13 @@ export const useAuth = () => {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const response = await fetch("/api/user/profile", { credentials: "include" });
+                const response = await fetch(API_ROUTES.AUTH.LOGIN, { credentials: "include" });
                 if (!response.ok) throw new Error("No autenticado");
 
                 const data = await response.json();
                 setUser(data); // Guardar datos en el estado local
             } catch (error) {
+
                 setUser(null);
             } finally {
                 setLoading(false);
@@ -29,7 +31,7 @@ export const useAuth = () => {
 
 export const logout = async (): Promise<void> => {
     try {
-        await apiClient.post("/api/users/logout", {}, { withCredentials: true });
+        await apiClient.post(API_ROUTES.AUTH.LOGOUT, {}, { withCredentials: true });
     } catch (error) {
         console.error("Error al cerrar sesión:", error);
     }
@@ -38,7 +40,7 @@ export const logout = async (): Promise<void> => {
 
 const loginByGoogle = async (token: string): Promise<userData | null> => {
     try {
-        const response = await apiClient.post<userData>('/api/auth/google', { token }, { withCredentials: true });
+        const response = await apiClient.post<userData>(API_ROUTES.AUTH.GOOGLE, { token }, { withCredentials: true });
         console.log('Response:', response.data);
         return response.data;
     } catch (error: any) {

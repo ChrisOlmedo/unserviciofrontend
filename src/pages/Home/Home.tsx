@@ -3,7 +3,6 @@ import UnServicioLogo from '../../components/UnServicio-logo/UnServicioLogo'
 import { MdWorkHistory } from "react-icons/md"
 import styles from './Home.module.css'
 import ServicesIndex from '../../modules/services/components/servicesContainers/ServicesIndex'
-//import Pruebas from './Pruebas'
 
 
 
@@ -15,7 +14,6 @@ function Home() {
                 <div className={styles.headerLogo}>
                     <UnServicioLogo height='100px' color='white' />
                 </div>
-                {/*<Pruebas />*/}
                 <div className={styles.coming}>
                     <div className="container">
                         <div className="row">

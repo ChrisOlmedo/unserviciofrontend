@@ -5,9 +5,11 @@ import SaveButton from "../../../../../../components/Button/SaveButton";
 import CancelButton from "../../../../../../components/Button/CancelButton";
 import { useTriggerListener } from '../../hooks/useTriggerListener';
 import { Image } from "../../../../../../types/types";
+import ErrorMessage from "../../../../../../components/ErrorInput/ErrorMessage";
 
 export const LogoForm = () => {
     const { logo, updateLogo } = useServiceProvider().logoSection();
+    const { hasChangesForm, setHasChangesForm } = useServiceProvider().hasChangesForm();
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [currentLogo, setCurrentLogo] = useState<Image>(logo);
     const [error, setError] = useState(false);
@@ -26,6 +28,11 @@ export const LogoForm = () => {
                 url: URL.createObjectURL(e.target.files[0])
             });
         }
+        if (error) {
+            setError(false);
+        }
+        !hasChangesForm && setHasChangesForm(true);
+
     };
 
     const handleDelete = () => {
@@ -81,7 +88,9 @@ export const LogoForm = () => {
                     className={styles.fileInput}
                 />
             </div>
-            {error && <span className={styles.error}>Debes subir un logo</span>}
+            {error &&
+                <ErrorMessage message="Por favor, sube una imagen válida." />
+            }
 
             {currentPreview && (
                 <div className={styles.actions}>

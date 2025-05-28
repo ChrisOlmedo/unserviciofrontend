@@ -1,31 +1,27 @@
-.serviceAreaContainer {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
-
 .locationInfo {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.5rem;
 }
 
-.locationCard, .coverageCard {
+.locationCard,
+.coverageCard {
     background: var(--background);
     padding: 1.5rem;
     border-radius: 1rem;
     border: 1px solid var(--border);
 }
 
-.locationCard h3, .coverageCard h3 {
+.locationCard h3,
+.coverageCard h3 {
     color: var(--text-primary);
     font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 0.75rem;
 }
 
-.locationCard p, .coverageCard p {
+.locationCard p,
+.coverageCard p {
     color: var(--text-secondary);
     font-size: 1.1rem;
 }
@@ -94,6 +90,7 @@
 }
 
 .section {
+    position: relative;
     background-color: #f8f9fa;
     border-radius: var(--radius-lg);
     padding: var(--spacing-lg);
@@ -129,4 +126,4 @@
     margin: 0 0 var(--spacing-md) 0;
     padding-bottom: var(--spacing-sm);
     border-bottom: 2px solid var(--primary);
-} 
+}

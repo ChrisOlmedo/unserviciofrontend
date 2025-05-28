@@ -16,6 +16,10 @@ interface GalleryAction {
 const MAX_IMAGES = 6;
 
 export const GalleryForm = () => {
+
+    const { hasChangesForm, setHasChangesForm } = useServiceProvider().hasChangesForm();
+
+
     const fileInputRef = useRef<HTMLInputElement>(null);
     const fileUpdateRef = useRef<HTMLInputElement>(null);
     const [indexToUpdate, setIndexToUpdate] = useState<number | undefined>();
@@ -46,6 +50,7 @@ export const GalleryForm = () => {
             const file = e.target.files[0];
             const url = URL.createObjectURL(file);
             dispatchGallery({ type: "ADD", url, file });
+            !hasChangesForm && setHasChangesForm(true);
         }
     };
 

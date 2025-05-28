@@ -2,12 +2,15 @@ import { useState, useEffect } from "react";
 import { useServiceProvider } from "../../hooks/useServiceProvider";
 import { useTriggerListener } from "../../hooks/useTriggerListener";
 import styles from './AboutForm.module.css';
+import ErrorMessage from "../../../../../../components/ErrorInput/ErrorMessage";
 
+const MIN_CHAR_COUNT = 50;
+const SAVE_CHAR_COUNT = 200;
 export const AboutForm = () => {
     const { aboutMe, updateAboutMe } = useServiceProvider().aboutMeSection();
     const { hasChangesForm, setHasChangesForm } = useServiceProvider().hasChangesForm();
     const [about, setAbout] = useState(aboutMe);
-    const [message, setMessage] = useState("");
+    const [error, setError] = useState("");
     const [charCount, setCharCount] = useState(0);
 
     useEffect(() => {
@@ -16,20 +19,21 @@ export const AboutForm = () => {
 
     const handleChange = (value: string) => {
         setAbout(value);
+        setError("");
         !hasChangesForm && setHasChangesForm(true);
     };
 
     useTriggerListener({
-        validate: () => about.length > 30,
-        onError: () => setMessage("La descripción debe tener al menos 30 caracteres."),
+        validate: () => about.length > MIN_CHAR_COUNT,
+        onError: () => setError(`La descripción debe tener al menos ${MIN_CHAR_COUNT} caracteres.`),
         onSave: () => {
             updateAboutMe(about);
         },
     });
 
     const getCharCountClass = () => {
-        if (charCount < 30) return styles.error;
-        if (charCount < 100) return styles.warning;
+        if (charCount < MIN_CHAR_COUNT) return styles.error;
+        if (charCount < SAVE_CHAR_COUNT) return styles.warning;
         return '';
     };
 
@@ -51,7 +55,9 @@ export const AboutForm = () => {
                 <div className={`${styles.characterCount} ${getCharCountClass()}`}>
                     {charCount} caracteres
                 </div>
-                {message && <div className={styles.errorMessage}>{message}</div>}
+                {error && (
+                    <ErrorMessage message={error} />
+                )}
             </div>
         </div>
     );

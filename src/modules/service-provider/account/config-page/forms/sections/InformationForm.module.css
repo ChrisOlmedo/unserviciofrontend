@@ -67,15 +67,6 @@ select.input {
     padding-right: 3rem;
 }
 
-.errorMessage {
-    color: #e74c3c;
-    font-size: 0.85rem;
-    margin-top: 0.5rem;
-    padding: 0.5rem;
-    background-color: #fdf3f2;
-    border-radius: 4px;
-    border-left: 3px solid #e74c3c;
-}
 
 /* Tags Container */
 .tagsContainer {
@@ -166,4 +157,4 @@ select.input {
     .addButton {
         width: 100%;
     }
-} 
+}

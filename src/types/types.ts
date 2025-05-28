@@ -68,7 +68,6 @@ export interface FormState {
 
 // Interfaces compuestas
 
-
 export interface ServiceCard extends ProviderServiceArea, ProviderBasicInfo { }
 
 export interface ServiceProviderData extends ServiceCard, ProviderContactInfo, ProviderPageContent { }
@@ -88,6 +87,14 @@ export interface ServiceProviderPage extends
 export interface EditButtonConfig {
     isConfig: boolean;
 }
+
+// interfaces para el formulario de informacion del prestador de servicio
+export interface InformationFormData extends
+    ProviderServiceArea,
+    ProviderContactInfo,
+    Pick<ProviderBasicInfo, 'enterpriseName' | 'serviceCategories'> { }
+
+
 
 // Nuevas interfaces para mejor organización
 export interface Review {

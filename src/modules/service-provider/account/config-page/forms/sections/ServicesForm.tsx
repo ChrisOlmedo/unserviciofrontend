@@ -2,17 +2,24 @@ import { useState } from "react";
 import { useTriggerListener } from "../../hooks/useTriggerListener";
 import { useServiceProvider } from "../../hooks/useServiceProvider";
 import styles from './ServicesForm.module.css';
+import ErrorMessage from "../../../../../../components/ErrorInput/ErrorMessage";
 
 export const ServicesForm = () => {
     const [newService, setNewService] = useState("");
     const { services: savedServices, updateServices } = useServiceProvider().servicesSection();
+    const { hasChangesForm, setHasChangesForm } = useServiceProvider().hasChangesForm();
     const [services, setServices] = useState<string[]>(savedServices || []);
+    const [error, setError] = useState(false);
 
     const handleAddService = () => {
         if (newService.trim()) {
             setServices([...services, newService.trim()]);
             setNewService("");
         }
+        if (error) {
+            setError(false);
+        }
+        !hasChangesForm && setHasChangesForm(true)
     };
 
     const handleDeleteService = (index: number) => {
@@ -22,7 +29,7 @@ export const ServicesForm = () => {
 
     useTriggerListener({
         validate: () => services.length > 0,
-        onError: () => alert("Debes agregar al menos un servicio."),
+        onError: () => setError(true),
         onSave: () => {
             updateServices(services);
         },
@@ -44,6 +51,7 @@ export const ServicesForm = () => {
                     Agregar
                 </button>
             </div>
+            {error && <ErrorMessage message="Debes agregar al menos un servicio." />}
 
             <ul className={styles.servicesList}>
                 {services.map((service, index) => (

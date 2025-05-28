@@ -5,27 +5,42 @@ import { useEffect, useState } from "react";
 import Modal from "../../../../../components/Modal/Modal.tsx"; // Adjust the path as needed
 import { useUser } from "../../../../user/context/userContext.tsx";
 import { useServiceProvider } from "../hooks/useServiceProvider.ts";
+import { CompletionStatus } from "../../../../../types/types.ts";
+
+function validateCompletion(completionStatus: CompletionStatus): string[] {
+    const missingFields: string[] = [];
+
+    if (!completionStatus.logo) missingFields.push("Logo");
+    if (!completionStatus.about) missingFields.push("Sobre mí");
+    if (!completionStatus.services) missingFields.push("Servicios");
+    if (!completionStatus.gallery) missingFields.push("Galería");
+    if (!completionStatus.information) missingFields.push("Información de contacto");
+
+    return missingFields;
+}
+
 function ServiceProviderConfigPage() {
 
     const { userState } = useUser();
     const { serviceProviderState } = useServiceProvider();
-    const handleUpdate = () => {
-        if (serviceProviderState.hasModifiedObject) {
-            // fetch para actualizar la pagina
-            console.log("Guardando cambios...");
+    const { completionStatus } = serviceProviderState;
+    const [missingFields, setMissingFields] = useState<string[]>([]);
 
-        }
+    const handleUpdate = () => {
+        console.log("Guardando cambios...");
+
     };
     const [oka, setOka] = useState(false);
     const handleCreate = () => {
-        setOka(true);
-        /*aqui se escribiria el fetch para crear y esperar la respuesta
-        si la respuestas es correcta, se  hace un dispatch del user para verificar
-        que realmente haya sido exitoso, como?, haciendo un fetch del user para verificar
-        que su rol haya cambiado y entonces actualizarlo, si no, se le muestra un error
-        indicando que algo sucedio*/
-        console.log(serviceProviderState);
+        const missing = validateCompletion(completionStatus);
+        if (missing.length > 0) {
+            setMissingFields(missing); // setMissingFields sería un estado local
+            setOka(true); // Mostrar modal
+            return;
+        }
+
         console.log("Creando página...");
+        console.log(serviceProviderState);
     };
     const ok = () => {
         setOka(false);
@@ -75,7 +90,12 @@ function ServiceProviderConfigPage() {
                         <h2>Error</h2>
                     </Modal.Header>
                     <Modal.Body>
-                        <p>Completa todos los campos obligatorios</p>
+                        <p>Faltan los siguientes campos obligatorios:</p>
+                        <ul>
+                            {missingFields.map(field => (
+                                <li key={field}>{field}</li>
+                            ))}
+                        </ul>
                     </Modal.Body>
                     <Modal.Footer>
                         <button onClick={ok}>OK</button>
