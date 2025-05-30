@@ -1,6 +1,5 @@
 import { useServiceProviderContext } from '../context/ServiceProviderConfigContext.tsx';
-import { CompletionStatus } from '../../../../../types/types'; // Adjust the path as needed
-import { Image, InformationFormData } from '../../../../../types/types';
+import { CompletionStatus, Image, InformationFormData } from "types";
 
 
 export const useServiceProvider = () => {
@@ -104,6 +103,39 @@ export const useServiceProvider = () => {
         };
     }
 
+    // Función para filtrar los datos relevantes para el backend
+    function getApiPayload() {
+        const {
+            slug,
+            enterpriseName,
+            logo,
+            serviceCategories,
+            rating,
+            phone,
+            whatsapp,
+            email,
+            location,
+            coverage,
+            services,
+            aboutMe,
+            gallery,
+        } = serviceProviderState;
+        return {
+            slug,
+            enterpriseName,
+            logo,
+            serviceCategories,
+            rating,
+            phone,
+            whatsapp,
+            email,
+            location,
+            coverage,
+            services,
+            aboutMe,
+            gallery,
+        };
+    }
 
     return {
         logoSection,
@@ -116,6 +148,7 @@ export const useServiceProvider = () => {
         completionStatus,
         saveForm,
         hasChangesForm,
+        getApiPayload,
     }
 
 } 

@@ -23,7 +23,6 @@ function Home() {
                                 </h2>
                                 <h3>Encuentra todos los servicios en un solo lugar próximamente...</h3>
                                 <ConectDB />
-
                             </div>
                         </div>
                     </div>

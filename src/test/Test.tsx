@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const apiUrl = import.meta.env.VITE_API_URL;
+const apiUrl = import.meta.env.VITE_API_BASE_URL;
 
 function StatusConnection() {
     const [statusMessage, setStatusMessage] = useState('Conectando al backend...');

@@ -1,8 +1,8 @@
-import { Image } from "../../../../types/types";
+import { Image } from "types";
 import styles from './GallerySection.module.css';
-import EditButtonAbsolute from "../EditButtonAbsolute";
-import EditButton from "../EditButton";
-import { useConfig } from "../../context/ConfigFlagContext";
+import EditButtonAbsolute from "modules/service-provider/components/EditButtonAbsolute";
+import EditButton from "modules/service-provider/components/EditButton";
+import { useConfig } from "modules/service-provider/context/ConfigFlagContext";
 
 interface GallerySectionProps {
     gallery: Image[];

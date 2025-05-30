@@ -1,5 +1,5 @@
 import { routePaths } from '../../../../../router/routePaths';
-import { RouteSection } from '../../../../../types/types';
+import { RouteSection } from "types";
 
 export const useRoutes = () => {
 

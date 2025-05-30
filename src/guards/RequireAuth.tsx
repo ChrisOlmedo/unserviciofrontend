@@ -1,4 +1,6 @@
-// src/guards/RequireAuth.tsx
+// Guard de ruta: protege rutas que requieren usuario autenticado
+// Uso: <RequireAuth>...</RequireAuth>
+
 import { Navigate, useLocation } from "react-router-dom";
 import { useUser } from "../modules/user/context/userContext";
 import { ReactNode } from "react";
@@ -25,4 +27,4 @@ const RequireAuth = ({ children }: { children: ReactNode }) => {
     return children;
 };
 
-export default RequireAuth;
+export default RequireAuth; 

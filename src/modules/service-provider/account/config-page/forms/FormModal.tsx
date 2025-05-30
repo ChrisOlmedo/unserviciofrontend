@@ -1,9 +1,9 @@
 import styles from "./formModal.module.css";
 import { useState } from "react";
-import Modal from "../../../../../components/Modal/Modal";
-import CancelButton from "../../../../../components/Button/CancelButton";
-import SaveButton from "../../../../../components/Button/SaveButton";
-import ConfirmModal from "../../../../../components/Modal/ConfirmModal";
+import Modal from "components/Modal/Modal";
+import CancelButton from "components/Button/CancelButton";
+import SaveButton from "components/Button/SaveButton";
+import ConfirmModal from "components/Modal/ConfirmModal";
 import { FORM_COMPONENTS } from "../const/formConst";
 import { useServiceProvider } from "../hooks/useServiceProvider";
 import { useNavigate } from "react-router-dom";

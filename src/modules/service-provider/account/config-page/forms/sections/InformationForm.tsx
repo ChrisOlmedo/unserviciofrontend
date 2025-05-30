@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from './InformationForm.module.css';
 import { useServiceProvider } from "../../hooks/useServiceProvider"
-import { InformationFormData } from "../../../../../../types/types"
+import { InformationFormData } from "types"
 import { useTriggerListener } from "../../hooks/useTriggerListener";
 import ErrorMessage from "../../../../../../components/ErrorInput/ErrorMessage";
 

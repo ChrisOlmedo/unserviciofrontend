@@ -1,9 +1,9 @@
-import styles from './Services.module.css';
+import styles from './ServicesSection.module.css';
 import EditButton from "../EditButton";
 import EditButtonAbsolute from "../EditButtonAbsolute";
 import { useConfig } from "../../context/ConfigFlagContext";
 
-const Services = ({ services }: { services: string[] }) => {
+const ServicesSection = ({ services }: { services: string[] }) => {
     const { isConfig } = useConfig();
 
     return (
@@ -26,4 +26,4 @@ const Services = ({ services }: { services: string[] }) => {
     );
 };
 
-export default Services;
+export default ServicesSection;

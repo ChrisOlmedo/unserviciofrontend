@@ -1,0 +1,62 @@
+.missingFieldsTitle {
+  color: var(--color-danger);
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  padding: 24px;
+}
+
+.missingFieldsBody {
+  padding: 16px 24px;
+  font-size: 1rem;
+}
+
+.missingFieldsList {
+  margin: 12px 0 0 0;
+  padding-left: 20px;
+  color: var(--color-danger);
+  font-weight: 500;
+}
+
+.missingFieldsButton {
+  background: var(--color-danger);
+  color: #fff;
+  border: none;
+  padding: 8px 24px;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 12px 24px 12px 0;
+  transition: background var(--transition-fast);
+}
+.missingFieldsButton:hover {
+  background: var(--color-danger-dark);
+}
+
+.mainActionButton {
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  padding: 12px 32px;
+  border-radius: var(--radius-md);
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 32px;
+  margin-bottom: 8px;
+  box-shadow: var(--shadow-md);
+  transition: background var(--transition-fast), box-shadow var(--transition-fast);
+  letter-spacing: 0.5px;
+  outline: none;
+}
+.mainActionButton:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+  box-shadow: var(--shadow-lg);
+}
+.mainActionButton:disabled {
+  background: var(--color-gray-300);
+  color: var(--color-gray-500);
+  cursor: not-allowed;
+  box-shadow: none;
+} 

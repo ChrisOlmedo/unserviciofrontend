@@ -1,9 +1,9 @@
-import Services from "./serviceProviderSections/Services";
+import ServicesSection from "./serviceProviderSections/ServicesSection";
 import AboutSection from "./serviceProviderSections/AboutSection";
 import GallerySection from "./serviceProviderSections/GallerySection";
 import ServiceArea from "./serviceProviderSections/ServiceArea";
 import ProfileSidebar from "./serviceProviderSections/ProfileSidebar";
-import { ServiceProviderData } from "../../../types/types";
+import { ServiceProviderData } from "types";
 import { ConfigContext } from "../context/ConfigFlagContext";
 import styles from './ServiceProviderIndex.module.css';
 
@@ -16,7 +16,7 @@ const ServiceProviderIndex = ({ serviceProviderData, isConfig }: ServiceProvider
 
     return (
         <ConfigContext.Provider value={{ isConfig }}>
-            <div className={styles.page}>
+            <div className={styles.spPage}>
                 <ProfileSidebar
                     logo={serviceProviderData.logo}
                     enterpriseName={serviceProviderData.enterpriseName}
@@ -33,7 +33,7 @@ const ServiceProviderIndex = ({ serviceProviderData, isConfig }: ServiceProvider
                         enterpriseName={serviceProviderData.enterpriseName}
                     />
 
-                    <Services services={serviceProviderData.services} />
+                    <ServicesSection services={serviceProviderData.services} />
 
                     <ServiceArea
                         coverage={serviceProviderData.coverage}

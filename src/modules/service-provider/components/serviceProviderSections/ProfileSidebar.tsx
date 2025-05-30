@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import styles from './ProfileSidebar.module.css';
-import EditButtonAbsolute from "../EditButtonAbsolute";
-import EditButton from "../EditButton";
-import { Image } from "../../../../types/types";
+import EditButtonAbsolute from "modules/service-provider/components/EditButtonAbsolute";
+import EditButton from "modules/service-provider/components/EditButton";
+import { Image } from "types";
 import { FaPhone, FaWhatsapp, FaEnvelope, FaChevronDown, FaChevronUp } from 'react-icons/fa';
-import { useConfig } from '../../context/ConfigFlagContext';
+import { useConfig } from "modules/service-provider/context/ConfigFlagContext";
 
 
 interface ProfileSidebarProps {

@@ -1,6 +1,6 @@
 // utils/validation.ts
 import { serviceProviderPageSchema } from "../validation/schemas";
-import { ServiceProviderPageConfig } from "../../../../../types/types";
+import { ServiceProviderPageConfig } from "types";
 
 export function isSPFormComplete(data: ServiceProviderPageConfig): {
     isValid: boolean;

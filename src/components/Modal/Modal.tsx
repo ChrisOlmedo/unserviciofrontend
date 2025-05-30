@@ -1,4 +1,5 @@
 import styles from "./modal.module.css";
+import { MdClose } from "react-icons/md";
 
 interface ModalProps {
     onClose: () => void;
@@ -9,8 +10,8 @@ function Modal({ onClose, children }: ModalProps) {
         <>
             <div className={styles.overlay}>
                 <dialog className={styles.modal}>
-                    <button onClick={onClose} className={styles.closeButton}>
-                        X
+                    <button onClick={onClose} className={styles.closeButton} aria-label="Cerrar">
+                        <MdClose size={24} />
                     </button>
                     {children}
                 </dialog>

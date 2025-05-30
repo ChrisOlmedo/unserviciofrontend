@@ -20,7 +20,18 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    "baseUrl": "./src",
+    "paths": {
+      "modules/*": ["modules/*"],
+      "components/*": ["components/*"],
+      "hooks/*": ["hooks/*"],
+      "guards/*": ["guards/*"],
+      "constants/*": ["constants/*"],
+      "config/*": ["config/*"],
+      "types": ["types/index.ts"]
+    }
   },
   "include": ["src"]
 }

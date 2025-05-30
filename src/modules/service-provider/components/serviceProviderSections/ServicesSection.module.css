@@ -3,7 +3,8 @@
     border-radius: var(--radius-lg);
     padding: var(--spacing-lg);
     margin-bottom: var(--spacing-lg);
-    border: 1px solid var(--border);
+    border: 1px solid var(--sp-border);
+    box-shadow: var(--shadow-md);
     position: relative;
 }
 
@@ -12,6 +13,33 @@
     font-weight: 600;
     color: var(--sp-text);
     margin: 0 0 var(--spacing-md) 0;
+    padding-bottom: 0.5rem;
+    border: none;
+    position: relative;
+}
+
+.sectionTitle::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 70px;
+    height: 3px;
+    background: var(--primary-light, #90cdf4);
+    border-radius: 3px;
+    z-index: 1;
+}
+
+.sectionTitle::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 40px;
+    height: 3px;
+    background: var(--primary, #3182ce);
+    border-radius: 3px;
+    z-index: 2;
 }
 
 .servicesList {
@@ -90,4 +118,8 @@
     font-weight: 600;
     color: var(--sp-primary);
     margin: 0;
+}
+
+.servicesContainer {
+    min-height: 220px;
 } 

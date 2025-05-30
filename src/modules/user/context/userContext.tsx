@@ -1,9 +1,15 @@
 import React, { createContext, useContext, ReactNode, useReducer, useEffect } from 'react';
-import { UserState, userData } from '../../../types/types';
-import { getUser } from '../api/userServices';
+import { UserState, UserData } from "types";
+import { getUser } from '../services/userServices';
+
+/**
+ * Contexto global de usuario (autenticación y sesión)
+ * Usa los servicios y hooks de user para obtener y actualizar el usuario
+ * Las vistas (pages) de account deben consumir este contexto
+ */
 
 type UserAction =
-    | { type: "SET_USER", payload: userData }
+    | { type: "SET_USER", payload: UserData }
     | { type: "LOGOUT" }
     | { type: "SET_LOADING", payload: boolean };
 
@@ -29,12 +35,11 @@ const UserContext = createContext<{ userState: UserState; userDispatch: React.Di
 const UserProvider = ({ children }: { children: ReactNode }) => {
     const [userState, userDispatch] = useReducer(userReducer, initialUserState);
 
-    // Obtiene el id si tiene sesión iniciada
+    // Obtiene el usuario si tiene sesión iniciada
     useEffect(() => {
         userDispatch({ type: "SET_LOADING", payload: true });
         const fetchUser = async () => {
             try {
-
                 const userData = await getUser();
                 if (!userData) {
                     return;
@@ -60,10 +65,10 @@ export default UserProvider;
 export const useUser = () => {
     const context = useContext(UserContext);
     if (!context) {
-        throw new Error('useIsLogin must be used within an IsLoginProvider');
+        throw new Error('useUser debe usarse dentro de un UserProvider');
     }
     const { userState, userDispatch } = context;
-    const setUser = (data: userData) => userDispatch({ type: "SET_USER", payload: data });
+    const setUser = (data: UserData) => userDispatch({ type: "SET_USER", payload: data });
     const logoutUser = () => userDispatch({ type: "LOGOUT" });
 
     return { userState, setUser, logoutUser };

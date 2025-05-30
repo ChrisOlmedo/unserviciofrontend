@@ -4,6 +4,11 @@
     --color-primary-dark: #0f2942;
     --color-primary-darker: #0a1f33;
     --color-primary-light: #2c5282;
+    --primary: #1a365d;
+    --primary-light: #90cdf4;
+    --primary-dark: #0f2942;
+    --primary-darker: #0a1f33;
+    --primary-gradient: linear-gradient(90deg, #1a365d, #2c5282);
     
     --color-danger: #9b2c2c;       /* Rojo corporativo */
     --color-danger-dark: #822727;

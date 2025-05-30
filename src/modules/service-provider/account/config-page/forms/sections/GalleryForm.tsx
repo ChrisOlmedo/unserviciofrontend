@@ -2,7 +2,7 @@ import { useReducer, useRef, useState } from "react";
 import styles from './GalleryForm.module.css';
 import { useTriggerListener } from '../../hooks/useTriggerListener';
 import { useServiceProvider } from "../../hooks/useServiceProvider";
-import { Image } from "../../../../../../types/types";
+import { Image } from "types";
 
 
 

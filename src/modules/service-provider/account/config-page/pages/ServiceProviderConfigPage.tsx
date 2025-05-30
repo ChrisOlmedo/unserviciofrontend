@@ -1,104 +1,137 @@
-
-import ServiceProviderIndex from "../../../components/ServiceProviderIndex.tsx";
+import ServiceProviderIndex from "modules/service-provider/components/ServiceProviderIndex";
 import { Outlet } from "react-router-dom";
-import { useEffect, useState } from "react";
-import Modal from "../../../../../components/Modal/Modal.tsx"; // Adjust the path as needed
-import { useUser } from "../../../../user/context/userContext.tsx";
-import { useServiceProvider } from "../hooks/useServiceProvider.ts";
-import { CompletionStatus } from "../../../../../types/types.ts";
+import { useState } from "react";
+import Modal from "components/Modal/Modal";
+import { useUser } from "modules/user/context/userContext";
+import { useServiceProvider } from "modules/service-provider/account/config-page/hooks/useServiceProvider";
+import { CompletionStatus } from "types";
+import styles from "./ServiceProviderConfigPage.module.css";
+import { createServiceProviderProfile, updateServiceProviderProfile } from "modules/service-provider/services";
 
-function validateCompletion(completionStatus: CompletionStatus): string[] {
-    const missingFields: string[] = [];
-
-    if (!completionStatus.logo) missingFields.push("Logo");
-    if (!completionStatus.about) missingFields.push("Sobre mí");
-    if (!completionStatus.services) missingFields.push("Servicios");
-    if (!completionStatus.gallery) missingFields.push("Galería");
-    if (!completionStatus.information) missingFields.push("Información de contacto");
-
-    return missingFields;
+/**
+ * Devuelve un array con los nombres de los campos obligatorios que faltan completar.
+ * @param completionStatus Estado de completitud de los campos del service provider
+ */
+function getMissingFields(completionStatus: CompletionStatus): string[] {
+    const requiredFields = [
+        { key: "logo", label: "Logo" },
+        { key: "about", label: "Sobre mí" },
+        { key: "services", label: "Servicios" },
+        { key: "gallery", label: "Galería" },
+        { key: "information", label: "Información de contacto" },
+    ];
+    return requiredFields
+        .filter(field => !completionStatus[field.key as keyof CompletionStatus])
+        .map(field => field.label);
 }
 
+/**
+ * Página de configuración del Service Provider.
+ * Permite crear o actualizar la página del proveedor de servicios.
+ */
 function ServiceProviderConfigPage() {
-
+    // Contextos globales
     const { userState } = useUser();
-    const { serviceProviderState } = useServiceProvider();
-    const { completionStatus } = serviceProviderState;
+    const { getApiPayload, serviceProviderState } = useServiceProvider();
+    const { completionStatus, hasModifiedData } = serviceProviderState;
+
+    // Estados locales
     const [missingFields, setMissingFields] = useState<string[]>([]);
+    const [showMissingFieldsModal, setShowMissingFieldsModal] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const handleUpdate = () => {
-        console.log("Guardando cambios...");
+    // Datos filtrados para enviar al backend
+    const serviceProviderData = getApiPayload();
 
+    /**
+     * Maneja la actualización del perfil del service provider.
+     * Solo disponible para usuarios con rol 'service-provider'.
+     */
+    const handleUpdate = async () => {
+        setIsLoading(true);
+        try {
+            await updateServiceProviderProfile(serviceProviderData);
+            // TODO: Mostrar notificación de éxito
+        } catch (error) {
+            // TODO: Mostrar notificación de error
+            console.error("Error al actualizar el perfil:", error);
+        } finally {
+            setIsLoading(false);
+        }
     };
-    const [oka, setOka] = useState(false);
-    const handleCreate = () => {
-        const missing = validateCompletion(completionStatus);
+
+    /**
+     * Maneja la creación del perfil del service provider.
+     * Solo disponible para usuarios que no son 'service-provider'.
+     */
+    const handleCreate = async () => {
+        const missing = getMissingFields(completionStatus);
         if (missing.length > 0) {
-            setMissingFields(missing); // setMissingFields sería un estado local
-            setOka(true); // Mostrar modal
+            setMissingFields(missing);
+            setShowMissingFieldsModal(true);
             return;
         }
-
-        console.log("Creando página...");
-        console.log(serviceProviderState);
+        setIsLoading(true);
+        try {
+            await createServiceProviderProfile(serviceProviderData);
+            // TODO: Mostrar notificación de éxito
+        } catch (error) {
+            // TODO: Mostrar notificación de error
+            console.error("Error al crear el perfil:", error);
+        } finally {
+            setIsLoading(false);
+        }
     };
-    const ok = () => {
-        setOka(false);
-    };
-    useEffect(() => {
-        console.log("ServiceProviderState", serviceProviderState);
-
-    }, []);
-    /*
-    const validateSlugAccess = (slug: string | undefined, user: User | null) => {
-        if (!user) return "not_logged_in"; // Si no está logueado (el Layout ya redirige)
-        if (user.role === "user" && slug !== "mi-pagina") return "invalid_user_access";
-        if (user.role === "serviceProvider" && user.slug !== slug) return "not_owner";
-        return "valid";
-    };
-
-    const accessStatus = validateSlugAccess(slug, userState.user);
-
-    const messages = {
-        not_logged_in: "Debes iniciar sesión",
-        invalid_user_access: "No tienes permisos para esta página",
-        not_owner: "Esta página no te pertenece",
-    };
-    const ErrorPage = ({ type }: { type: keyof typeof messages }) => {
-        return <div>{messages[type] || "Página no encontrada"}</div>;
-    };
-
-    if (accessStatus !== "valid") {
-        return <ErrorPage type={accessStatus} />; // Componente más específico
-    }
-*/
 
     return (
         <>
-            <ServiceProviderIndex serviceProviderData={serviceProviderState} isConfig={true} />
-            {/* Crear un contexto para compartir hasBeenModified y su set, que indica que cualquier input ha sido modificado*/}
+            {/* Vista principal del proveedor de servicios en modo configuración */}
+            <ServiceProviderIndex serviceProviderData={serviceProviderData} isConfig={true} />
+            {/* Outlet para subrutas de configuración */}
             <Outlet />
+            
+            {/* Botón principal de acción: actualizar o crear según el rol */}
             {userState.user?.role === "service-provider" ? (
-                <button onClick={handleUpdate} className="btn btn-primary">Actualizar página</button>
+                <button
+                    onClick={handleUpdate}
+                    className={styles.mainActionButton}
+                    disabled={isLoading || !hasModifiedData}
+                >
+                    {isLoading ? "Guardando..." : "Actualizar página"}
+                </button>
             ) : (
-                <button onClick={handleCreate} className="btn btn-primary">Crear página</button>
+                <button
+                    onClick={handleCreate}
+                    className={styles.mainActionButton}
+                    disabled={isLoading}
+                >
+                    {isLoading ? "Creando..." : "Crear página"}
+                </button>
             )}
 
-            {oka && (
-                <Modal onClose={ok}>
+            {/* Modal para mostrar campos obligatorios faltantes */}
+            {showMissingFieldsModal && (
+                <Modal onClose={() => setShowMissingFieldsModal(false)}>
                     <Modal.Header>
-                        <h2>Error</h2>
+                        <h2 className={styles.missingFieldsTitle}>Campos obligatorios faltantes</h2>
                     </Modal.Header>
                     <Modal.Body>
-                        <p>Faltan los siguientes campos obligatorios:</p>
-                        <ul>
-                            {missingFields.map(field => (
-                                <li key={field}>{field}</li>
-                            ))}
-                        </ul>
+                        <div className={styles.missingFieldsBody}>
+                            <p>Faltan los siguientes campos obligatorios:</p>
+                            <ul className={styles.missingFieldsList}>
+                                {missingFields.map(field => (
+                                    <li key={field}>{field}</li>
+                                ))}
+                            </ul>
+                        </div>
                     </Modal.Body>
                     <Modal.Footer>
-                        <button onClick={ok}>OK</button>
+                        <button
+                            onClick={() => setShowMissingFieldsModal(false)}
+                            className={styles.missingFieldsButton}
+                        >
+                            OK
+                        </button>
                     </Modal.Footer>
                 </Modal>
             )}

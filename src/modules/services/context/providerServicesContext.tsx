@@ -1,7 +1,6 @@
-
 import { createContext, useContext, useState, useEffect } from "react";
-import { ServiceCard } from "../../../types/types";
-import apiClient from "../../../services/axiosClient.config";
+import { ServiceCard } from "types";
+import apiClient from "../../../config/axiosClient.config";
 
 interface ServiceContextType {
     services: ServiceCard[];

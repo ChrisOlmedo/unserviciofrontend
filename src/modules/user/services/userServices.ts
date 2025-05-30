@@ -1,6 +1,6 @@
-import { UserState } from "../../../types/types";
-import apiClient from "../../../services/axiosClient.config";
-import { API_ROUTES } from "../../../constants/apiRoutes";
+import { UserState } from "types";
+import apiClient from "config/axiosClient.config";
+import { API_ROUTES } from "constants/apiRoutes";
 
 export const getUser = async (): Promise<UserState | null> => {
     try {
@@ -12,4 +12,4 @@ export const getUser = async (): Promise<UserState | null> => {
         console.error("Error al obtener los datos:", error);
         return null; // Si hay un error (ej. token inválido), devolvemos null
     }
-};
+}; 

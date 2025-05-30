@@ -1,58 +1,71 @@
-import apiClient from '../../../services/axiosClient.config';
-import { API_ROUTES } from '../../../constants/apiRoutes';
-import { userData } from '../../../types/types';
-import { useEffect, useState } from "react";
+import apiClient from 'config/axiosClient.config';
+import { API_ROUTES } from 'constants/apiRoutes';
+import { UserData } from "types";
 
-export const useAuth = () => {
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const checkAuth = async () => {
-            try {
-                const response = await fetch(API_ROUTES.AUTH.LOGIN, { credentials: "include" });
-                if (!response.ok) throw new Error("No autenticado");
-
-                const data = await response.json();
-                setUser(data); // Guardar datos en el estado local
-            } catch (error) {
-
-                setUser(null);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        checkAuth();
-    }, []);
-
-    return { user, loading };
-};
+// Obtener usuario actual por token (para mantener sesión iniciada)
+export async function getCurrentUser(): Promise<UserData | null> {
+  try {
+    const response = await apiClient.get<UserData>(API_ROUTES.USERS.ME, { withCredentials: true });
+    return response.data;
+  } catch (error: any) {
+    return null;
+  }
+}
 
 export const logout = async (): Promise<void> => {
-    try {
-        await apiClient.post(API_ROUTES.AUTH.LOGOUT, {}, { withCredentials: true });
-    } catch (error) {
-        console.error("Error al cerrar sesión:", error);
-    }
-
+  try {
+    await apiClient.post(API_ROUTES.AUTH.LOGOUT, {}, { withCredentials: true });
+  } catch (error) {
+    console.error("Error al cerrar sesión:", error);
+  }
 };
 
-const loginByGoogle = async (token: string): Promise<userData | null> => {
-    try {
-        const response = await apiClient.post<userData>(API_ROUTES.AUTH.GOOGLE, { token }, { withCredentials: true });
-        console.log('Response:', response.data);
-        return response.data;
-    } catch (error: any) {
-        console.error('Error en login:', error);
-
-        // Si la API devuelve un error con mensaje, úsalo
-        const errorMessage = error.response?.data?.message || 'Error al iniciar sesión';
-
-        console.warn('Detalle del error:', errorMessage);
-        return null; // Evita lanzar un error y permite manejarlo en el frontend
+// Login con email y password
+export async function loginUser(email: string, password: string): Promise<UserData> {
+  try {
+    const response = await apiClient.post<UserData>(API_ROUTES.AUTH.LOGIN, { email, password }, { withCredentials: true });
+    return response.data;
+  } catch (error: any) {
+    if (error.response) {
+      if (error.response.status === 401) {
+        throw new Error('Correo o contraseña incorrectos');
+      }
+      if (error.response.status === 404) {
+        throw new Error('Usuario no encontrado');
+      }
+      throw new Error(error.response.data?.message || 'Error desconocido en login');
     }
-};
+    throw new Error('No se pudo conectar con el servidor');
+  }
+}
 
-export default loginByGoogle;
+// Registro
+export async function registerUser(name: string, email: string, password: string): Promise<UserData> {
+  try {
+    const response = await apiClient.post<UserData>(API_ROUTES.AUTH.REGISTER, { name, email, password });
+    return response.data;
+  } catch (error: any) {
+    if (error.response) {
+      if (error.response.status === 409) {
+        throw new Error('El correo ya está registrado');
+      }
+      throw new Error(error.response.data?.message || 'Error desconocido en registro');
+    }
+    throw new Error('No se pudo conectar con el servidor');
+  }
+}
+
+// Login con Google
+export default async function loginByGoogle(token: string): Promise<UserData> {
+  try {
+    const response = await apiClient.post<UserData>(API_ROUTES.AUTH.GOOGLE, { token }, { withCredentials: true });
+    return response.data;
+  } catch (error: any) {
+    console.log(error);
+    if (error.response) {
+      throw new Error(error.response.data?.message || 'Error con Google Login');
+    }
+    throw new Error('No se pudo conectar con el servidor');
+  }
+}
 

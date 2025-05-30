@@ -4,31 +4,28 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import Home from './pages/Home/Home'
 import NoPage from './pages/NoPage/NoPage'
 import MainLayout from './pages/MainLayout'
-import Profile from './modules/user/pages/Profile'
-import Settings from './modules/user/pages/Settings'
-import AccountLayout from './modules/account/layout/AccountLayout'
-import LoginPage from './modules/auth/pages/LoginPage'
+import Profile from 'modules/account/pages/Profile'
+import Settings from 'modules/account/pages/Settings'
+import AccountLayout from 'modules/account/layout/AccountLayout'
 import PrivacyPoliticals from './pages/Legals/PrivacyPolicy'
 import Conditionals from './pages/Legals/Conditions'
-import ServiceProviderPage from './modules/service-provider/public/pages/ServiceProviderPage'
-import MainServices from './modules/services/pages/MainServices'
-import ServiceProviderConfigPage from './modules/service-provider/account/config-page/pages/ServiceProviderConfigPage'
-import ServiceProviderPagePrueba from './types/prueba'
+import ServiceProviderPage from 'modules/service-provider/public/pages/ServiceProviderPage'
+import MainServices from 'modules/services/pages/MainServices'
+import ServiceProviderConfigPage from 'modules/service-provider/account/config-page/pages/ServiceProviderConfigPage'
+import LoginGooglePage from 'modules/auth/pages/LoginGooglePage'
 
 //Context
-import ServiceProvider from './modules/services/context/providerServicesContext';
-import UserProvider from './modules/user/context/userContext'
+import ServiceProvider from 'modules/services/context/providerServicesContext';
+import UserProvider from 'modules/user/context/userContext'
 
 //Import routes
-import ServiceProviderFormRoutes from './modules/service-provider/account/config-page/routes/FormRoutes'
+import ServiceProviderFormRoutes from 'modules/service-provider/account/config-page/routes/FormRoutes'
 
 //Import guards
-import ValidateSlugRoute from './guards/ValidateSlugRoute'
-import RequireAuth from './guards/ValidateLogin'
+import { ValidateSlugRoute, RequireAuth, RedirectIfAuth } from 'guards'
 
 //Style
 import './styles/App.css'
-import LoginProvider from './modules/auth/pages/LoginProvider'
 
 
 function App() {
@@ -64,12 +61,11 @@ function App() {
               </Route>
 
             </Route>
-            {/* Crear una proteccion para login */}
-            <Route path="/login" element={<LoginPage />} />
-            {/* Solo son pruebas */}
-            <Route path="/login-provider" element={<LoginProvider />} />
-            <Route path="/prueba" element={<ServiceProviderPagePrueba />} />
-            {/* Fin de pruebas */}
+            <Route path="/login" element={<RedirectIfAuth><LoginGooglePage /></RedirectIfAuth>} />
+            {/* Feature: Login y Register con manejo de encriptacion de contraseñas
+            <Route path="/login" element={<RedirectIfAuth><LoginPage /></RedirectIfAuth>} />
+            <Route path="/register" element={<RedirectIfAuth><RegisterPage /></RedirectIfAuth>} />
+            */}
             <Route path="*" element={<NoPage />} />
           </Routes>
         </ServiceProvider>

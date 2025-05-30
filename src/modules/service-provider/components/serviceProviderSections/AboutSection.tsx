@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './AboutSection.module.css';
-import EditButton from "../EditButton";
-import EditButtonAbsolute from "../EditButtonAbsolute";
-import { useConfig } from "../../context/ConfigFlagContext";
+import EditButton from "modules/service-provider/components/EditButton";
+import EditButtonAbsolute from "modules/service-provider/components/EditButtonAbsolute";
+import { useConfig } from "modules/service-provider/context/ConfigFlagContext";
 
 interface AboutSectionProps {
     aboutSection: string;

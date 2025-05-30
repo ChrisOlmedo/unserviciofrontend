@@ -1,8 +1,6 @@
 .container {
     padding: var(--spacing-lg);
     background-color: var(--sp-bg);
-    width: 100%;
-    max-width: 100%;
     overflow-x: hidden;
 }
 

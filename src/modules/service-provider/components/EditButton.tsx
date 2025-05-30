@@ -1,6 +1,6 @@
 import { useConfig } from "../context/ConfigFlagContext";
 import { useNavigate } from 'react-router-dom';
-import { RouteSection } from '../../../types/types'; // Ajusta la ruta
+import { RouteSection } from "types"; // Ajusta la ruta
 import { useRoutes } from '../account/config-page/hooks/useRoutes';
 import { useServiceProvider } from "../account/config-page/hooks/useServiceProvider";
 import { FiEdit2 } from 'react-icons/fi';

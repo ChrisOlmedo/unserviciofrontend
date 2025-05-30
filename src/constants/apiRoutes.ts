@@ -1,3 +1,6 @@
+// Rutas de la API backend para uso en servicios HTTP (axios/fetch)
+// Ejemplo de uso: axios.get(API_ROUTES.USERS.ME)
+
 export const API_ROUTES = {
     AUTH: {
         LOGIN: "/api/auth/login",

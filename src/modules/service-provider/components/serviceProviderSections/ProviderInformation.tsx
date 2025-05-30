@@ -1,12 +1,12 @@
-import { ServiceProviderPage } from "../../../../types/types";
-import EditButtonAbsolute from "../EditButtonAbsolute";
-import EditButton from "../EditButton";
-import { useConfig } from "../../context/ConfigFlagContext";
+import { ServiceProviderPage } from "types";
+import EditButtonAbsolute from "modules/service-provider/components/EditButtonAbsolute";
+import EditButton from "modules/service-provider/components/EditButton";
+import { useConfig } from "modules/service-provider/context/ConfigFlagContext";
 import styles from './ProviderInformation.module.css';
 
-type ProviderInformationProps = Pick<ServiceProviderPage, 'enterpriseName' | 'rating' | 'typeService'>;
+type ProviderInformationProps = Pick<ServiceProviderPage, 'enterpriseName' | 'rating' | 'serviceCategories'>;
 
-const ProviderInformation = ({ enterpriseName, rating, typeService }: ProviderInformationProps) => {
+const ProviderInformation = ({ enterpriseName, rating, serviceCategories }: ProviderInformationProps) => {
     const { isConfig } = useConfig();
 
     return (
@@ -16,7 +16,7 @@ const ProviderInformation = ({ enterpriseName, rating, typeService }: ProviderIn
                 <strong>Calificación: {rating?.toFixed(1)}</strong>⭐
             </p>
             <p className={styles.description}>
-                <strong>Oficio:</strong> {typeService}
+                <strong>Oficio:</strong> {serviceCategories.join(', ')}
             </p>
 
             {isConfig && (

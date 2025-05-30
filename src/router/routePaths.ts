@@ -1,4 +1,7 @@
-import { RouteSection } from "../types/types";
+// Rutas del frontend para React Router y navegación interna
+// Ejemplo de uso: <Link to={routePaths.login} />
+
+import { RouteSection } from "types";
 
 // Tipos para autocompletado y validación
 
