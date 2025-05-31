@@ -9,11 +9,12 @@ import ErrorMessage from "components/ErrorInput/ErrorMessage";
 
 export const LogoForm = () => {
     const { logo, updateLogo } = useServiceProvider().logoSection();
+    const { addDeletedImage } = useServiceProvider();
     const { hasChangesForm, setHasChangesForm } = useServiceProvider().hasChangesForm();
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [currentLogo, setCurrentLogo] = useState<Image>(logo);
     const [error, setError] = useState(false);
-
+    const [deletedLogo, setDeletedLogo] = useState<{ id: string; url: string } | null>(null);
 
     const currentPreview = useMemo(() => {
         return currentLogo.file
@@ -23,7 +24,12 @@ export const LogoForm = () => {
 
     const handleAddImage = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
+            // Si el logo actual no tiene file y tiene id, se marca como eliminada, porque significa que viene un logo de la DB
+            if (!currentLogo.file && currentLogo.id) {
+                setDeletedLogo({ id: currentLogo.id, url: currentLogo.url });
+            }
             setCurrentLogo({
+                id: '',
                 file: e.target.files[0],
                 url: URL.createObjectURL(e.target.files[0])
             });
@@ -32,11 +38,14 @@ export const LogoForm = () => {
             setError(false);
         }
         !hasChangesForm && setHasChangesForm(true);
-
     };
 
     const handleDelete = () => {
+        if (!currentLogo.file && currentLogo.id) {
+            setDeletedLogo({ id: currentLogo.id, url: currentLogo.url });
+        }
         setCurrentLogo({
+            id: '',
             file: null,
             url: ''
         });
@@ -45,6 +54,7 @@ export const LogoForm = () => {
     const handleUploadClick = () => {
         fileInputRef.current?.click();
     };
+
     useTriggerListener({
         validate: () => {
             if (!currentLogo.file && !currentLogo.url) {
@@ -56,7 +66,10 @@ export const LogoForm = () => {
             setError(true);
         },
         onSave: () => {
-            console.log(currentLogo);
+            if (deletedLogo) {
+                addDeletedImage(deletedLogo.id);
+                setDeletedLogo(null);
+            }
             updateLogo(currentLogo);
         },
     });

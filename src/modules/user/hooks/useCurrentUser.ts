@@ -16,4 +16,5 @@ export function useCurrentUser() {
   }, []);
 
   return { user, loading, error };
+  
 } 

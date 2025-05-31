@@ -45,6 +45,7 @@ export interface ServiceProviderData extends ServiceCard, ProviderContactInfo, P
 
 export interface ServiceProviderPageConfig extends ServiceProviderData, FormState, Modifiable {
     completionStatus: CompletionStatus;
+    deletedImages: string[];
 }
 
 export interface ServiceProviderPage extends ServiceProviderData {

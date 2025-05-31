@@ -1,13 +1,14 @@
 import ServiceProviderIndex from "modules/service-provider/components/ServiceProviderIndex";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Modal from "components/Modal/Modal";
 import { useUser } from "modules/user/context/userContext";
 import { useServiceProvider } from "modules/service-provider/account/config-page/hooks/useServiceProvider";
 import { CompletionStatus } from "types";
 import styles from "./ServiceProviderConfigPage.module.css";
 import { createServiceProviderProfile, updateServiceProviderProfile } from "modules/service-provider/services";
-
+import { buildServiceProviderFormData } from "../utils/formData";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 /**
  * Devuelve un array con los nombres de los campos obligatorios que faltan completar.
  * @param completionStatus Estado de completitud de los campos del service provider
@@ -31,17 +32,12 @@ function getMissingFields(completionStatus: CompletionStatus): string[] {
  */
 function ServiceProviderConfigPage() {
     // Contextos globales
-    const { userState } = useUser();
-    const { getApiPayload, serviceProviderState } = useServiceProvider();
+    const { userState, fetchUser } = useUser();
+    const { serviceProviderState, ServiceProviderDispatch } = useServiceProvider();
     const { completionStatus, hasModifiedData } = serviceProviderState;
-
+    const navigate = useNavigate();
     // Estados locales
-    const [missingFields, setMissingFields] = useState<string[]>([]);
-    const [showMissingFieldsModal, setShowMissingFieldsModal] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-
-    // Datos filtrados para enviar al backend
-    const serviceProviderData = getApiPayload();
 
     /**
      * Maneja la actualización del perfil del service provider.
@@ -50,10 +46,13 @@ function ServiceProviderConfigPage() {
     const handleUpdate = async () => {
         setIsLoading(true);
         try {
-            await updateServiceProviderProfile(serviceProviderData);
-            // TODO: Mostrar notificación de éxito
+            // Espera la respuesta con los nuevos datos
+            const updatedData = await updateServiceProviderProfile(buildServiceProviderFormData(serviceProviderState, true));
+            toast.success("¡Perfil actualizado exitosamente!");
+            // Actualiza el estado global con los nuevos datos
+            ServiceProviderDispatch({ type: 'SET_NEW_DATA', data: updatedData });
         } catch (error) {
-            // TODO: Mostrar notificación de error
+            toast.error("Error al actualizar el perfil. Intenta nuevamente.");
             console.error("Error al actualizar el perfil:", error);
         } finally {
             setIsLoading(false);
@@ -67,29 +66,39 @@ function ServiceProviderConfigPage() {
     const handleCreate = async () => {
         const missing = getMissingFields(completionStatus);
         if (missing.length > 0) {
-            setMissingFields(missing);
-            setShowMissingFieldsModal(true);
+            missing.forEach(field => {
+                toast.error(`Falta completar: ${field}`);
+            });
             return;
         }
         setIsLoading(true);
         try {
-            await createServiceProviderProfile(serviceProviderData);
-            // TODO: Mostrar notificación de éxito
+            // Espera la respuesta con los nuevos datos
+            const createdData = await createServiceProviderProfile(buildServiceProviderFormData(serviceProviderState, false));
+            toast.success("¡Perfil creado exitosamente!");
+            // Actualiza el estado global con los nuevos datos
+            ServiceProviderDispatch({ type: 'SET_NEW_DATA', data: createdData });
+            // Si el usuario no era service-provider, actualiza el rol y refetch del usuario
+            if (userState.user?.role !== "service-provider" && fetchUser) {
+                await fetchUser(); // Refresca el usuario para reflejar el nuevo rol
+            }
         } catch (error) {
-            // TODO: Mostrar notificación de error
+            toast.error("Error al crear el perfil. Intenta nuevamente.");
             console.error("Error al crear el perfil:", error);
         } finally {
             setIsLoading(false);
         }
     };
 
+    // Construye la url pública del proveedor
+    const publicUrl = `/proveedor/${serviceProviderState.slug}`;
+
     return (
         <>
             {/* Vista principal del proveedor de servicios en modo configuración */}
-            <ServiceProviderIndex serviceProviderData={serviceProviderData} isConfig={true} />
+            <ServiceProviderIndex serviceProviderData={serviceProviderState} isConfig={true} />
             {/* Outlet para subrutas de configuración */}
             <Outlet />
-            
             {/* Botón principal de acción: actualizar o crear según el rol */}
             {userState.user?.role === "service-provider" ? (
                 <button
@@ -108,33 +117,22 @@ function ServiceProviderConfigPage() {
                     {isLoading ? "Creando..." : "Crear página"}
                 </button>
             )}
-
-            {/* Modal para mostrar campos obligatorios faltantes */}
-            {showMissingFieldsModal && (
-                <Modal onClose={() => setShowMissingFieldsModal(false)}>
-                    <Modal.Header>
-                        <h2 className={styles.missingFieldsTitle}>Campos obligatorios faltantes</h2>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <div className={styles.missingFieldsBody}>
-                            <p>Faltan los siguientes campos obligatorios:</p>
-                            <ul className={styles.missingFieldsList}>
-                                {missingFields.map(field => (
-                                    <li key={field}>{field}</li>
-                                ))}
-                            </ul>
-                        </div>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <button
-                            onClick={() => setShowMissingFieldsModal(false)}
-                            className={styles.missingFieldsButton}
-                        >
-                            OK
-                        </button>
-                    </Modal.Footer>
-                </Modal>
+            {/* Si el usuario es service-provider, mostrar botón para ver página y la url pública */}
+            {userState.user?.role === "service-provider" && (
+                <div className={styles.publicUrlContainer}>
+                    <button
+                        className={styles.viewPageButton}
+                        onClick={() => navigate(publicUrl)}
+                    >
+                        Ver mi página pública
+                    </button>
+                    <div className={styles.publicUrlInfo}>
+                        <span>URL pública: </span>
+                        <a href={publicUrl} target="_blank" rel="noopener noreferrer">{window.location.origin + publicUrl}</a>
+                    </div>
+                </div>
             )}
+            <ToastContainer />
         </>
     );
 }

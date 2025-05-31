@@ -3,7 +3,7 @@ import { ServiceProviderPageConfig, Image, CompletionStatus, InformationFormData
 export const initialStateServiceProviderPage: ServiceProviderPageConfig = {
     slug: "",
     enterpriseName: "",
-    logo: { url: "", file: null },
+    logo: { id: '', url: "", file: null },
     serviceCategories: [],
     rating: 0,
     phone: "",
@@ -27,6 +27,7 @@ export const initialStateServiceProviderPage: ServiceProviderPageConfig = {
         gallery: false,
         information: false,
     },
+    deletedImages: [],
 };
 // Acciones iniciales
 export type ServiceProviderAction =
@@ -41,7 +42,9 @@ export type ServiceProviderAction =
     | { type: 'RESET_SHOULD_SAVE' }
     | { type: 'RESET_FORM_CHANGED' }
     | { type: 'SET_FORM_CHANGED' }
-    | { type: 'RESET_MODIFIED_DATA' };
+    | { type: 'RESET_MODIFIED_DATA' }
+    | { type: 'ADD_DELETED_IMAGE'; url: string }
+    | { type: 'RESET_DELETED_IMAGES' };
 
 export const serviceProviderReducer = (state: ServiceProviderPageConfig, action: ServiceProviderAction): ServiceProviderPageConfig => {
     switch (action.type) {
@@ -139,6 +142,17 @@ export const serviceProviderReducer = (state: ServiceProviderPageConfig, action:
             return {
                 ...state,
                 hasModifiedData: false,
+            };
+        case 'ADD_DELETED_IMAGE':
+            return {
+                ...state,
+                deletedImages: [...state.deletedImages, action.url],
+                hasModifiedData: true,
+            };
+        case 'RESET_DELETED_IMAGES':
+            return {
+                ...state,
+                deletedImages: [],
             };
         default:
             return state;

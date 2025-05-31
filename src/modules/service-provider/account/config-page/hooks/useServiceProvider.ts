@@ -56,8 +56,6 @@ export const useServiceProvider = () => {
         };
     }
 
-
-
     const gallerySection = () => {
         const { gallery } = serviceProviderState;
         return {
@@ -103,39 +101,13 @@ export const useServiceProvider = () => {
         };
     }
 
-    // Función para filtrar los datos relevantes para el backend
-    function getApiPayload() {
-        const {
-            slug,
-            enterpriseName,
-            logo,
-            serviceCategories,
-            rating,
-            phone,
-            whatsapp,
-            email,
-            location,
-            coverage,
-            services,
-            aboutMe,
-            gallery,
-        } = serviceProviderState;
-        return {
-            slug,
-            enterpriseName,
-            logo,
-            serviceCategories,
-            rating,
-            phone,
-            whatsapp,
-            email,
-            location,
-            coverage,
-            services,
-            aboutMe,
-            gallery,
-        };
-    }
+    // Manejo de imágenes eliminadas
+    const addDeletedImage = (urlOrId: string) => {
+        ServiceProviderDispatch({ type: 'ADD_DELETED_IMAGE', url: urlOrId });
+    };
+    const resetDeletedImages = () => {
+        ServiceProviderDispatch({ type: 'RESET_DELETED_IMAGES' });
+    };
 
     return {
         logoSection,
@@ -148,7 +120,8 @@ export const useServiceProvider = () => {
         completionStatus,
         saveForm,
         hasChangesForm,
-        getApiPayload,
+        addDeletedImage,
+        resetDeletedImages,
     }
 
 } 
