@@ -12,7 +12,6 @@ export function buildServiceProviderFormData(data: ServiceProviderPageConfig, is
     formData.append('slug', data.slug || '');
     formData.append('enterpriseName', data.enterpriseName || '');
     formData.append('serviceCategories', JSON.stringify(data.serviceCategories || []));
-    formData.append('rating', String(data.rating ?? ''));
     formData.append('phone', data.phone || '');
     formData.append('whatsapp', data.whatsapp || '');
     formData.append('email', data.email || '');
@@ -24,8 +23,9 @@ export function buildServiceProviderFormData(data: ServiceProviderPageConfig, is
     // Logo
     if (data.logo.file) {
         formData.append('logoFile', data.logo.file);
+        console.log("logo en formData", data.logo.file);
     } else if (data.logo.id) {
-        formData.append('logoId', data.logo.id);
+        formData.append('logo', JSON.stringify(data.logo));
     }
 
     // Galería
@@ -35,7 +35,7 @@ export function buildServiceProviderFormData(data: ServiceProviderPageConfig, is
             formData.append('galleryNewImages[]', img.file);
         } else if (img.id) {
             // Imagen existente (solo id)
-            formData.append('galleryCurrentImages[]', img.id);
+            formData.append('gallery', JSON.stringify(img));
         }
     });
 

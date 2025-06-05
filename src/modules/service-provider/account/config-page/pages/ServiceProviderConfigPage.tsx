@@ -3,12 +3,13 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useUser } from "modules/user/context/userContext";
 import { useServiceProvider } from "modules/service-provider/account/config-page/hooks/useServiceProvider";
-import { CompletionStatus } from "types";
+import { CompletionStatus, ServiceProviderData } from "types";
 import styles from "./ServiceProviderConfigPage.module.css";
 import { createServiceProviderProfile, updateServiceProviderProfile } from "modules/service-provider/services";
 import { buildServiceProviderFormData } from "../utils/formData";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useEffect } from "react";
 /**
  * Devuelve un array con los nombres de los campos obligatorios que faltan completar.
  * @param completionStatus Estado de completitud de los campos del service provider
@@ -49,6 +50,7 @@ function ServiceProviderConfigPage() {
             // Espera la respuesta con los nuevos datos
             const updatedData = await updateServiceProviderProfile(buildServiceProviderFormData(serviceProviderState, true));
             toast.success("¡Perfil actualizado exitosamente!");
+            console.log(updatedData);
             // Actualiza el estado global con los nuevos datos
             ServiceProviderDispatch({ type: 'SET_NEW_DATA', data: updatedData });
         } catch (error) {
@@ -74,14 +76,22 @@ function ServiceProviderConfigPage() {
         setIsLoading(true);
         try {
             // Espera la respuesta con los nuevos datos
-            const createdData = await createServiceProviderProfile(buildServiceProviderFormData(serviceProviderState, false));
+            console.log(serviceProviderState);
+            const createdData: ServiceProviderData = await createServiceProviderProfile(buildServiceProviderFormData(serviceProviderState, false));
             toast.success("¡Perfil creado exitosamente!");
-            // Actualiza el estado global con los nuevos datos
-            ServiceProviderDispatch({ type: 'SET_NEW_DATA', data: createdData });
-            // Si el usuario no era service-provider, actualiza el rol y refetch del usuario
-            if (userState.user?.role !== "service-provider" && fetchUser) {
-                await fetchUser(); // Refresca el usuario para reflejar el nuevo rol
+            console.log(createdData);
+
+            if (fetchUser) {
+                await fetchUser();
             }
+            
+            ServiceProviderDispatch({ type: 'SET_NEW_DATA', data: createdData });
+            
+            useEffect(() => {
+                console.log("Nuevo estado:", serviceProviderState);
+            }, [serviceProviderState]);
+
+
         } catch (error) {
             toast.error("Error al crear el perfil. Intenta nuevamente.");
             console.error("Error al crear el perfil:", error);
@@ -91,10 +101,24 @@ function ServiceProviderConfigPage() {
     };
 
     // Construye la url pública del proveedor
-    const publicUrl = `/proveedor/${serviceProviderState.slug}`;
+    const publicUrl = `/services/${serviceProviderState.slug}`;
 
     return (
-        <>
+        <>{/* Si el usuario es service-provider, mostrar botón para ver página y la url pública */}
+        {userState.user?.role === "service-provider" && (
+            <div className={styles.publicUrlContainer}>
+                <button
+                    className={styles.viewPageButton}
+                    onClick={() => navigate(publicUrl)}
+                >
+                    Ver mi página pública
+                </button>
+                <div className={styles.publicUrlInfo}>
+                    <span>URL pública: </span>
+                    <a href={publicUrl} target="_blank" rel="noopener noreferrer">{window.location.origin + publicUrl}</a>
+                </div>
+            </div>
+        )}
             {/* Vista principal del proveedor de servicios en modo configuración */}
             <ServiceProviderIndex serviceProviderData={serviceProviderState} isConfig={true} />
             {/* Outlet para subrutas de configuración */}
@@ -117,21 +141,7 @@ function ServiceProviderConfigPage() {
                     {isLoading ? "Creando..." : "Crear página"}
                 </button>
             )}
-            {/* Si el usuario es service-provider, mostrar botón para ver página y la url pública */}
-            {userState.user?.role === "service-provider" && (
-                <div className={styles.publicUrlContainer}>
-                    <button
-                        className={styles.viewPageButton}
-                        onClick={() => navigate(publicUrl)}
-                    >
-                        Ver mi página pública
-                    </button>
-                    <div className={styles.publicUrlInfo}>
-                        <span>URL pública: </span>
-                        <a href={publicUrl} target="_blank" rel="noopener noreferrer">{window.location.origin + publicUrl}</a>
-                    </div>
-                </div>
-            )}
+            
             <ToastContainer />
         </>
     );

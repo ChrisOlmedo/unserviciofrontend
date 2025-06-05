@@ -15,7 +15,7 @@ export const API_ROUTES = {
     },
     SERVICE_PROVIDERS: {
         ME: "/api/service-providers/me",
-        LIST: "/api/service-providers",
-        BY_SLUG: (slug: string) => `/api/service-providers/${slug}`,
+        PUBLIC: "/api/service-providers/public",
+        BY_SLUG: (slug: string) => `/api/service-providers/public/${slug}`,
     }
 } as const; // "as const" para inferir tipos literales

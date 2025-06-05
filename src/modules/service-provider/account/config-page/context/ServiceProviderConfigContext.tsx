@@ -1,7 +1,9 @@
-import { ServiceProviderPageConfig } from "types";
+import { ServiceProviderPageConfig, ServiceProviderData } from "types";
 import { createContext, useContext, useEffect, useReducer } from 'react';
 import { serviceProviderReducer, initialStateServiceProviderPage, ServiceProviderAction } from '../reducers/serviceProviderReducer';
-import { useUser } from '../../../../user/context/userContext';
+import { useUser } from 'modules/user/context/userContext';
+import { getCompletionStatusFromData } from '../utils/validation';
+import { getServiceProviderProfile } from "modules/service-provider/services/serviceProviderApi";
 
 export const ServiceProviderConfigContext =
     createContext<{ serviceProviderState: ServiceProviderPageConfig; ServiceProviderDispatch: React.Dispatch<ServiceProviderAction>; }>
@@ -14,15 +16,28 @@ export const ServiceProviderConfigProvider: React.FC<{ children: React.ReactNode
 
     useEffect(() => {
         if (userState.user?.role === 'service-provider') {
-            // Solo hacer fetch si es provider
-            /*
-            fetchServiceProviderData(userState.user.slug)
-              .then(data => dispatch({ type: 'SET_DATA', payload: data }))
-              .catch(error => dispatch({ type: 'SET_ERROR', payload: error }));
-              */
+            getServiceProviderProfile().then(data => {
+                ServiceProviderDispatch({ type: 'SET_NEW_DATA', data: data })
+                console.log("datos del service provider", data);
+            })
         }
     }, [userState.user?.role, userState.user?.slug]);
 
+    useEffect(() => {
+        const newCompletionStatus = getCompletionStatusFromData(serviceProviderState);
+        if (JSON.stringify(newCompletionStatus) !== JSON.stringify(serviceProviderState.completionStatus)) {
+            ServiceProviderDispatch({ type: 'SET_COMPLETION_STATUS', completionStatus: newCompletionStatus });
+        }
+    }, [
+        serviceProviderState.logo,
+        serviceProviderState.aboutMe,
+        serviceProviderState.services,
+        serviceProviderState.gallery,
+        serviceProviderState.enterpriseName,
+        serviceProviderState.phone,
+        serviceProviderState.email,
+        serviceProviderState.location,
+    ]);
 
     return (
         <ServiceProviderConfigContext.Provider value={{ serviceProviderState, ServiceProviderDispatch }}>

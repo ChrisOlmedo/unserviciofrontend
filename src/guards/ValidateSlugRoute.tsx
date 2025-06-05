@@ -16,7 +16,7 @@ const ValidateSlugRoute = ({ children }: { children: ReactNode }) => {
     }
 
     // Caso 2: Proveedor con slug incorrecto => Redirige a su slug real
-    if (userState.user?.role === "service-provider" && userState.user.slug !== slug) {
+    if (userState.user?.role === "service-provider" && slug !== "config-page") {
         return <NoPage />;
     }
 

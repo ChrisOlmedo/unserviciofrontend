@@ -1,4 +1,4 @@
-import { ServiceProviderPageConfig, Image, CompletionStatus, InformationFormData } from "types";
+import { ServiceProviderPageConfig, Image, CompletionStatus, InformationFormData, ServiceProviderData } from "types";
 
 export const initialStateServiceProviderPage: ServiceProviderPageConfig = {
     slug: "",
@@ -44,7 +44,9 @@ export type ServiceProviderAction =
     | { type: 'SET_FORM_CHANGED' }
     | { type: 'RESET_MODIFIED_DATA' }
     | { type: 'ADD_DELETED_IMAGE'; url: string }
-    | { type: 'RESET_DELETED_IMAGES' };
+    | { type: 'RESET_DELETED_IMAGES' }
+    | { type: 'SET_NEW_DATA'; data: ServiceProviderData }
+    | { type: 'SET_COMPLETION_STATUS'; completionStatus: CompletionStatus };
 
 export const serviceProviderReducer = (state: ServiceProviderPageConfig, action: ServiceProviderAction): ServiceProviderPageConfig => {
     switch (action.type) {
@@ -53,10 +55,6 @@ export const serviceProviderReducer = (state: ServiceProviderPageConfig, action:
             return {
                 ...state,
                 logo: action.logo,
-                completionStatus: {
-                    ...state.completionStatus,
-                    logo: true // o tu lógica de validación
-                },
                 hasModifiedData: true,
             };
 
@@ -64,10 +62,6 @@ export const serviceProviderReducer = (state: ServiceProviderPageConfig, action:
             return {
                 ...state,
                 aboutMe: action.aboutMe,
-                completionStatus: {
-                    ...state.completionStatus,
-                    about: true // o tu lógica de validación
-                },
                 hasModifiedData: true,
             };
 
@@ -75,10 +69,6 @@ export const serviceProviderReducer = (state: ServiceProviderPageConfig, action:
             return {
                 ...state,
                 services: action.services,
-                completionStatus: {
-                    ...state.completionStatus,
-                    services: true // o tu lógica de validación
-                },
                 hasModifiedData: true,
             };
 
@@ -95,10 +85,6 @@ export const serviceProviderReducer = (state: ServiceProviderPageConfig, action:
                     maxDistance: action.information.coverage.maxDistance,
                     cities: action.information.coverage.cities,
                 },
-                completionStatus: {
-                    ...state.completionStatus,
-                    information: true // o tu lógica de validación
-                },
                 hasModifiedData: true,
             };
 
@@ -106,22 +92,11 @@ export const serviceProviderReducer = (state: ServiceProviderPageConfig, action:
             return {
                 ...state,
                 gallery: action.gallery,
-                completionStatus: {
-                    ...state.completionStatus,
-                    gallery: true // o tu lógica de validación
-                },
                 hasModifiedData: true,
             };
 
         case 'MARK_SECTION_COMPLETE':
-            return {
-                ...state,
-                completionStatus: {
-                    ...state.completionStatus,
-                    [action.section]: action.completed,
-                },
-                hasModifiedData: true,
-            };
+            return state;
         case "TRIGGER_SAVE":
             return { ...state, shouldSave: true };
 
@@ -153,6 +128,16 @@ export const serviceProviderReducer = (state: ServiceProviderPageConfig, action:
             return {
                 ...state,
                 deletedImages: [],
+            };
+        case 'SET_NEW_DATA':
+            return {
+                ...initialStateServiceProviderPage,
+                ...action.data,
+            };
+        case 'SET_COMPLETION_STATUS':
+            return {
+                ...state,
+                completionStatus: action.completionStatus,
             };
         default:
             return state;

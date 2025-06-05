@@ -88,7 +88,7 @@ const AccountLayout = () => {
                                 </Link>
                             </li>
                             <li className={styles.navItem}>
-                                <Link className={styles.navLink} to={`/account/${userState.user?.slug ? userState.user?.slug : "create-page"}`} onClick={() => setIsExpanded(false)}>
+                                <Link className={styles.navLink} to={`/account/${userState.user?.role === "service-provider" ? "config-page" : "create-page"}`} onClick={() => setIsExpanded(false)}>
                                     <i className="bi bi-plus-circle"></i>
                                     <span>Crear mi página</span>
                                 </Link>

@@ -35,9 +35,8 @@ const UserContext = createContext<{ userState: UserState; userDispatch: React.Di
 const UserProvider = ({ children }: { children: ReactNode }) => {
     const [userState, userDispatch] = useReducer(userReducer, initialUserState);
 
-    // Obtiene el usuario si tiene sesión iniciada
     useEffect(() => {
-        userDispatch({ type: "SET_LOADING", payload: true });
+
         const fetchUser = async () => {
             try {
                 const userData = await getUser();
@@ -62,6 +61,29 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
 };
 export default UserProvider;
 
+// Hook para refrescar el usuario y hacer dispatch automáticamente
+export const useFetchUser = () => {
+    const context = useContext(UserContext);
+    if (!context) {
+        throw new Error('useFetchUser debe usarse dentro de un UserProvider');
+    }
+    const { userDispatch } = context;
+    return async () => {
+        userDispatch({ type: "SET_LOADING", payload: true });
+        try {
+            const userData = await getUser();
+            if (!userData) {
+                return;
+            }
+            userDispatch({ type: "SET_USER", payload: userData });
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+        } finally {
+            userDispatch({ type: "SET_LOADING", payload: false });
+        }
+    };
+};
+
 export const useUser = () => {
     const context = useContext(UserContext);
     if (!context) {
@@ -70,6 +92,7 @@ export const useUser = () => {
     const { userState, userDispatch } = context;
     const setUser = (data: UserData) => userDispatch({ type: "SET_USER", payload: data });
     const logoutUser = () => userDispatch({ type: "LOGOUT" });
+    const fetchUser = useFetchUser();
 
-    return { userState, setUser, logoutUser };
+    return { userState, setUser, logoutUser, fetchUser };
 };
