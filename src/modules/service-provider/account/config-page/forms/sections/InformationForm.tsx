@@ -150,6 +150,7 @@ export const InformationForm = () => {
             {/* Sección de Información Básica */}
             <div className={styles.section}>
                 <h2 className={styles.sectionTitle}>Información Básica</h2>
+                {/* Nombre de la empresa */}
                 <div className={styles.formGroup}>
                     <label htmlFor="enterpriseName" className={styles.label}>
                         Nombre de la empresa
@@ -162,12 +163,16 @@ export const InformationForm = () => {
                         onChange={handleChange}
                         className={styles.input}
                         placeholder="Nombre de la empresa"
+                        disabled={!information.canEditEnterpriseName}
                     />
+                    {!information.canEditEnterpriseName && (
+                        <ErrorMessage message="Solo puedes editar el nombre de la empresa cada 30 días" />
+                    )}
                     {errors.enterpriseName && (
                         <ErrorMessage message={errors.enterpriseName} />
                     )}
                 </div>
-
+                {/* Áreas de servicio */}
                 <div className={styles.formGroup}>
                     <label className={styles.label}>
                         Áreas de servicio

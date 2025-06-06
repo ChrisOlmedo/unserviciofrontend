@@ -38,7 +38,7 @@ export const useServiceProvider = () => {
     }
 
     const informationSection = () => {
-        const { enterpriseName, serviceCategories, phone, whatsapp, email, location, coverage } = serviceProviderState;
+        const { enterpriseName, serviceCategories, phone, whatsapp, email, location, coverage, canEditEnterpriseName } = serviceProviderState;
         const information: InformationFormData = {
             enterpriseName,
             serviceCategories,
@@ -47,6 +47,7 @@ export const useServiceProvider = () => {
             email,
             location,
             coverage,
+            canEditEnterpriseName,
         };
         return {
             information,

@@ -1,5 +1,4 @@
 import { ServiceProviderPageConfig } from "types";
-
 /**
  * Construye un FormData para crear o actualizar un proveedor de servicios.
  * @param data Estado del proveedor de servicios

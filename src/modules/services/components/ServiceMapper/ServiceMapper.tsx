@@ -1,10 +1,11 @@
 import React from 'react';
-import { Service } from '../../types/service';
+
 import ServiceCard from '../ServiceCard/ServiceCard';
+import { ServiceCard as ServiceCardType } from 'types';
 
 interface ServiceMapperProps {
-    services: Service[];
-    renderItem?: (service: Service) => React.ReactNode;
+        services: ServiceCardType[];
+    renderItem?: (service: ServiceCardType) => React.ReactNode;
 }
 
 const ServiceMapper: React.FC<ServiceMapperProps> = ({ services, renderItem }) => {

@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
-import { Service } from '../../../types/service';
+import { ServiceCard } from 'types';
 import ServiceMapper from '../../ServiceMapper/ServiceMapper';
 import styles from './HorizontalServices.module.css';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 interface HorizontalServicesProps {
-    services: Service[];
+    services: ServiceCard[];
     className?: string;
     title: string;
     onViewMore?: () => void;

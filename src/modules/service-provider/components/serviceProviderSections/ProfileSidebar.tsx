@@ -65,7 +65,7 @@ const ProfileSidebar = ({
                         <h2 className={styles.enterpriseName}>{enterpriseName}</h2>
                         <div className={styles.ratingContainer}>
                             <div className={styles.ratingInfo}>
-                                <span className={styles.ratingNumber}>{rating.toFixed(1)}</span>
+                                <span className={styles.ratingNumber}>{rating ? rating.toFixed(1) : 0}</span>
                                 <span className={styles.starFilled}>★</span>
                             </div>
                             <span className={styles.reviewCount}>• {rating} reseñas</span>

@@ -4,6 +4,7 @@ export type RouteSection = 'logo' | 'about' | 'services' | 'gallery' | 'informat
 export type CompletionStatus = Record<RouteSection, boolean>;
 
 export interface ProviderBasicInfo {
+    id?: string;
     slug?: string;
     enterpriseName: string;
     logo: Image;
@@ -31,24 +32,23 @@ export interface ProviderPageContent {
     gallery: Image[];
 }
 
-export interface Modifiable {
-    hasModifiedData: boolean;
-}
 
-export interface FormState {
+export interface flags {
     hasChangesForm: boolean;
     shouldSave: boolean;
+    hasModifiedData: boolean;
+    canEditEnterpriseName: boolean;
 }
 
 export interface ServiceCard extends ProviderServiceArea, ProviderBasicInfo { }
 export interface ServiceProviderData extends ServiceCard, ProviderContactInfo, ProviderPageContent { }
 
-export interface ServiceProviderPageConfig extends ServiceProviderData, FormState, Modifiable {
+export interface ServiceProviderPageConfig extends ServiceProviderData, flags {
     completionStatus: CompletionStatus;
     deletedImages: string[];
 }
 
-export interface ServiceProviderPage extends ServiceProviderData {
+export interface ServiceProviderPublicPage extends ServiceProviderData {
     reviews: Review[];
 }
 
@@ -56,4 +56,9 @@ export interface EditButtonConfig {
     isConfig: boolean;
 }
 
-export interface InformationFormData extends ProviderServiceArea, ProviderContactInfo, Pick<ProviderBasicInfo, 'enterpriseName' | 'serviceCategories'> { } 
+export interface InformationFormData extends 
+ProviderServiceArea, 
+ProviderContactInfo, 
+Pick<ProviderBasicInfo, 'enterpriseName' | 'serviceCategories'> ,
+Pick<flags, 'canEditEnterpriseName'>
+{ } 

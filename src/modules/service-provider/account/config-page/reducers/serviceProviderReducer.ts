@@ -20,6 +20,7 @@ export const initialStateServiceProviderPage: ServiceProviderPageConfig = {
     hasChangesForm: false,
     hasModifiedData: false,
     shouldSave: false,
+    canEditEnterpriseName: true,
     completionStatus: {
         logo: false,
         about: false,

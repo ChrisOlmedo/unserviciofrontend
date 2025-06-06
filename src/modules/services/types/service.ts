@@ -1,13 +1,7 @@
-export interface Service {
-    id: string;
-    logo: string;
-    enterpriseName: string;
-    typeService: string;
-    rating: number;
-}
+import { ServiceCard } from "types";
 
 export interface ServicesResponse {
-    services: Service[];
+    services: ServiceCard[];
     loading: boolean;
     error?: Error;
 } 

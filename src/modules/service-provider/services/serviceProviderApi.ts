@@ -10,6 +10,13 @@ export const getServiceProviderProfile = async (): Promise<ServiceProviderData> 
     return response.data as ServiceProviderData;
 };
 
+export const getPublicServiceProviderProfileBySlug = async (slug: string): Promise<ServiceProviderData> => {
+    const response = await apiClient.get(
+        API_ROUTES.SERVICE_PROVIDERS.PUBLIC.BY_SLUG(slug)
+    );
+    return response.data as ServiceProviderData;
+};
+
 // Actualizar el perfil del service provider
 export const updateServiceProviderProfile = async (data: FormData): Promise<ServiceProviderData> => {
     const response = await apiClient.put(
