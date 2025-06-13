@@ -3,13 +3,15 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useUser } from "modules/user/context/userContext";
 import { useServiceProvider } from "modules/service-provider/account/config-page/hooks/useServiceProvider";
-import { CompletionStatus, ServiceProviderData } from "types";
+import { CompletionStatus } from "types";
 import styles from "./ServiceProviderConfigPage.module.css";
 import { createServiceProviderProfile, updateServiceProviderProfile } from "modules/service-provider/services";
 import { buildServiceProviderFormData } from "../utils/formData";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useEffect } from "react";
+import PrimaryButton from 'components/Button/PrimaryButton';
+import { routePaths } from "router/routePaths";
+import Loading from "components/Loader/Loader";
 /**
  * Devuelve un array con los nombres de los campos obligatorios que faltan completar.
  * @param completionStatus Estado de completitud de los campos del service provider
@@ -73,25 +75,23 @@ function ServiceProviderConfigPage() {
             });
             return;
         }
+
         setIsLoading(true);
         try {
-            // Espera la respuesta con los nuevos datos
-            console.log(serviceProviderState);
-            const createdData: ServiceProviderData = await createServiceProviderProfile(buildServiceProviderFormData(serviceProviderState, false));
-            toast.success("¡Perfil creado exitosamente!");
-            console.log(createdData);
+            await createServiceProviderProfile(
+                buildServiceProviderFormData(serviceProviderState, false)
+            );
 
+            // Primero actualizamos el usuario
             if (fetchUser) {
                 await fetchUser();
             }
-            
-            ServiceProviderDispatch({ type: 'SET_NEW_DATA', data: createdData });
-            
-            useEffect(() => {
-                console.log("Nuevo estado:", serviceProviderState);
-            }, [serviceProviderState]);
 
+            // Luego mostramos el mensaje de éxito
+            toast.success("¡Perfil creado exitosamente!");
 
+            // Finalmente redirigimos
+            navigate(routePaths.account.serviceProvider.edit, { replace: true });
         } catch (error) {
             toast.error("Error al crear el perfil. Intenta nuevamente.");
             console.error("Error al crear el perfil:", error);
@@ -100,49 +100,52 @@ function ServiceProviderConfigPage() {
         }
     };
 
+
     // Construye la url pública del proveedor
-    const publicUrl = `/services/${serviceProviderState.slug}`;
+    const publicUrl = serviceProviderState.slug 
+        ? routePaths.serviceProvider.public(serviceProviderState.slug)
+        : routePaths.notFound;
 
     return (
-        <>{/* Si el usuario es service-provider, mostrar botón para ver página y la url pública */}
-        {userState.user?.role === "service-provider" && (
+        <>
+        {/* Si el usuario es service-provider, mostrar botón para ver página y la url pública */}
+        {userState.user?.role === "service-provider" && serviceProviderState.slug && (
             <div className={styles.publicUrlContainer}>
-                <button
-                    className={styles.viewPageButton}
+                <PrimaryButton
                     onClick={() => navigate(publicUrl)}
+                    style={{ marginRight: '1em' }}
                 >
                     Ver mi página pública
-                </button>
+                </PrimaryButton>
                 <div className={styles.publicUrlInfo}>
                     <span>URL pública: </span>
                     <a href={publicUrl} target="_blank" rel="noopener noreferrer">{window.location.origin + publicUrl}</a>
                 </div>
             </div>
         )}
-            {/* Vista principal del proveedor de servicios en modo configuración */}
+        {/* Vista principal del proveedor de servicios en modo configuración */}
             <ServiceProviderIndex serviceProviderData={serviceProviderState} isConfig={true} />
-            {/* Outlet para subrutas de configuración */}
-            <Outlet />
-            {/* Botón principal de acción: actualizar o crear según el rol */}
+        {/* Outlet para subrutas de configuración */}
+        <Outlet />
+        {/* Botón principal de acción: actualizar o crear según el rol */}
+        <div className={styles.actionButtonContainer}>
             {userState.user?.role === "service-provider" ? (
-                <button
+                <PrimaryButton
                     onClick={handleUpdate}
-                    className={styles.mainActionButton}
                     disabled={isLoading || !hasModifiedData}
                 >
                     {isLoading ? "Guardando..." : "Actualizar página"}
-                </button>
+                </PrimaryButton>
             ) : (
-                <button
+                <PrimaryButton
                     onClick={handleCreate}
-                    className={styles.mainActionButton}
                     disabled={isLoading}
                 >
                     {isLoading ? "Creando..." : "Crear página"}
-                </button>
+                </PrimaryButton>
             )}
-            
-            <ToastContainer />
+        </div>
+        <ToastContainer />
         </>
     );
 }

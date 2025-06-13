@@ -1,3 +1,5 @@
+import { Image } from "types";
+
 export interface ServiceProviderConfig {
     logo?: Image;
     enterpriseName?: string;

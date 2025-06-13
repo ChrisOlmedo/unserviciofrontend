@@ -3,7 +3,7 @@ import styles from './InformationForm.module.css';
 import { useServiceProvider } from "../../hooks/useServiceProvider"
 import { InformationFormData } from "types"
 import { useTriggerListener } from "../../hooks/useTriggerListener";
-import ErrorMessage from "../../../../../../components/ErrorInput/ErrorMessage";
+import ErrorMessage from "components/ErrorInput/ErrorMessage";
 
 // Lista de áreas de servicio predefinidas
 const SERVICE_AREAS = [
@@ -25,7 +25,7 @@ const SERVICE_AREAS = [
 ];
 
 
-export const InformationForm = () => {
+const InformationForm = () => {
     const { information, updateInformation } = useServiceProvider().informationSection();
     const { hasChangesForm, setHasChangesForm } = useServiceProvider().hasChangesForm();
     const [formData, setFormData] = useState<InformationFormData>(information);
@@ -371,3 +371,5 @@ export const InformationForm = () => {
         </div>
     );
 };
+
+export default InformationForm;

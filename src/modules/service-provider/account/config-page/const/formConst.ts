@@ -1,5 +1,11 @@
-import { LogoForm, AboutForm, ServicesForm, GalleryForm, InformationForm } from "../../../account/config-page/forms/index";
+import { lazy } from 'react';
 import { RouteSection } from "types";
+
+const LogoForm = lazy(() => import('../forms/sections/LogoForm').then(m => ({ default: m.default })));
+const AboutForm = lazy(() => import('../forms/sections/AboutForm').then(m => ({ default: m.default })));
+const ServicesForm = lazy(() => import('../forms/sections/ServicesForm').then(m => ({ default: m.default })));
+const GalleryForm = lazy(() => import('../forms/sections/GalleryForm').then(m => ({ default: m.default })));
+const InformationForm = lazy(() => import('../forms/sections/InformationForm').then(m => ({ default: m.default })));
 
 export const FORM_COMPONENTS = {
     logo: {
@@ -48,7 +54,7 @@ export const FORM_COMPONENTS = {
     }
 } satisfies Record<RouteSection, {
     title: string;
-    component: React.FC;
+    component: React.LazyExoticComponent<React.ComponentType<any>>;
     //initialValue: any;
     //onSave: (data: any) => void;
     //description?: string;

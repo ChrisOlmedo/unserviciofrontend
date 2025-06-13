@@ -6,7 +6,7 @@ import ErrorMessage from "../../../../../../components/ErrorInput/ErrorMessage";
 
 const MIN_CHAR_COUNT = 50;
 const SAVE_CHAR_COUNT = 200;
-export const AboutForm = () => {
+const AboutForm = () => {
     const { aboutMe, updateAboutMe } = useServiceProvider().aboutMeSection();
     const { hasChangesForm, setHasChangesForm } = useServiceProvider().hasChangesForm();
     const [about, setAbout] = useState(aboutMe);
@@ -62,3 +62,5 @@ export const AboutForm = () => {
         </div>
     );
 };
+
+export default AboutForm;

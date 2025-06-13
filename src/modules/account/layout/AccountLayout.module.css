@@ -1,46 +1,17 @@
 .container {
     display: flex;
     position: relative;
-    height: 100vh;
-    overflow: hidden;
-}
-
-.sidebar {
-    position: absolute;
-    left: 0;
-    height: 100%;
-    background-color: var(--header-bg-transparent);
-    backdrop-filter: var(--backdrop-blur-md);
-    -webkit-backdrop-filter: var(--backdrop-blur-md);
-    color: var(--header-text);
-    transition: width var(--transition-normal);
-    width: 250px;
-    transform: translateX(-250px);
-    opacity: 0;
-    z-index: 1;
-    visibility: hidden;
-    overflow-y: auto;
-}
-
-.sidebar.expanded {
-    transform: translateX(0);
-    opacity: 1;
-    visibility: visible;
-}
-
-.sidebarContent {
-    padding: 2rem 1rem;
-    white-space: nowrap;
-    height: 100%;
+    width: 100%;
+    min-height: 100vh;
 }
 
 .toggleButton {
-    position: absolute;
+    position: fixed;
     left: 0;
-    top: 0;
+    top: var(--header-height);
     height: 60px;
     width: 60px;
-    background: #2c3136;
+    background: rgba(0,0,0,0);
     border: none;
     color: white;
     font-size: 1.5rem;
@@ -48,83 +19,25 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.3s ease;
+    z-index: 51;
+    transition: transform var(--transition-normal);
 }
 
-.toggleButton::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 60px;
-    height: 100vh;
-    background-color: var(--header-bg-transparent);
-    backdrop-filter: var(--backdrop-blur-md);
-}
-
-.toggleButton i {
-    z-index: 2;
-    color: white;
-    font-size: 1.5rem;
-    display: block;
-}
-
-.toggleButton:hover i {
-    transform: scale(1.1);
-}
-
-.navList {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    margin-top: 1rem;
-}
-
-.navItem {
-    margin-bottom: 1rem;
-}
-
-.navLink {
-    color: white;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    padding: 0.75rem;
-    transition: background-color 0.3s ease;
-    gap: 0.75rem;
-    border-radius: 4px;
-}
-
-.navLink:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-.logoutButton {
-    width: 100%;
-    margin-top: 1rem;
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    padding: 0.75rem;
-    border-radius: 4px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    transition: background-color 0.3s ease;
-}
-
-.logoutButton:hover {
-    background-color: #c82333;
+.toggleButton:hover {
+    transform: scale(1.05);
 }
 
 .mainContent {
     flex: 1;
-    padding: 1rem;
     margin-left: 60px;
-    width: 100%;
-    transition: margin-left 0.3s ease;
-    overflow-y: auto;
-    height: calc(100vh - 80px);
-} 
+    padding: 2rem;
+    min-height: 100vh;
+    background-color: var(--color-gray-50);
+}
+
+@media (max-width: 768px) {
+    .mainContent {
+        margin-left: 0;
+        padding: 1rem;
+    }
+}

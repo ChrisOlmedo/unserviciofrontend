@@ -1,0 +1,20 @@
+.primary {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-lg);
+  padding: 0.6em 1.5em;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition-normal), transform var(--transition-fast);
+  box-shadow: var(--shadow-lg);
+}
+.primary:hover:enabled {
+  background: var(--primary-dark);
+  transform: translateY(-2px) scale(1.03);
+}
+.primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+} 

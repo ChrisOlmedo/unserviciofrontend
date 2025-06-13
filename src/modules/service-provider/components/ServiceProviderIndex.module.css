@@ -1,15 +1,13 @@
 .spPage {
-    width: 100%;
-    min-height: 100vh;
     background-color: var(--background-color);
-    display: flex;
-    gap: 2rem;
     padding: 2rem;
-    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 2rem;
+    align-items: flex-start;
 }
 
 .mainContent {
-    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -17,7 +15,7 @@
 
 @media (max-width: 1024px) {
     .spPage {
-        flex-direction: column;
+        grid-template-columns: 1fr;
         padding: 1rem;
     }
 }

@@ -1,8 +1,8 @@
 .header {
-    position: fixed;
+    position: sticky;
     top: 0;
     left: 0;
-    height: 60px;
+    height: var(--header-height);
     width: 100%;
     z-index: 1000;
 }
@@ -10,11 +10,6 @@
 .header a {
     text-decoration: none;
     color: var(--header-text);
-}
-
-.headerSpace {
-    height: 60px;
-    background: var(--header-bg);
 }
 
 .headerContainer {

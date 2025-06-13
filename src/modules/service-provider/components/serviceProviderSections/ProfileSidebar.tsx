@@ -5,6 +5,7 @@ import EditButton from "modules/service-provider/components/EditButton";
 import { Image } from "types";
 import { FaPhone, FaWhatsapp, FaEnvelope, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { useConfig } from "modules/service-provider/context/ConfigFlagContext";
+import CategoryPill from 'components/CategoryPill/CategoryPill';
 
 
 interface ProfileSidebarProps {
@@ -73,9 +74,9 @@ const ProfileSidebar = ({
                         {serviceCategories && (
                             <div className={styles.serviceType}>
                                 {serviceCategories.map((category, index) => (
-                                    <span key={index} className={styles.serviceBadge}>
+                                    <CategoryPill key={index}>
                                         {category}
-                                    </span>
+                                    </CategoryPill>
                                 ))}
                             </div>
                         )}

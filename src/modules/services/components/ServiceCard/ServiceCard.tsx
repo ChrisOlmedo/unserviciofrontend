@@ -16,18 +16,18 @@ const ServiceCard = ({ slug, logo, enterpriseName, serviceCategories, rating }: 
                 <img src={logo.url} alt={enterpriseName} className={styles.image} />
             </div>
             <div className={styles.contentContainer}>
-            <div className={styles.categories}>
-                {visibleCategories.map((cat, i) => (
+                <div className={styles.categories}>
+                    {visibleCategories.map((cat, i) => (
                     <CategoryPill key={i}>{cat}</CategoryPill>
                 ))}
                 {hasMore && <CategoryPill>...</CategoryPill>}
-            </div>
-            <div className={styles.content}>
+                </div>
+                <div className={styles.content}>
                 <h3 className={styles.name}>{enterpriseName}</h3>
                 <div className={styles.info}>
                     <span className={styles.rating}>{rating ? rating : 0}⭐</span>
                 </div>
-            </div>
+                </div>
             </div>
         </Link>
     );

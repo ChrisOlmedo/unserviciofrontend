@@ -1,6 +1,16 @@
-.main-container {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  min-height: 100vh;
-  position: relative;
+/* 1️⃣  Toda la cadena html → body → #root ocupa el alto completo
+y NUNCA declara overflow ni height fijos. */
+html, body, #root{
+  min-height:100vh;   /* usa dvh para móviles */
+  margin:0;
+}
+      
+/* 2️⃣  Convierte #root en tu “layout master” (grid o flex según prefieras) */
+#root{
+  display:grid;
+  grid-template-rows:auto 1fr auto;  /* header | main | footer */
+ }
+ 
+main{
+  min-width: 0;
 }

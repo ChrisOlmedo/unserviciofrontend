@@ -13,7 +13,7 @@ interface GalleryAction {
 
 const MAX_IMAGES = 6;
 
-export const GalleryForm = () => {
+const GalleryForm = () => {
     const { hasChangesForm, setHasChangesForm } = useServiceProvider().hasChangesForm();
     const { addDeletedImage } = useServiceProvider();
     const fileInputRef = useRef<HTMLInputElement>(null);
@@ -170,3 +170,5 @@ export const GalleryForm = () => {
         </div>
     );
 };
+
+export default GalleryForm;

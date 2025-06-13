@@ -28,7 +28,7 @@ Modal.Header = function ({ children }: { children: React.ReactNode }) {
 };
 
 Modal.Body = function ({ children }: { children: React.ReactNode }) {
-    return <main className={styles.body}>{children}</main>;
+    return <div className={styles.body}>{children}</div>;
 };
 
 Modal.Footer = function ({ children }: { children: React.ReactNode }) {

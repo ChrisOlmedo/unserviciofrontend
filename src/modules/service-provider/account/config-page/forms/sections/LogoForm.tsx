@@ -1,13 +1,13 @@
 import { useServiceProvider } from "../../hooks/useServiceProvider";
 import { useMemo, useRef, useState } from "react";
 import styles from './LogoForm.module.css';
-import SaveButton from "components/Button/SaveButton";
+import SaveButton from "components/Button/ConfirmButton";
 import CancelButton from "components/Button/CancelButton";
 import { useTriggerListener } from '../../hooks/useTriggerListener';
 import { Image } from "types";
 import ErrorMessage from "components/ErrorInput/ErrorMessage";
 
-export const LogoForm = () => {
+const LogoForm = () => {
     const { logo, updateLogo } = useServiceProvider().logoSection();
     const { addDeletedImage } = useServiceProvider();
     const { hasChangesForm, setHasChangesForm } = useServiceProvider().hasChangesForm();
@@ -118,3 +118,5 @@ export const LogoForm = () => {
         </div>
     );
 };
+
+export default LogoForm;

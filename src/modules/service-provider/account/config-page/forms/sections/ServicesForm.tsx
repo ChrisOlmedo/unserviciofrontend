@@ -4,7 +4,7 @@ import { useServiceProvider } from "../../hooks/useServiceProvider";
 import styles from './ServicesForm.module.css';
 import ErrorMessage from "../../../../../../components/ErrorInput/ErrorMessage";
 
-export const ServicesForm = () => {
+const ServicesForm = () => {
     const [newService, setNewService] = useState("");
     const { services: savedServices, updateServices } = useServiceProvider().servicesSection();
     const { hasChangesForm, setHasChangesForm } = useServiceProvider().hasChangesForm();
@@ -69,3 +69,5 @@ export const ServicesForm = () => {
         </div>
     );
 };
+
+export default ServicesForm;

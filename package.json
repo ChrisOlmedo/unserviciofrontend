@@ -10,11 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.4",
     "@react-oauth/google": "^0.12.1",
     "@vercel/analytics": "^1.4.1",
     "@vercel/speed-insights": "^1.1.0",
     "axios": "^1.7.9",
     "embla-carousel-react": "^8.6.0",
+    "framer-motion": "^12.17.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-helmet": "^6.1.0",
@@ -31,6 +33,7 @@
     "@types/react-dom": "^18.3.5",
     "@types/react-helmet": "^6.1.11",
     "@types/react-router-dom": "^5.3.3",
+    "@vitejs/plugin-react": "^4.5.2",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "eslint": "^9.17.0",
     "eslint-plugin-react-hooks": "^5.0.0",

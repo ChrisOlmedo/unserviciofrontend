@@ -95,4 +95,7 @@
     --transition-fast: 150ms;
     --transition-normal: 300ms;
     --transition-slow: 500ms;
+
+    /* Header */
+    --header-height: 60px;
 } 

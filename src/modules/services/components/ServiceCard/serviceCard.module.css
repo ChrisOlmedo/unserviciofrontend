@@ -35,7 +35,6 @@
     width: 100%;
     display: flex;
     flex-wrap: nowrap;
-    overflow: hidden;
 }
 
 .name {
@@ -84,6 +83,9 @@
     border-radius: var(--radius-full);
 }
 
+.categories {
+    font-size: 0.75rem;
+}
 
 @media (max-width: 768px) {
     .card {

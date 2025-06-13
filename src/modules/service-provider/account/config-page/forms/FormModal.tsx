@@ -1,12 +1,11 @@
 import styles from "./formModal.module.css";
-import { useState } from "react";
+import { Suspense, lazy } from "react";
 import Modal from "components/Modal/Modal";
 import CancelButton from "components/Button/CancelButton";
-import SaveButton from "components/Button/SaveButton";
+import SaveButton from "components/Button/ConfirmButton";
 import ConfirmModal from "components/Modal/ConfirmModal";
 import { FORM_COMPONENTS } from "../const/formConst";
-import { useServiceProvider } from "../hooks/useServiceProvider";
-import { useNavigate } from "react-router-dom";
+import { useFormModal } from "../hooks/useFormModal";
 
 type FormConfig = (typeof FORM_COMPONENTS)[keyof typeof FORM_COMPONENTS];
 
@@ -15,40 +14,17 @@ type FormModalProps = {
 };
 
 const FormModal = ({ formConfig }: FormModalProps) => {
-    const navigate = useNavigate();
-    const { triggerSave } = useServiceProvider().saveForm();
-    const { hasChangesForm } = useServiceProvider();
+    const { 
+        showConfirmModal, 
+        isLoading, 
+        error, 
+        handleClose, 
+        handleSave, 
+        handleConfirmClose,
+        setShowConfirmModal
+    } = useFormModal();
 
     const { title, component: Component } = formConfig;
-    const [showConfirmModal, setShowConfirmModal] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
-
-    const handleClose = () => {
-        if (hasChangesForm().hasChangesForm) {
-            setShowConfirmModal(true);
-        } else {
-            navigate("../../");
-        }
-    };
-
-    const handleSave = () => {
-        try {
-            setIsLoading(true);
-            setError(null);
-            triggerSave();
-        } catch (err) {
-            setError(err instanceof Error ? err.message : "An error occurred while saving");
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
-    const handleConfirmClose = () => {
-        setShowConfirmModal(false);
-        hasChangesForm().setHasChangesForm(false);
-        navigate("../../");
-    };
 
     return (
         <>
@@ -65,16 +41,17 @@ const FormModal = ({ formConfig }: FormModalProps) => {
                                 {error}
                             </div>
                         )}
-                        <Component />
+                        <Suspense fallback={<div>Loading...</div>}>
+                            <Component />
+                        </Suspense>
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
                     <div className={styles.buttonsModal}>
-                        <CancelButton onClick={handleClose} disabled={isLoading} >
+                        <CancelButton onClick={handleClose} disabled={isLoading}>
                             Cancelar
                         </CancelButton>
-
-                        <SaveButton onClick={handleSave} disabled={isLoading} >
+                        <SaveButton onClick={handleSave} disabled={isLoading}>
                             Guardar
                         </SaveButton>
                     </div>

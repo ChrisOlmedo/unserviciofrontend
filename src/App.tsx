@@ -22,7 +22,7 @@ import UserProvider from 'modules/user/context/userContext'
 import ServiceProviderFormRoutes from 'modules/service-provider/account/config-page/routes/FormRoutes'
 
 //Import guards
-import { ValidateSlugRoute, RequireAuth, RedirectIfAuth } from 'guards'
+import { ValidateSlugRoute, RequireAuth, RedirectIfAuth } from 'guards/index'
 
 //Style
 import './styles/App.css'
@@ -48,15 +48,15 @@ function App() {
 
                 <Route path="profile" element={<Profile />} />
                 <Route path="settings" element={<Settings />} />
-                <Route path=":slug" element={
-                  <ValidateSlugRoute>
-                    <ServiceProviderConfigPage />
-                  </ValidateSlugRoute>
+                <Route path="service-provider/:route" element={
+                    <ValidateSlugRoute>
+                        <ServiceProviderConfigPage />
+                    </ValidateSlugRoute>
                 }>
-                  <Route path="edit">
-                    {ServiceProviderFormRoutes()}
-                    <Route path="*" element={<Navigate to="/404" replace />} />
-                  </Route>
+                    <Route path="forms">
+                        {ServiceProviderFormRoutes()}
+                        <Route path="*" element={<Navigate to="/404" replace />} />
+                    </Route>
                 </Route>
               </Route>
 

@@ -1,5 +1,5 @@
 import ConectDB from '../../test/Test'
-import UnServicioLogo from '../../components/UnServicio-logo/UnServicioLogo'
+import UnServicioLogo from 'components/UnServicio-logo/UnServicioLogo'
 import { MdWorkHistory } from "react-icons/md"
 import styles from './Home.module.css'
 import ServicesIndex from '../../modules/services/components/servicesContainers/ServicesIndex'

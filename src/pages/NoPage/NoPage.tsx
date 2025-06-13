@@ -1,17 +1,12 @@
 import styles from './NoPage.module.css';
 import { TbError404 } from "react-icons/tb";
-import { Helmet } from "react-helmet";
 import { Link } from 'react-router-dom';
-import UnServicioLogo from '../../components/UnServicio-logo/UnServicioLogo';
+import UnServicioLogo from 'components/UnServicio-logo/UnServicioLogo';
 
 const NoPage = () => {
 
     return (
         <>
-            <Helmet>
-                <title>404 - Página no encontrada</title>
-                <meta name="robots" content="noindex, nofollow" />
-            </Helmet>
             <div className={styles.noPage}>
                 <div className={styles.header}>
                     <UnServicioLogo height='100px' color="white" />

@@ -25,12 +25,13 @@
     "baseUrl": "./src",
     "paths": {
       "modules/*": ["modules/*"],
-      "components/*": ["components/*"],
-      "hooks/*": ["hooks/*"],
-      "guards/*": ["guards/*"],
-      "constants/*": ["constants/*"],
+      "components/*": ["shared/components/*"],
+      "hooks/*": ["shared/hooks/*"],
+      "guards/*": ["shared/guards/*"],
+      "constants/*": ["shared/constants/*"],
       "config/*": ["config/*"],
-      "types": ["types/index.ts"]
+      "types": ["shared/types/index.ts"],
+      "router/*": ["shared/router/*"]
     }
   },
   "include": ["src"]

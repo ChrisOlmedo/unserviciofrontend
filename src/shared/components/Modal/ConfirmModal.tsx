@@ -1,5 +1,7 @@
 import Modal from "./Modal";
 import styles from "./confirmModal.module.css";
+import CancelButton from "components/Button/CancelButton";
+import ConfirmButton from "components/Button/ConfirmButton";
 
 interface ConfirmModalProps {
     onCancel: () => void;
@@ -30,8 +32,8 @@ const ConfirmModal = ({ onCancel, onDiscard }: ConfirmModalProps) => {
             </Modal.Body>
             <Modal.Footer>
                 <div className={styles.buttonsModal}>
-                    <button onClick={handleCancel}>Cancelar</button>
-                    <button onClick={handleDiscard}>Descartar</button>
+                    <CancelButton onClick={handleCancel}>Cancelar</CancelButton>
+                    <ConfirmButton onClick={handleDiscard}>Descartar</ConfirmButton>
                 </div>
             </Modal.Footer>
         </Modal>

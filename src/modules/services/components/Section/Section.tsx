@@ -1,11 +1,11 @@
 import React from 'react';
-import { Service } from '../../types/service';
+import { ServiceCard } from 'types';
 import ServicesGrid from '../servicesContainers/ServicesGrid/ServicesGrid';
 import styles from './Section.module.css';
 
 interface SectionProps {
     title: string;
-    services: Service[];
+    services: ServiceCard[];
     className?: string;
 }
 

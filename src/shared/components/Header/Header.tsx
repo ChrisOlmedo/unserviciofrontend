@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom'
 import { IoLogIn, IoPersonCircleSharp, IoSearch } from "react-icons/io5"
 import { BiSolidMapPin } from "react-icons/bi"
 import { TiChevronRightOutline } from "react-icons/ti"
-import { RiMapPinRangeFill } from "react-icons/ri"
-import { useUser } from '../../modules/user/context/userContext'
+import { useUser } from 'modules/user/context/userContext'
 
 import styles from './Header.module.css'
 import UnServicioLogo from '../UnServicio-logo/UnServicioLogo'
@@ -36,8 +35,6 @@ const Header = () => {
 
 
     return (
-        <>
-            <div className={styles.headerSpace}></div>
             <header className={styles.header}>
                 <div className={styles.headerContainer}>
                     <div className={styles.logoContainer}>
@@ -79,7 +76,6 @@ const Header = () => {
                 </div>
                 */}
             </header>
-        </>
     );
 };
 
