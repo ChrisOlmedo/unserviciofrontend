@@ -2,16 +2,22 @@ import { useState, useEffect } from "react";
 import { useServiceProvider } from "../../hooks/useServiceProvider";
 import { useTriggerListener } from "../../hooks/useTriggerListener";
 import styles from './AboutForm.module.css';
-import ErrorMessage from "../../../../../../components/ErrorInput/ErrorMessage";
+import ErrorMessage from "components/ErrorInput/ErrorMessage";
+import { useFormChangeTracker } from "../../hooks/useFormChangeTracker";
 
 const MIN_CHAR_COUNT = 50;
 const SAVE_CHAR_COUNT = 200;
+
 const AboutForm = () => {
-    const { aboutMe, updateAboutMe } = useServiceProvider().aboutMeSection();
-    const { hasChangesForm, setHasChangesForm } = useServiceProvider().hasChangesForm();
+    const { aboutMe, updateAboutMe } = useServiceProvider();
     const [about, setAbout] = useState(aboutMe);
     const [error, setError] = useState("");
-    const [charCount, setCharCount] = useState(0);
+    const [charCount, setCharCount] = useState(about.length);
+
+    useFormChangeTracker({
+        localData: about,
+        initialData: aboutMe
+    });
 
     useEffect(() => {
         setCharCount(about.length);
@@ -19,13 +25,18 @@ const AboutForm = () => {
 
     const handleChange = (value: string) => {
         setAbout(value);
-        setError("");
-        !hasChangesForm && setHasChangesForm(true);
+        if (error) setError("");
     };
 
     useTriggerListener({
-        validate: () => about.length > MIN_CHAR_COUNT,
-        onError: () => setError(`La descripción debe tener al menos ${MIN_CHAR_COUNT} caracteres.`),
+        validate: () => {
+            if (about.length < MIN_CHAR_COUNT) {
+                setError(`La descripción debe tener al menos ${MIN_CHAR_COUNT} caracteres.`);
+                return false;
+            }
+            return true;
+        },
+        onError: () => {}, // La validación ya setea el error
         onSave: () => {
             updateAboutMe(about);
         },

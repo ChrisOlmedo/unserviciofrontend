@@ -1,5 +1,6 @@
 .titleModal {
     padding: 20px;
+    padding-bottom: 0.5rem;
 }
 
 .titleModal h3 {
@@ -19,4 +20,13 @@
     justify-content: flex-end;
     gap: 10px;
     /* Espacio entre botones */
+}
+
+.confirmWrapper {
+    max-width: 350px;
+}
+
+.bodyModal p {
+    margin: 0;
+    line-height: 1.5;
 }

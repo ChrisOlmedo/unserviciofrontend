@@ -36,9 +36,9 @@ const Sidebar = ({ isExpanded, navItems, onLogout }: SidebarProps) => {
         expanded: { width: 250 }
     };
 
-    const contentVariants = {
-        collapsed: { opacity: 0, width: 0, transition: { duration: 0.2 } },
-        expanded: { opacity: 1, width: 190, transition: { duration: 0.3 } }
+    const textVariants = {
+        collapsed: { opacity: 0, x: -20 },
+        expanded: { opacity: 1, x: 0 }
     };
 
     return (
@@ -69,9 +69,10 @@ const Sidebar = ({ isExpanded, navItems, onLogout }: SidebarProps) => {
                                     <AnimatePresence>
                                         {isExpanded && (
                                             <motion.span
-                                                initial={{ opacity: 0 }}
-                                                animate={{ opacity: 1 }}
-                                                exit={{ opacity: 0 }}
+                                                variants={textVariants}
+                                                initial="collapsed"
+                                                animate="expanded"
+                                                exit="collapsed"
                                                 transition={{ duration: 0.2 }}
                                             >
                                                 {item.label}
@@ -98,9 +99,10 @@ const Sidebar = ({ isExpanded, navItems, onLogout }: SidebarProps) => {
                                 <AnimatePresence>
                                     {isExpanded && (
                                         <motion.span
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            exit={{ opacity: 0 }}
+                                            variants={textVariants}
+                                            initial="collapsed"
+                                            animate="expanded"
+                                            exit="collapsed"
                                             transition={{ duration: 0.2 }}
                                         >
                                             Cerrar Sesión

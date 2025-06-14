@@ -15,6 +15,13 @@
     --color-danger-darker: #63171b;
     --color-danger-light: #b91c1c;
     
+    /* Alert Colors (for actions like delete confirmation) */
+    --color-alert-danger-bg: #f8d7da;
+    --color-alert-danger-text: #721c24;
+    --color-alert-danger-border: #f5c6cb;
+    --color-alert-danger-bg-hover: #f1b0b7;
+    --color-alert-danger-border-hover: #eea8b0;
+
     --color-success: #1a365d;      /* Mismo azul corporativo para éxito */
     --color-success-dark: #0f2942;
     --color-success-darker: #0a1f33;

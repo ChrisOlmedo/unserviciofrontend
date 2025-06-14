@@ -1,6 +1,5 @@
 .spPage {
     background-color: var(--background-color);
-    padding: 2rem;
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 2rem;

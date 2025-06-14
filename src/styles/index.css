@@ -23,7 +23,6 @@ body {
 }
 
 main, #root, .App {
-  min-width: 0;
   display: block;
   min-height: 100vh;
 }

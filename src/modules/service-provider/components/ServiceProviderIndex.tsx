@@ -24,7 +24,6 @@ const ServiceProviderIndex = ({ serviceProviderData, isConfig }: ServiceProvider
                     serviceCategories={serviceProviderData.serviceCategories}
                     phone={serviceProviderData.phone}
                     email={serviceProviderData.email}
-                    location={serviceProviderData.location}
                 />
 
                 <div className={styles.mainContent}>

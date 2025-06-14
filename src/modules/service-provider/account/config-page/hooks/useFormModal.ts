@@ -5,15 +5,14 @@ import { useServiceProvider } from './useServiceProvider';
 export const useFormModal = () => {
     const navigate = useNavigate();
 
-    const { triggerSave } = useServiceProvider().saveForm(); 
-    const { hasChangesForm } = useServiceProvider();
+    const { triggerSave, setHasChangesForm, hasChangesForm } = useServiceProvider(); 
 
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
     const handleClose = () => {
-        if (hasChangesForm().hasChangesForm) {
+        if (hasChangesForm) {
             setShowConfirmModal(true);
         } else {
             navigate("../../");
@@ -34,7 +33,7 @@ export const useFormModal = () => {
 
     const handleConfirmClose = () => {
         setShowConfirmModal(false);
-        hasChangesForm().setHasChangesForm(false);
+        setHasChangesForm(false);
         navigate("../../");
     };
 

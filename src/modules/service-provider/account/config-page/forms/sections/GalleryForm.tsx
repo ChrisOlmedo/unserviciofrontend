@@ -3,6 +3,7 @@ import styles from './GalleryForm.module.css';
 import { useTriggerListener } from '../../hooks/useTriggerListener';
 import { useServiceProvider } from "../../hooks/useServiceProvider";
 import { Image } from "types";
+import { useFormChangeTracker } from "../../hooks/useFormChangeTracker";
 
 interface GalleryAction {
     type: 'ADD' | 'REMOVE' | 'UPDATE';
@@ -14,13 +15,10 @@ interface GalleryAction {
 const MAX_IMAGES = 6;
 
 const GalleryForm = () => {
-    const { hasChangesForm, setHasChangesForm } = useServiceProvider().hasChangesForm();
-    const { addDeletedImage } = useServiceProvider();
+    const { gallery: initialGallery, updateGallery, addDeletedImage } = useServiceProvider();
     const fileInputRef = useRef<HTMLInputElement>(null);
     const fileUpdateRef = useRef<HTMLInputElement>(null);
     const [indexToUpdate, setIndexToUpdate] = useState<number | undefined>();
-    const { gallery: galleryInitial, updateGallery } = useServiceProvider().gallerySection();
-    // Estado local para guardar ids de imágenes eliminadas
     const [deletedGalleryIds, setDeletedGalleryIds] = useState<string[]>([]);
 
     function galleryReducer(state: Image[], action: GalleryAction): Image[] {
@@ -30,7 +28,6 @@ const GalleryForm = () => {
                 return action.url ? [...state, { id: '', url: action.url, file: action.file }] : state;
             case "REMOVE":
                 if (action.index === undefined) return state;
-                // Si la imagen eliminada es existente (sin file y con id), la marcamos como eliminada localmente
                 const imgToRemove = state[action.index];
                 if (!imgToRemove.file && imgToRemove.id) {
                     setDeletedGalleryIds(prev => [...prev, imgToRemove.id]);
@@ -39,7 +36,6 @@ const GalleryForm = () => {
             case "UPDATE":
                 if (action.index === undefined || !action.url) return state;
                 const prevImg = state[action.index];
-                // Si la imagen anterior era existente (sin file y con id), márcala como eliminada
                 if (!prevImg.file && prevImg.id) {
                     setDeletedGalleryIds(prev => [...prev, prevImg.id]);
                 }
@@ -50,14 +46,18 @@ const GalleryForm = () => {
                 return state;
         }
     }
-    const [gallery, dispatchGallery] = useReducer(galleryReducer, galleryInitial);
+    const [gallery, dispatchGallery] = useReducer(galleryReducer, initialGallery);
+
+    useFormChangeTracker({
+        localData: gallery,
+        initialData: initialGallery,
+    });
 
     const handleAddImage = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
             const url = URL.createObjectURL(file);
             dispatchGallery({ type: "ADD", url, file });
-            !hasChangesForm && setHasChangesForm(true);
         }
     };
 
@@ -92,9 +92,8 @@ const GalleryForm = () => {
             console.error("Error: No images to save");
         },
         onSave: () => {
-            // Al guardar, agregamos todos los ids de imágenes eliminadas al global deletedImages
             deletedGalleryIds.forEach(id => addDeletedImage(id));
-            setDeletedGalleryIds([]); // Limpiamos el local
+            setDeletedGalleryIds([]);
             updateGallery(gallery);
         },
     });

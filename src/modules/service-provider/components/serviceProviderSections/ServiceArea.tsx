@@ -22,7 +22,7 @@ const ServiceArea: React.FC<ServiceAreaProps> = ({ coverage, location }) => {
             <div className={styles.locationInfo}>
                 <div className={styles.locationCard}>
                     <h3>Ubicación Principal</h3>
-                    <p>{location}</p>
+                    <p>📍 {location}</p>
                 </div>
 
                 <div className={styles.coverageCard}>

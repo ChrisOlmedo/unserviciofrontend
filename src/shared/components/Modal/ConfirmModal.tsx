@@ -4,38 +4,43 @@ import CancelButton from "components/Button/CancelButton";
 import ConfirmButton from "components/Button/ConfirmButton";
 
 interface ConfirmModalProps {
+    title: string;
+    message: string;
+    confirmText?: string;
+    cancelText?: string;
     onCancel: () => void;
-    onDiscard: () => void;
+    onConfirm: () => void;
 }
 
-const ConfirmModal = ({ onCancel, onDiscard }: ConfirmModalProps) => {
-
-    const handleCancel = () => {
-        onCancel();
-    };
-
-    const handleDiscard = () => {
-        onDiscard();
-    };
+const ConfirmModal = ({ 
+    title, 
+    message,
+    confirmText = "Confirmar",
+    cancelText = "Cancelar",
+    onCancel, 
+    onConfirm 
+}: ConfirmModalProps) => {
 
     return (
-        <Modal onClose={handleCancel}>
-            <Modal.Header>
-                <div className={styles.titleModal}>
-                    <h3>Descartar cambios</h3>
-                </div>
-            </Modal.Header>
-            <Modal.Body>
-                <div className={styles.bodyModal}>
-                    <p>¿Deseas descartar los cambios?</p>
-                </div>
-            </Modal.Body>
-            <Modal.Footer>
-                <div className={styles.buttonsModal}>
-                    <CancelButton onClick={handleCancel}>Cancelar</CancelButton>
-                    <ConfirmButton onClick={handleDiscard}>Descartar</ConfirmButton>
-                </div>
-            </Modal.Footer>
+        <Modal onClose={onCancel}>
+            <div className={styles.confirmWrapper}>
+                <Modal.Header>
+                    <div className={styles.titleModal}>
+                        <h3>{title}</h3>
+                    </div>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className={styles.bodyModal}>
+                        <p>{message}</p>
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <div className={styles.buttonsModal}>
+                        <CancelButton onClick={onCancel}>{cancelText}</CancelButton>
+                        <ConfirmButton onClick={onConfirm}>{confirmText}</ConfirmButton>
+                    </div>
+                </Modal.Footer>
+            </div>
         </Modal>
     );
 }

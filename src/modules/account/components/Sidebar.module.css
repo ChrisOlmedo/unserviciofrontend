@@ -2,7 +2,7 @@
     position: fixed;
     left: 0;
     top: var(--header-height);
-    height: calc(100vh - var(--header-height));
+    height: 100%;
     background-color: var(--header-bg-transparent);
     backdrop-filter: var(--backdrop-blur-md);
     -webkit-backdrop-filter: var(--backdrop-blur-md);
@@ -70,6 +70,7 @@
 
 .iconWrapper {
     width: 60px;
+    min-width: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -79,6 +80,7 @@
 .navLink span {
     white-space: nowrap;
     margin-left: 0.75rem;
+    overflow: hidden;
 }
 
 .logoutButton {

@@ -44,14 +44,16 @@
 .container {
     position: relative;
     width: 100%;
-    height: 320px;
+    height: auto;
     overflow: hidden;
+    padding: var(--spacing-md) 0; 
 }
 
 .viewport {
     overflow: hidden;
     width: 100%;
     height: 100%;
+    padding: 0 2rem ;
 }
 
 .slideContainer {
@@ -95,29 +97,6 @@
 .button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
-}
-
-/* Gradientes para indicar scroll */
-.container::before,
-.container::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    height: 100%;
-    z-index: 2;
-    pointer-events: none;
-}
-
-.container::before {
-    left: 0;
-    width: 40px;
-    background: linear-gradient(to right, var(--sp-bg), transparent);
-}
-
-.container::after {
-    right: 0;
-    width: 100px;
-    background: linear-gradient(to left, var(--sp-bg), transparent);
 }
 
 .innerContainer {

@@ -32,5 +32,6 @@ export function getCompletionStatusFromData(data: ServiceProviderPageConfig): Co
             !!data.phone &&
             !!data.email &&
             !!data.location,
+            
     };
 }

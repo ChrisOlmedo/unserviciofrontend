@@ -1,0 +1,22 @@
+.dangerButton {
+    background-color: var(--color-alert-danger-bg);
+    color: var(--color-alert-danger-text);
+    border: 1px solid var(--color-alert-danger-border);
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.dangerButton:hover {
+    background-color: var(--color-alert-danger-bg-hover);
+    border-color: var(--color-alert-danger-border-hover);
+}
+
+.dangerButton:disabled {
+    background-color: #e2e3e5;
+    color: #6c757d;
+    border-color: #d6d8db;
+    cursor: not-allowed;
+} 

@@ -1,4 +1,4 @@
-import { ServiceProviderPageConfig, ServiceProviderData } from "types";
+import { ServiceProviderPageConfig } from "types";
 import { createContext, useContext, useEffect, useReducer } from 'react';
 import { serviceProviderReducer, initialStateServiceProviderPage, ServiceProviderAction } from '../reducers/serviceProviderReducer';
 import { useUser } from 'modules/user/context/userContext';

@@ -1,128 +1,100 @@
 import { useServiceProviderContext } from '../context/ServiceProviderConfigContext.tsx';
 import { CompletionStatus, Image, InformationFormData } from "types";
-
+import { useCallback, useMemo } from 'react';
 
 export const useServiceProvider = () => {
-
     const { serviceProviderState, ServiceProviderDispatch } = useServiceProviderContext();
 
-    // sections 
-    const logoSection = () => {
-        const { logo } = serviceProviderState;
-        return {
-            logo,
-            updateLogo: (value: Image) => {
-                ServiceProviderDispatch({ type: 'UPDATE_LOGO', logo: value });
-            },
-        };
-    }
+    // --- Selectores de Estado (Valores) ---
+    // Usamos useMemo con dependencias granulares para que el objeto solo se recalcule cuando uno de sus valores realmente cambie.
+    const informationData = useMemo<InformationFormData>(() => ({
+        enterpriseName: serviceProviderState.enterpriseName,
+        serviceCategories: serviceProviderState.serviceCategories,
+        phone: serviceProviderState.phone,
+        whatsapp: serviceProviderState.whatsapp,
+        email: serviceProviderState.email,
+        location: serviceProviderState.location,
+        coverage: serviceProviderState.coverage,
+        canEditEnterpriseName: serviceProviderState.canEditEnterpriseName,
+    }), [
+        serviceProviderState.enterpriseName,
+        serviceProviderState.serviceCategories,
+        serviceProviderState.phone,
+        serviceProviderState.whatsapp,
+        serviceProviderState.email,
+        serviceProviderState.location,
+        serviceProviderState.coverage,
+        serviceProviderState.canEditEnterpriseName,
+    ]);
 
-    const aboutMeSection = () => {
-        const { aboutMe } = serviceProviderState;
-        return {
-            aboutMe,
-            updateAboutMe: (value: string) => {
-                ServiceProviderDispatch({ type: 'UPDATE_ABOUT_ME', aboutMe: value });
-            },
-        };
-    }
+    // --- Actualizadores de Estado (Funciones Estables) ---
+    // Envolvemos todos los dispatchers en useCallback para que sus referencias sean estables.
+    const updateLogo = useCallback((value: Image) => {
+        ServiceProviderDispatch({ type: 'UPDATE_LOGO', logo: value });
+    }, [ServiceProviderDispatch]);
 
-    const servicesSection = () => {
-        const { services } = serviceProviderState;
-        return {
-            services,
-            updateServices: (value: string[]) => {
-                ServiceProviderDispatch({ type: 'UPDATE_SERVICES', services: value });
-            },
-        };
-    }
+    const updateAboutMe = useCallback((value: string) => {
+        ServiceProviderDispatch({ type: 'UPDATE_ABOUT_ME', aboutMe: value });
+    }, [ServiceProviderDispatch]);
 
-    const informationSection = () => {
-        const { enterpriseName, serviceCategories, phone, whatsapp, email, location, coverage, canEditEnterpriseName } = serviceProviderState;
-        const information: InformationFormData = {
-            enterpriseName,
-            serviceCategories,
-            phone,
-            whatsapp,
-            email,
-            location,
-            coverage,
-            canEditEnterpriseName,
-        };
-        return {
-            information,
-            updateInformation: (value: InformationFormData) => {
-                ServiceProviderDispatch({ type: 'UPDATE_INFORMATION', information: value });
-            },
-        };
-    }
+    const updateServices = useCallback((value: string[]) => {
+        ServiceProviderDispatch({ type: 'UPDATE_SERVICES', services: value });
+    }, [ServiceProviderDispatch]);
 
-    const gallerySection = () => {
-        const { gallery } = serviceProviderState;
-        return {
-            gallery,
-            updateGallery: (value: Image[]) => {
-                ServiceProviderDispatch({ type: 'UPDATE_GALLERY', gallery: value });
-            },
-        };
-    }
+    const updateInformation = useCallback((value: InformationFormData) => {
+        ServiceProviderDispatch({ type: 'UPDATE_INFORMATION', information: value });
+    }, [ServiceProviderDispatch]);
 
+    const updateGallery = useCallback((value: Image[]) => {
+        ServiceProviderDispatch({ type: 'UPDATE_GALLERY', gallery: value });
+    }, [ServiceProviderDispatch]);
+    
+    const updateCompletionStatus = useCallback((field: keyof CompletionStatus, value: boolean) => {
+        ServiceProviderDispatch({ type: 'MARK_SECTION_COMPLETE', section: field, completed: value });
+    }, [ServiceProviderDispatch]);
 
-    // configuration 
-    const completionStatus = () => {
-        const { completionStatus } = serviceProviderState;
-        return {
-            completionStatus,
-            updateCompletionStatus: (field: keyof CompletionStatus, value: boolean) => {
-                ServiceProviderDispatch({ type: 'MARK_SECTION_COMPLETE', section: field, completed: value });
-            },
-        };
-    }
+    const triggerSave = useCallback(() => {
+        ServiceProviderDispatch({ type: 'TRIGGER_SAVE' });
+    }, [ServiceProviderDispatch]);
 
-    const saveForm = () => {
-        const { shouldSave } = serviceProviderState;
-        return {
-            shouldSave,
-            triggerSave: () => {
-                ServiceProviderDispatch({ type: 'TRIGGER_SAVE' });
-            },
-            resetShouldSave: () => {
-                ServiceProviderDispatch({ type: 'RESET_SHOULD_SAVE' });
-            },
-        };
-    }
+    const resetShouldSave = useCallback(() => {
+        ServiceProviderDispatch({ type: 'RESET_SHOULD_SAVE' });
+    }, [ServiceProviderDispatch]);
 
-    const hasChangesForm = () => {
-        const { hasChangesForm } = serviceProviderState;
-        return {
-            hasChangesForm,
-            setHasChangesForm: (value: boolean) => {
-                ServiceProviderDispatch({ type: value ? 'SET_FORM_CHANGED' : 'RESET_FORM_CHANGED' });
-            },
-        };
-    }
+    const setHasChangesForm = useCallback((value: boolean) => {
+        ServiceProviderDispatch({ type: value ? 'SET_FORM_CHANGED' : 'RESET_FORM_CHANGED' });
+    }, [ServiceProviderDispatch]);
 
-    // Manejo de imágenes eliminadas
-    const addDeletedImage = (urlOrId: string) => {
+    const addDeletedImage = useCallback((urlOrId: string) => {
         ServiceProviderDispatch({ type: 'ADD_DELETED_IMAGE', url: urlOrId });
-    };
-    const resetDeletedImages = () => {
+    }, [ServiceProviderDispatch]);
+    
+    const resetDeletedImages = useCallback(() => {
         ServiceProviderDispatch({ type: 'RESET_DELETED_IMAGES' });
-    };
+    }, [ServiceProviderDispatch]);
 
+    // Devolvemos un único objeto plano
     return {
-        logoSection,
-        serviceProviderState,
-        ServiceProviderDispatch,
-        aboutMeSection,
-        servicesSection,
-        informationSection,
-        gallerySection,
-        completionStatus,
-        saveForm,
-        hasChangesForm,
+        // Estado completo (para referencias directas si es necesario)
+        ...serviceProviderState,
+
+        // Selectores de estado derivados y memorizados
+        informationData,
+
+        // Funciones de actualización estables
+        updateLogo,
+        updateAboutMe,
+        updateServices,
+        updateInformation,
+        updateGallery,
+        updateCompletionStatus,
+        triggerSave,
+        resetShouldSave,
+        setHasChangesForm,
         addDeletedImage,
         resetDeletedImages,
-    }
-
+        
+        // Exportamos el dispatch para casos específicos
+        ServiceProviderDispatch,
+    };
 } 

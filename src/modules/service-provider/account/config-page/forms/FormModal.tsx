@@ -1,5 +1,5 @@
 import styles from "./formModal.module.css";
-import { Suspense, lazy } from "react";
+import { Suspense } from "react";
 import Modal from "components/Modal/Modal";
 import CancelButton from "components/Button/CancelButton";
 import SaveButton from "components/Button/ConfirmButton";
@@ -60,8 +60,11 @@ const FormModal = ({ formConfig }: FormModalProps) => {
 
             {showConfirmModal && (
                 <ConfirmModal
+                    title="Descartar cambios"
+                    message="¿Estás seguro de que quieres descartar los cambios?"
+                    confirmText="Descartar"
                     onCancel={() => setShowConfirmModal(false)}
-                    onDiscard={handleConfirmClose}
+                    onConfirm={handleConfirmClose}
                 />
             )}
         </>

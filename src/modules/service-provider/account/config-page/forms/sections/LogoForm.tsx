@@ -1,20 +1,25 @@
 import { useServiceProvider } from "../../hooks/useServiceProvider";
 import { useMemo, useRef, useState } from "react";
 import styles from './LogoForm.module.css';
-import SaveButton from "components/Button/ConfirmButton";
-import CancelButton from "components/Button/CancelButton";
 import { useTriggerListener } from '../../hooks/useTriggerListener';
 import { Image } from "types";
 import ErrorMessage from "components/ErrorInput/ErrorMessage";
+import { useFormChangeTracker } from "../../hooks/useFormChangeTracker";
+import ConfirmButton from "components/Button/ConfirmButton";
+import CancelButton from "components/Button/CancelButton";
 
 const LogoForm = () => {
-    const { logo, updateLogo } = useServiceProvider().logoSection();
-    const { addDeletedImage } = useServiceProvider();
-    const { hasChangesForm, setHasChangesForm } = useServiceProvider().hasChangesForm();
+    const { logo, updateLogo, addDeletedImage } = useServiceProvider();
+    
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [currentLogo, setCurrentLogo] = useState<Image>(logo);
     const [error, setError] = useState(false);
     const [deletedLogo, setDeletedLogo] = useState<{ id: string; url: string } | null>(null);
+
+    useFormChangeTracker({
+        localData: currentLogo,
+        initialData: logo,
+    });
 
     const currentPreview = useMemo(() => {
         return currentLogo.file
@@ -24,7 +29,6 @@ const LogoForm = () => {
 
     const handleAddImage = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
-            // Si el logo actual no tiene file y tiene id, se marca como eliminada, porque significa que viene un logo de la DB
             if (!currentLogo.file && currentLogo.id) {
                 setDeletedLogo({ id: currentLogo.id, url: currentLogo.url });
             }
@@ -33,11 +37,8 @@ const LogoForm = () => {
                 file: e.target.files[0],
                 url: URL.createObjectURL(e.target.files[0])
             });
+            if (error) setError(false);
         }
-        if (error) {
-            setError(false);
-        }
-        !hasChangesForm && setHasChangesForm(true);
     };
 
     const handleDelete = () => {
@@ -58,12 +59,13 @@ const LogoForm = () => {
     useTriggerListener({
         validate: () => {
             if (!currentLogo.file && !currentLogo.url) {
+                setError(true);
                 return false;
             }
             return true;
         },
         onError: () => {
-            setError(true);
+            // El propio validador ya setea el error.
         },
         onSave: () => {
             if (deletedLogo) {
@@ -110,9 +112,9 @@ const LogoForm = () => {
                     <CancelButton onClick={handleDelete}>
                         Eliminar
                     </CancelButton>
-                    <SaveButton onClick={handleUploadClick}>
+                    <ConfirmButton onClick={handleUploadClick}>
                         Subir nueva
-                    </SaveButton>
+                    </ConfirmButton>
                 </div>
             )}
         </div>

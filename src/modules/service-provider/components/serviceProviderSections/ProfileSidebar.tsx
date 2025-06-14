@@ -3,10 +3,11 @@ import styles from './ProfileSidebar.module.css';
 import EditButtonAbsolute from "modules/service-provider/components/EditButtonAbsolute";
 import EditButton from "modules/service-provider/components/EditButton";
 import { Image } from "types";
-import { FaPhone, FaWhatsapp, FaEnvelope, FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { FaPhone, FaWhatsapp, FaEnvelope, FaCopy, FaCheck } from 'react-icons/fa';
+import { IoIosArrowDown } from 'react-icons/io';
 import { useConfig } from "modules/service-provider/context/ConfigFlagContext";
 import CategoryPill from 'components/CategoryPill/CategoryPill';
-
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface ProfileSidebarProps {
     logo: Image;
@@ -14,6 +15,7 @@ interface ProfileSidebarProps {
     rating: number;
     serviceCategories: string[];
     phone: string;
+    whatsapp?: string;
     email?: string;
     location?: string;
 }
@@ -24,17 +26,21 @@ const ProfileSidebar = ({
     rating,
     serviceCategories,
     phone,
+    whatsapp,
     email,
-    location,
 }: ProfileSidebarProps) => {
-    const [showContact, setShowContact] = useState(false);
+    const [isContactVisible, setIsContactVisible] = useState(false);
+    const [copiedField, setCopiedField] = useState<string | null>(null);
     const { isConfig } = useConfig();
-    const toggleContact = () => {
-        setShowContact(!showContact);
-    };
 
     const formatPhone = (phone: string) => {
         return phone.replace(/\D/g, '');
+    };
+
+    const handleCopy = (text: string, field: string) => {
+        navigator.clipboard.writeText(text);
+        setCopiedField(field);
+        setTimeout(() => setCopiedField(null), 2000);
     };
 
     return (
@@ -83,29 +89,15 @@ const ProfileSidebar = ({
                     </div>
 
                     <div className={styles.contactActions}>
-                        <a
-                            href={`tel:${formatPhone(phone)}`}
-                            className={styles.actionButton}
-                            aria-label="Llamar al proveedor"
-                        >
+                        <a href={`tel:${phone}`} className={styles.actionButton}>
                             <FaPhone className={styles.actionIcon} />
                             <span className={styles.actionText}>Llamar</span>
                         </a>
-                        <a
-                            href={`https://wa.me/${formatPhone(phone)}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={styles.actionButton}
-                            aria-label="Contactar por WhatsApp"
-                        >
+                        <a href={`https://wa.me/${whatsapp || phone}`} target="_blank" rel="noopener noreferrer" className={styles.actionButton}>
                             <FaWhatsapp className={styles.actionIcon} />
                             <span className={styles.actionText}>WhatsApp</span>
                         </a>
-                        <a
-                            href={`mailto:${email}`}
-                            className={styles.actionButton}
-                            aria-label="Enviar correo electrónico"
-                        >
+                        <a href={`mailto:${email}`} className={styles.actionButton}>
                             <FaEnvelope className={styles.actionIcon} />
                             <span className={styles.actionText}>Correo</span>
                         </a>
@@ -113,37 +105,63 @@ const ProfileSidebar = ({
 
                     <button
                         className={styles.showContactButton}
-                        onClick={toggleContact}
-                        aria-label={showContact ? "Ocultar datos de contacto" : "Ver datos de contacto"}
+                        onClick={() => setIsContactVisible(!isContactVisible)}
+                        aria-expanded={isContactVisible}
                     >
-                        <span className={styles.contactButtonText}>
-                            {showContact ? "Ocultar datos de contacto" : "Ver datos de contacto"}
-                        </span>
-                        {showContact ? <FaChevronUp /> : <FaChevronDown />}
+                        <span>Mostrar datos de contacto</span>
+                        <motion.div
+                            animate={{ rotate: isContactVisible ? 180 : 0 }}
+                            transition={{ duration: 0.3 }}
+                        >
+                            <IoIosArrowDown className={styles.contactIcon} />
+                        </motion.div>
                     </button>
 
-                    {showContact && (
-                        <div className={styles.contactDetails}>
-                            <div className={styles.contactItem}>
-                                <FaPhone className={styles.contactIcon} />
-                                <span>{phone}</span>
-                            </div>
-                            <div className={styles.contactItem}>
-                                <FaEnvelope className={styles.contactIcon} />
-                                <span>{email}</span>
-                            </div>
-                            <div className={styles.contactItem}>
-                                <FaWhatsapp className={styles.contactIcon} />
-                                <span>{phone}</span>
-                            </div>
-                            {location && (
+                    <AnimatePresence>
+                        {isContactVisible && (
+                            <motion.div
+                                className={styles.contactDetails}
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: "auto", opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={{ duration: 0.3 }}
+                            >
                                 <div className={styles.contactItem}>
-                                    <span className={styles.contactIcon}>📍</span>
-                                    <span>{location}</span>
+                                    <FaPhone className={`${styles.contactIconItem} ${styles.phoneIcon}`} />
+                                    <span className={styles.contactText}>{phone}</span>
+                                    <button
+                                        className={styles.copyButton}
+                                        onClick={() => handleCopy(phone, 'phone')}
+                                        title="Copiar teléfono"
+                                    >
+                                        {copiedField === 'phone' ? <FaCheck /> : <FaCopy />}
+                                    </button>
                                 </div>
-                            )}
-                        </div>
-                    )}
+                                <div className={styles.contactItem}>
+                                    <FaWhatsapp className={`${styles.contactIconItem} ${styles.whatsappIcon}`} />
+                                    <span className={styles.contactText}>{whatsapp || phone}</span>
+                                    <button
+                                        className={styles.copyButton}
+                                        onClick={() => handleCopy(whatsapp || phone, 'whatsapp')}
+                                        title="Copiar WhatsApp"
+                                    >
+                                        {copiedField === 'whatsapp' ? <FaCheck /> : <FaCopy />}
+                                    </button>
+                                </div>
+                                <div className={styles.contactItem}>
+                                    <FaEnvelope className={`${styles.contactIconItem} ${styles.emailIcon}`} />
+                                    <span className={styles.contactText}>{email}</span>
+                                    <button
+                                        className={styles.copyButton}
+                                        onClick={() => handleCopy(email || '', 'email')}
+                                        title="Copiar correo"
+                                    >
+                                        {copiedField === 'email' ? <FaCheck /> : <FaCopy />}
+                                    </button>
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </div>
             </div>
         </div>

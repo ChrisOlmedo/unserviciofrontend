@@ -32,7 +32,6 @@ const ServiceProviderPage = () => {
         fetchData();
     }, [slug]);
 
-    console.log(error);
 
     if (loading) {
         return <Loading />;

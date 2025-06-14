@@ -2,24 +2,26 @@ import { useState } from "react";
 import { useTriggerListener } from "../../hooks/useTriggerListener";
 import { useServiceProvider } from "../../hooks/useServiceProvider";
 import styles from './ServicesForm.module.css';
-import ErrorMessage from "../../../../../../components/ErrorInput/ErrorMessage";
+import ErrorMessage from "components/ErrorInput/ErrorMessage";
+import { useFormChangeTracker } from "../../hooks/useFormChangeTracker";
 
 const ServicesForm = () => {
+    const { services: initialServices, updateServices } = useServiceProvider();
     const [newService, setNewService] = useState("");
-    const { services: savedServices, updateServices } = useServiceProvider().servicesSection();
-    const { hasChangesForm, setHasChangesForm } = useServiceProvider().hasChangesForm();
-    const [services, setServices] = useState<string[]>(savedServices || []);
+    const [services, setServices] = useState<string[]>(initialServices || []);
     const [error, setError] = useState(false);
+
+    useFormChangeTracker({
+        localData: services,
+        initialData: initialServices || []
+    });
 
     const handleAddService = () => {
         if (newService.trim()) {
             setServices([...services, newService.trim()]);
             setNewService("");
+            if (error) setError(false);
         }
-        if (error) {
-            setError(false);
-        }
-        !hasChangesForm && setHasChangesForm(true)
     };
 
     const handleDeleteService = (index: number) => {
@@ -28,8 +30,14 @@ const ServicesForm = () => {
     };
 
     useTriggerListener({
-        validate: () => services.length > 0,
-        onError: () => setError(true),
+        validate: () => {
+            if (services.length === 0) {
+                setError(true);
+                return false;
+            }
+            return true;
+        },
+        onError: () => {}, // La validación ya setea el error
         onSave: () => {
             updateServices(services);
         },

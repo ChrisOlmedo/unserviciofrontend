@@ -4,6 +4,7 @@ import { useServiceProvider } from "../../hooks/useServiceProvider"
 import { InformationFormData } from "types"
 import { useTriggerListener } from "../../hooks/useTriggerListener";
 import ErrorMessage from "components/ErrorInput/ErrorMessage";
+import { useFormChangeTracker } from "../../hooks/useFormChangeTracker";
 
 // Lista de áreas de servicio predefinidas
 const SERVICE_AREAS = [
@@ -26,10 +27,14 @@ const SERVICE_AREAS = [
 
 
 const InformationForm = () => {
-    const { information, updateInformation } = useServiceProvider().informationSection();
-    const { hasChangesForm, setHasChangesForm } = useServiceProvider().hasChangesForm();
-    const [formData, setFormData] = useState<InformationFormData>(information);
+    const { informationData: initialInformation, updateInformation, canEditEnterpriseName } = useServiceProvider();
+    const [formData, setFormData] = useState<InformationFormData>(initialInformation);
 
+    // ¡Magia! Este hook se encarga de todo automáticamente.
+    useFormChangeTracker({
+        localData: formData,
+        initialData: initialInformation
+    });
 
     const [errors, setErrors] = useState<Partial<Record<keyof InformationFormData, string>>>({});
     const [newArea, setNewArea] = useState("");
@@ -48,7 +53,6 @@ const InformationForm = () => {
                 [name]: undefined
             }));
         }
-        !hasChangesForm && setHasChangesForm(true);
     };
 
     const handleAddArea = () => {
@@ -163,9 +167,9 @@ const InformationForm = () => {
                         onChange={handleChange}
                         className={styles.input}
                         placeholder="Nombre de la empresa"
-                        disabled={!information.canEditEnterpriseName}
+                        disabled={!canEditEnterpriseName}
                     />
-                    {!information.canEditEnterpriseName && (
+                    {!canEditEnterpriseName && (
                         <ErrorMessage message="Solo puedes editar el nombre de la empresa cada 30 días" />
                     )}
                     {errors.enterpriseName && (

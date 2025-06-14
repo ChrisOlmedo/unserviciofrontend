@@ -74,9 +74,6 @@
     transition: opacity 0.3s ease;
 }
 
-.serviceCard:hover {
-    transform: translateY(-2px);
-}
 
 .serviceCard:hover::before {
     opacity: 1;

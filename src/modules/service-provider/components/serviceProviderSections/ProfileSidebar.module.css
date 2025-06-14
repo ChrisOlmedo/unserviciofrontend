@@ -1,24 +1,15 @@
 .sidebar {
     position: sticky;
     align-self: start;
-    top: 0;
+    top: calc(var(--header-height) + 1.5rem);
     width: 350px;
 }
 
 .profileCard {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-    backdrop-filter: blur(10px);
-    border-radius: 1.5rem;
-    padding: 2rem;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.profileCard:hover {
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    background: white;
+    border-radius: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-md);
 }
 
 .logoContainer {
@@ -34,143 +25,37 @@
     left: 0;
     width: 100%;
     height: 100%;
-    border-radius: 1rem;
-    overflow: hidden;
-    border: 3px solid var(--primary);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-}
-
-.logoWrapper:hover {
-    transform: scale(1.02);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    padding: 1rem;
 }
 
 .profileImage {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 0.5rem;
 }
 
-.contactActions {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin: 1.5rem 0;
+.infoContainer {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    position: relative;
 }
 
-.actionButton {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.75rem 1.25rem;
-    border-radius: 12px;
-    background: white;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    text-decoration: none;
-    max-width: 350px;
+.businessInfo {
+    margin-bottom: 1.5rem;
 }
 
-.actionButton:hover {
-    transform: translateX(5px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.actionIcon {
-    font-size: 1.4rem;
-    transition: all 0.3s ease;
-}
-
-.actionText {
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--text-primary);
-}
-
-/* Colores específicos para cada ícono */
-.actionButton:nth-child(1) .actionIcon {
-    color: #25D366; /* WhatsApp green */
-}
-
-.actionButton:nth-child(2) .actionIcon {
-    color: #128C7E; /* WhatsApp dark green */
-}
-
-.actionButton:nth-child(3) .actionIcon {
-    color: #EA4335; /* Gmail red */
-}
-
-.actionButton:hover .actionIcon {
-    transform: scale(1.1);
-}
-
-.showContactButton {
-    background: rgba(0, 0, 0, 0.03);
-    border: none;
-    padding: 0.75rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    color: var(--text-secondary);
-    transition: all 0.3s ease;
-    width: 100%;
-    border-radius: 8px;
-    margin: 0.5rem 0;
-}
-
-.contactButtonText {
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
-.showContactButton:hover {
-    background: rgba(0, 0, 0, 0.05);
-    color: var(--primary);
-}
-
-.showContactButton:active {
-    background: rgba(0, 0, 0, 0.08);
-}
-
-.contactDetails {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    padding: 1rem 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    margin-top: 0.5rem;
-}
-
-.contactItem {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-    padding: 0.5rem 0;
-}
-
-.contactIcon {
-    font-size: 1.2rem;
-    color: var(--primary);
-}
-
-.name {
-    text-align: center;
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 1rem;
-    letter-spacing: 0.5px;
+.enterpriseName {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--sp-text);
+    margin-bottom: 0.5rem;
 }
 
 .ratingContainer {
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    margin-bottom: 1rem;
 }
 
 .ratingInfo {
@@ -182,7 +67,7 @@
 .ratingNumber {
     font-size: 1.2rem;
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--sp-text);
 }
 
 .starFilled {
@@ -191,97 +76,170 @@
     filter: drop-shadow(0 2px 4px rgba(255, 215, 0, 0.3));
 }
 
-.starEmpty {
-    color: var(--border);
-    font-size: 1.4rem;
-    opacity: 0.5;
-}
-
 .reviewCount {
-    color: var(--text-secondary);
+    color: var(--sp-text-light);
     font-size: 0.9rem;
-}
-
-.section {
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.section:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-    border-bottom: none;
-}
-
-.sectionTitle {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 1rem;
-}
-
-.categories,
-.coverage {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-}
-
-.category,
-.zone {
-    background: rgba(37, 99, 235, 0.1);
-    color: var(--primary);
-    padding: 0.5rem 1rem;
-    border-radius: 2rem;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-.category:hover,
-.zone:hover {
-    background: var(--primary);
-    color: white;
-    transform: translateY(-2px);
-}
-
-.contactInfo {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.infoContainer {
-    position: relative;
-    background: white;
-    border-radius: 1rem;
-    padding: 0;
-}
-
-.businessInfo {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-}
-
-.enterpriseName {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin: 0;
 }
 
 .serviceType {
     display: flex;
-    gap: 0.5rem;
-
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-size: 0.80rem;
 }
 
-.serviceType span{
-    font-size: 0.8rem;
+.contactActions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.actionButton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem;
+    background: var(--sp-bg-secondary);
+    border: none;
+    border-radius: 0.5rem;
+    color: var(--sp-text);
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.actionButton:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    background: var(--sp-hover);
+}
+
+.actionButton:nth-child(1) .actionIcon {
+    color: #007AFF; /* Phone blue */
+}
+
+.actionButton:nth-child(2) .actionIcon {
+    color: #25D366; /* WhatsApp green */
+}
+
+.actionButton:nth-child(3) .actionIcon {
+    color: #FF3B30; /* Email red */
+}
+
+.actionIcon {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    transition: transform 0.2s ease;
+}
+
+/* No icon scaling on hover for a unified feel */
+.actionButton:hover .actionIcon {
+}
+
+.actionText {
+    font-size: 0.875rem;
     font-weight: 500;
+}
+
+.showContactButton {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    background: var(--sp-bg-secondary);
+    border: none;
+    border-radius: 0.5rem;
+    color: var(--sp-text);
+    font-weight: 500;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.showContactButton:hover {
+    background: var(--sp-hover);
+}
+
+.contactIcon {
+    color: var(--sp-primary);
+    font-size: 1.25rem;
+    transition: transform 0.3s ease;
+}
+
+.showContactButton[aria-expanded="true"] .contactIcon {
+    transform: rotate(180deg);
+}
+
+.contactDetails {
+    margin-top: 1rem;
+    background: var(--sp-bg-secondary);
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.contactItem {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    gap: 0.75rem;
+    border-bottom: 1px solid var(--sp-border);
+    transition: all 0.2s ease;
+}
+
+.contactItem:hover {
+    background: var(--sp-hover);
+}
+
+.contactItem:last-child {
+    border-bottom: none;
+}
+
+.contactIconItem {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.phoneIcon {
+    color: #007AFF; /* Phone blue */
+}
+
+.whatsappIcon {
+    color: #25D366; /* WhatsApp green */
+}
+
+.emailIcon {
+    color: #FF3B30; /* Email red */
+}
+
+.contactText {
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+}
+
+.copyButton {
+    flex-shrink: 0;
+    margin-left: 0.5rem;
+    background: none;
+    border: none;
+    color: var(--sp-text-light);
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.copyButton:hover {
+    color: var(--sp-primary);
+    transform: scale(1.1);
 }
 
 @media (max-width: 1024px) {
@@ -298,29 +256,3 @@
         margin: 0 auto;
     }
 }
-
-@media (max-width: 768px) {
-    .profileCard {
-        padding: 1.5rem;
-    }
-/*
-    .logoContainer {
-        width: 150px;
-        height: 150px;
-    }
-*/
-    .actionButton {
-        padding: 0.5rem 0.75rem;
-        font-size: 0.85rem;
-    }
-
-    .showContactButton {
-        padding: 0.5rem 1rem;
-        font-size: 0.9rem;
-    }
-
-    .contactItem {
-        font-size: 0.9rem;
-        padding: 0.5rem;
-    }
-} 
