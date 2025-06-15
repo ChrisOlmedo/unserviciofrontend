@@ -161,12 +161,19 @@ function ServiceProviderConfigPage() {
                 toast.success("¡Perfil actualizado exitosamente!");
                 ServiceProviderDispatch({ type: 'SET_NEW_DATA', data: updatedData });
             } else {
-                await createServiceProviderProfile(formData);
-                if (fetchUser) await fetchUser();
-                toast.success("¡Perfil creado exitosamente!");
-                toast.info("Serás redirigido en breve...", {
-                    onClose: () => navigate(routePaths.account.serviceProvider.edit, { replace: true })
-                });
+                const response = await createServiceProviderProfile(formData);
+                if (response) {  // Asumiendo que createServiceProviderProfile retorna algo si fue exitoso
+                    
+                    toast.success("¡Perfil creado exitosamente!");
+                    toast.info("Serás redirigido en breve...", {
+                        onClose: async () => {
+                            if (fetchUser) {
+                                await fetchUser();
+                            }
+                            navigate(routePaths.account.serviceProvider.edit, { replace: true });
+                        }
+                    });
+                }
             }
         } catch (error) {
             const action = isUpdate ? "actualizar" : "crear";
